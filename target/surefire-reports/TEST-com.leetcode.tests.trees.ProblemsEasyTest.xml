@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuite tests="1" failures="0" name="com.leetcode.tests.trees.ProblemsEasyTest" time="0.003" errors="0" skipped="0">
+  <properties>
+    <property name="java.vendor" value="AdoptOpenJDK"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="os.name" value="Windows 10"/>
+    <property name="sun.desktop" value="windows"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.runtime.version" value="14.0.2+12"/>
+    <property name="user.name" value="marcu"/>
+    <property name="java.compiler" value="j9jit29"/>
+    <property name="os.encoding" value="UTF8"/>
+    <property name="guice.disable.misplaced.annotation.check" value="true"/>
+    <property name="com.ibm.util.extralibs.properties" value=""/>
+    <property name="com.ibm.jcl.checkClassPath" value=""/>
+    <property name="user.language" value="en"/>
+    <property name="com.ibm.oti.vm.bootstrap.library.path" value="C:\Users\marcu\.jdks\adopt-openj9-14.0.2\bin\compressedrefs;C:\Users\marcu\.jdks\adopt-openj9-14.0.2\bin"/>
+    <property name="idea.version" value="2020.2.2"/>
+    <property name="sun.boot.library.path" value="C:\Users\marcu\.jdks\adopt-openj9-14.0.2\bin\compressedrefs;C:\Users\marcu\.jdks\adopt-openj9-14.0.2\bin"/>
+    <property name="classworlds.conf" value="C:\Program Files\JetBrains\IntelliJ\plugins\maven\lib\maven3\bin\m2.conf"/>
+    <property name="jdk.extensions.version" value="14.0.2.0"/>
+    <property name="java.version" value="14.0.2"/>
+    <property name="user.timezone" value="America/New_York"/>
+    <property name="com.ibm.system.agent.path" value="C:\Users\marcu\.jdks\adopt-openj9-14.0.2\bin"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="com.ibm.oti.vm.library.version" value="29"/>
+    <property name="sun.jnu.encoding" value="Cp1252"/>
+    <property name="file.encoding.pkg" value="sun.io"/>
+    <property name="file.separator" value="\"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="maven.conf" value="C:\Program Files\JetBrains\IntelliJ\plugins\maven\lib\maven3/conf"/>
+    <property name="java.class.version" value="58.0"/>
+    <property name="user.country" value="US"/>
+    <property name="java.home" value="C:\Users\marcu\.jdks\adopt-openj9-14.0.2"/>
+    <property name="java.vm.info" value="JRE 14 Windows 10 amd64-64-Bit Compressed References 20200715_148 (JIT enabled, AOT enabled)
+OpenJ9   - 34cf4c075
+OMR      - 113e54219
+JCL      - 1d231bd6a2 based on jdk-14.0.2+12"/>
+    <property name="os.version" value="10.0"/>
+    <property name="jdk.boot.class.path.append" value=""/>
+    <property name="sun.nio.MaxDirectMemorySize" value="3735846912"/>
+    <property name="java.awt.fonts" value=""/>
+    <property name="path.separator" value=";"/>
+    <property name="java.vm.version" value="openj9-0.21.0"/>
+    <property name="user.variant" value=""/>
+    <property name="maven.ext.class.path" value="C:\Program Files\JetBrains\IntelliJ\plugins\maven\lib\maven-event-listener.jar"/>
+    <property name="java.awt.printerjob" value="sun.awt.windows.WPrinterJob"/>
+    <property name="jdk.extensions.name" value="Extensions for OpenJDK for Eclipse OpenJ9"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="sun.nio.PageAlignDirectMemory" value="false"/>
+    <property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
+    <property name="ibm.signalhandling.sigint" value="true"/>
+    <property name="user.home" value="C:\Users\marcu"/>
+    <property name="com.ibm.cpu.endian" value="little"/>
+    <property name="java.version.date" value="2020-07-14"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="ibm.signalhandling.sigchain" value="true"/>
+    <property name="java.library.path" value="C:\Users\marcu\.jdks\adopt-openj9-14.0.2\bin\compressedrefs;C:\Users\marcu\.jdks\adopt-openj9-14.0.2\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\dotnet\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;C:\Program Files\Git\cmd;C:\Users\marcu\AppData\Local\Microsoft\WindowsApps;C:\Users\marcu\.dotnet\tools;C:\Users\marcu\AppData\Local\Programs\Microsoft VS Code\bin;;."/>
+    <property name="java.vendor.url" value="https://adoptopenjdk.net/"/>
+    <property name="java.vm.vendor" value="Eclipse OpenJ9"/>
+    <property name="java.fullversion" value="14.0.2+12
+JRE 14 Windows 10 amd64-64-Bit Compressed References 20200715_148 (JIT enabled, AOT enabled)
+OpenJ9   - 34cf4c075
+OMR      - 113e54219
+JCL      - 1d231bd6a2 based on jdk-14.0.2+12"/>
+    <property name="maven.home" value="C:\Program Files\JetBrains\IntelliJ\plugins\maven\lib\maven3"/>
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
+    <property name="sun.java.command" value="org.codehaus.classworlds.Launcher -Didea.version=2020.2.2 test"/>
+    <property name="java.class.path" value="C:\Program Files\JetBrains\IntelliJ\plugins\maven\lib\maven3\boot\plexus-classworlds-2.6.0.jar;C:\Program Files\JetBrains\IntelliJ\plugins\maven\lib\maven3\boot\plexus-classworlds.license;C:\Program Files\JetBrains\IntelliJ\lib\idea_rt.jar"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="java.vm.specification.version" value="14"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="java.io.tmpdir" value="C:\Users\marcu\AppData\Local\Temp\"/>
+    <property name="java.vendor.url.bug" value="https://github.com/AdoptOpenJDK/openjdk-support/issues"/>
+    <property name="maven.multiModuleProjectDirectory" value="C:\Code\Java\LeetCode"/>
+    <property name="ibm.system.encoding" value="Cp1252"/>
+    <property name="os.arch" value="amd64"/>
+    <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
+    <property name="ibm.signalhandling.rs" value="false"/>
+    <property name="user.dir" value="C:\Code\Java\LeetCode"/>
+    <property name="line.separator" value="
+"/>
+    <property name="java.vm.name" value="Eclipse OpenJ9 VM"/>
+    <property name="com.ibm.oti.shared.enabled" value="false"/>
+    <property name="com.ibm.vm.bitmode" value="64"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="java.specification.version" value="14"/>
+    <property name="com.ibm.oti.configuration" value="scar"/>
+    <property name="java.vendor.version" value="AdoptOpenJDK"/>
+  </properties>
+  <testcase classname="com.leetcode.tests.trees.ProblemsEasyTest" name="rangeSumBST" time="0.003"/>
+</testsuite>
