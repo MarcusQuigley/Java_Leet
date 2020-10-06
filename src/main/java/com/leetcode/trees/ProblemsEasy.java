@@ -35,6 +35,46 @@ public class ProblemsEasy {
         return  acc;
     }
 
+    //https://leetcode.com/problems/find-all-the-lonely-nodes/
+    public static List<Integer> getLonelyNodes(TreeNode root) {
+        if (root==null)
+            return null;
+        List<Integer> results = new ArrayList<>();
+        getLonelyNodesWorker(root, results);
+        return results;
+    }
 
+    static void getLonelyNodesWorker(TreeNode root, List<Integer> orphans) {
+        if (root == null)
+            return;
+        if (root.left != null && root.right == null) {
+            orphans.add((root.left.val));
+        }
+        else if(root.left == null && root.right != null) {
+            orphans.add((root.right.val));
+        }
+        getLonelyNodesWorker(root.left, orphans);
+        getLonelyNodesWorker(root.right, orphans);
+    }
+
+    public static List<Integer> getLonelyNodesIter(TreeNode root) {
+        if (root==null)
+            return null;
+        List<Integer> orphans = new ArrayList<>();
+        Stack<TreeNode> stack = new Stack<>();
+        stack.push(root);
+        while (!stack.isEmpty()) {
+            TreeNode node = stack.pop();
+            if (node == null) continue;
+            if (node.left != null && node.right == null) {
+                orphans.add((node.left.val));
+            } else if (node.left == null && node.right != null) {
+                orphans.add((node.right.val));
+            }
+            stack.push(node.left);
+            stack.push(node.right);
+        }
+         return orphans;
+    }
 
 }

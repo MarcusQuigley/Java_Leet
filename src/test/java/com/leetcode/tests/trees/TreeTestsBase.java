@@ -1,7 +1,7 @@
 package com.leetcode.tests.trees;
 import com.leetcode.tests.datastructures.TreeNode;
 
-
+import java.util.List;
 
 
 public class TreeTestsBase {
@@ -19,6 +19,15 @@ public class TreeTestsBase {
         node.left = inOrderTree(values,left, mid-1);
         node.right=inOrderTree(values,mid+1,right);
         return node;
+    }
+
+    int[] ArrayListToArray(List<Integer> list) {
+        return list.stream().mapToInt(i -> i).toArray();
+//        int[] result = new int[list.size()];
+//        for (int i = 0; i < list.size(); i++) {
+//            result[i] = list.get(i);
+//        }
+//        return  result;
     }
 
 
