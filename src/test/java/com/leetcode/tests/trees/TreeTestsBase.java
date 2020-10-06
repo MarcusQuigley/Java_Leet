@@ -4,7 +4,7 @@ import com.leetcode.tests.datastructures.TreeNode;
 
 
 
-public class BaseTreeTests {
+public class TreeTestsBase {
     public TreeNode createTreeNodes(int[] values) {
         if (values == null || values.length == 0)
             return null;

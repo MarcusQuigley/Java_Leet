@@ -1,11 +1,12 @@
 package com.leetcode.trees;
 
 import com.leetcode.tests.datastructures.TreeNode;
-
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.*;
+//import java.util.LinkedList;
+//import java.util.Queue;
 
 public class ProblemsEasy {
+    //https://leetcode.com/problems/range-sum-of-bst
     public static int rangeSumBST(TreeNode root, int L, int R) {
         if (root == null) return 0;
         int val = 0;
@@ -16,9 +17,7 @@ public class ProblemsEasy {
             val+= root.val;
         return left+right+val;
     }
-public  static  int Bahs(){
-        return  1;
-}
+
     public static int rangeSumBSTIter(TreeNode root, int L, int R) {
         if (root == null) return 0;
         int acc=0;
@@ -35,4 +34,7 @@ public  static  int Bahs(){
         }
         return  acc;
     }
+
+
+
 }
