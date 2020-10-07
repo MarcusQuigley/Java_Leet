@@ -26,14 +26,14 @@ public class ProblemsEasyTest extends TreeTestsBase {
     @ParameterizedTest
     @MethodSource("source_rangeSumBST")
     void test_rangeSumBST(int[] array, int left, int right, int expected) {
-        TreeNode root = createTreeNodes(array);
+        TreeNode root = createBstTreeNodes(array);
         int actual = ProblemsEasy.rangeSumBST(root, left, right);
         assertEquals(expected, actual);
     }
     @ParameterizedTest
     @MethodSource("source_rangeSumBST")
     void test_rangeSumBSTIter(int[] array, int left, int right, int expected) {
-        TreeNode root = createTreeNodes(array);
+        TreeNode root = createBstTreeNodes(array);
         int actual = ProblemsEasy.rangeSumBSTIter(root, left, right);
         assertEquals(expected, actual);
     }
@@ -59,5 +59,19 @@ public class ProblemsEasyTest extends TreeTestsBase {
         assertArrayEquals(expected, ArrayListToArray(actual));
     }
 
-//
+    static Stream<Arguments> source_mergeTrees() {
+        return Stream.of(arguments(new int[] { 1,1  },  new int[] { 2, 2, 2   },new int[] {3,3,2}),
+                arguments( new int[] {  1, 2, 3  },  new int[] { 2, 2, 2   },new int[] {3,4,5}),
+                arguments(new int[] {  1, 3, 2, 5  } ,new int[] { 3,6,1  },new int[] {4,9,3,5})
+        );
+    }
+//    @ParameterizedTest
+//    @MethodSource("source_mergeTrees")
+//    void test_mergeTrees(int[] array1,int[] array2, int[] expected) {
+//        TreeNode root1 = createTreeNodes(array1);
+//        TreeNode root2 = createTreeNodes(array2);
+//        TreeNode actual = ProblemsEasy.mergeTrees(root1, root2 );
+//        assertArrayEquals(expected, TreeToArrayInOrder(actual));
+//    }
+
 }
