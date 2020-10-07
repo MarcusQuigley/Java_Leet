@@ -1,7 +1,6 @@
 package com.leetcode.trees;
 
 import com.leetcode.tests.datastructures.TreeNode;
-
 import java.util.*;
 //import java.util.LinkedList;
 //import java.util.Queue;
@@ -88,5 +87,23 @@ public class ProblemsEasy {
         return t1;
     }
 
+    //https://leetcode.com/problems/search-in-a-binary-search-tree/
+    public static TreeNode searchBST(TreeNode root, int val) {
+        if (root == null)
+            return root;
+        if (root.val == val)
+            return root;
+        return (root.val > val) ?   searchBST(root.left, val):  searchBST(root.right, val);
+    }
+    public static TreeNode searchBSTIter(TreeNode root, int val) {
+        if (root == null)
+            return root;
+        while (root!=null){
+            if(root.val==val)
+                break;
+            root = (root.val>val)? root.left:root.right;
+        }
+        return root;
+    }
 
 }

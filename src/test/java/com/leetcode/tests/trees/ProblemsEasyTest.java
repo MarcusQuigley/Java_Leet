@@ -18,11 +18,12 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 public class ProblemsEasyTest extends TreeTestsBase {
 
     static Stream<Arguments> source_rangeSumBST() {
-        return Stream.of(arguments(new int[] { 1, 5, 7 }, 3, 5, 5),
-                arguments(new int[] {  3,5,7,10, 15 }, 7, 15, 32),
-                arguments(new int[] { 1,3,5,7, 10,13,15, 18  }, 6, 10, 17)
+        return Stream.of(arguments(new int[]{1, 5, 7}, 3, 5, 5),
+                arguments(new int[]{3, 5, 7, 10, 15}, 7, 15, 32),
+                arguments(new int[]{1, 3, 5, 7, 10, 13, 15, 18}, 6, 10, 17)
         );
     }
+
     @ParameterizedTest
     @MethodSource("source_rangeSumBST")
     void test_rangeSumBST(int[] array, int left, int right, int expected) {
@@ -30,6 +31,7 @@ public class ProblemsEasyTest extends TreeTestsBase {
         int actual = ProblemsEasy.rangeSumBST(root, left, right);
         assertEquals(expected, actual);
     }
+
     @ParameterizedTest
     @MethodSource("source_rangeSumBST")
     void test_rangeSumBSTIter(int[] array, int left, int right, int expected) {
@@ -39,30 +41,32 @@ public class ProblemsEasyTest extends TreeTestsBase {
     }
 
     static Stream<Arguments> source_getLonelyNodes() {
-        return Stream.of(arguments(new int[] { 1,2,3 },  new int[] {}),
-                arguments(new int[] {  3,5,7,10 },  new int[]{10}),
-                arguments(new int[] { 1,3  } ,new int[] { 3  })
+        return Stream.of(arguments(new int[]{1, 2, 3}, new int[]{}),
+                arguments(new int[]{3, 5, 7, 10}, new int[]{10}),
+                arguments(new int[]{1, 3}, new int[]{3})
         );
     }
+
     @ParameterizedTest
     @MethodSource("source_getLonelyNodes")
     void test_getLonelyNodes(int[] array, int[] expected) {
         TreeNode root = createTreeNodes(array);
-        List<Integer> actual = ProblemsEasy.getLonelyNodes(root );
+        List<Integer> actual = ProblemsEasy.getLonelyNodes(root);
         assertArrayEquals(expected, ArrayListToArray(actual));
     }
+
     @ParameterizedTest
     @MethodSource("source_getLonelyNodes")
     void test_getLonelyNodesIter(int[] array, int[] expected) {
         TreeNode root = createTreeNodes(array);
-        List<Integer> actual = ProblemsEasy.getLonelyNodesIter(root );
+        List<Integer> actual = ProblemsEasy.getLonelyNodesIter(root);
         assertArrayEquals(expected, ArrayListToArray(actual));
     }
 
     static Stream<Arguments> source_mergeTrees() {
-        return Stream.of(arguments(new int[] { 1,1  },  new int[] { 2, 2, 2   },new int[] {3,3,2}),
-                arguments( new int[] {  1, 2, 3  },  new int[] { 2, 2, 2   },new int[] {3,4,5}),
-                arguments(new int[] {  1, 3, 2, 5  } ,new int[] { 3,6,1  },new int[] {4,9,3,5})
+        return Stream.of(arguments(new int[]{1, 1}, new int[]{2, 2, 2}, new int[]{3, 3, 2}),
+                arguments(new int[]{1, 2, 3}, new int[]{2, 2, 2}, new int[]{3, 4, 5}),
+                arguments(new int[]{1, 3, 2, 5}, new int[]{3, 6, 1}, new int[]{4, 9, 3, 5})
         );
     }
 //    @ParameterizedTest
@@ -74,4 +78,29 @@ public class ProblemsEasyTest extends TreeTestsBase {
 //        assertArrayEquals(expected, TreeToArrayInOrder(actual));
 //    }
 
+    //  [InlineData(new int[] { 4, 2, 7, -666, -666, 4 }, 2, new int[] { 2 })]
+
+    static Stream<Arguments> source_searchBST() {
+        return Stream.of(arguments(new int[]{3, 2, 7, 1, 3}, 2, new int[]{2, 1, 3})
+                , arguments(new int[]{3, 5, 7}, 6, new int[]{})
+                , arguments(new int[]{4, 2, 7, -666, -666, 4}, 2, new int[]{2})
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource("source_searchBST")
+    void test_searchBST(int[] array, int val, int[] expected) {
+        TreeNode root = createTreeNodes(array);
+        TreeNode actual = ProblemsEasy.searchBST(root, val);
+        int[] listActual = ArrayFromTree(actual);
+        assertArrayEquals(expected, listActual);
+    }
+    @ParameterizedTest
+    @MethodSource("source_searchBST")
+    void test_searchBSTIter(int[] array, int val, int[] expected) {
+        TreeNode root = createTreeNodes(array);
+        TreeNode actual = ProblemsEasy.searchBSTIter(root, val);
+        int[] listActual = ArrayFromTree(actual);
+        assertArrayEquals(expected, listActual);
+    }
 }

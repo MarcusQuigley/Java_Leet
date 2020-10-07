@@ -1,9 +1,7 @@
 package com.leetcode.tests.trees;
 import com.leetcode.tests.datastructures.TreeNode;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 public class TreeTestsBase {
     public TreeNode createBstTreeNodes(int[] values) {
@@ -13,12 +11,12 @@ public class TreeTestsBase {
     }
 
     TreeNode inOrderBstTree(int[] values, int left, int right) {
-        if(left>right)
+        if (left > right)
             return null;
-        int mid = (left+right)/2;
+        int mid = (left + right) / 2;
         TreeNode node = new TreeNode((values[mid]));
-        node.left = inOrderBstTree(values,left, mid-1);
-        node.right=inOrderBstTree(values,mid+1,right);
+        node.left = inOrderBstTree(values, left, mid - 1);
+        node.right = inOrderBstTree(values, mid + 1, right);
         return node;
     }
 
@@ -67,6 +65,28 @@ public class TreeTestsBase {
             }
         }
         return node;
+    }
+
+    public int[] ArrayFromTree(TreeNode node) {
+        if (node == null)
+            return new int[]{};
+
+        List<Integer> list = new ArrayList<>();
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(node);
+        while (!queue.isEmpty()) {
+            TreeNode current = queue.poll();
+            if (current != null) {
+                list.add(current.val);
+                queue.add(current.left);
+                queue.add(current.right);
+            }
+//            else
+//                list.add(-666); //simple hack to define nulls in int[]
+        }
+        return list.stream().mapToInt(i -> i).toArray();
+//        return list.Take(list.LastIndexOf(list.Last(n=>n!=-666))+1) //strips end elements that are -666
+//                       .ToArray();
     }
 }
 
