@@ -1,7 +1,6 @@
 package com.leetcode.tests.trees;
 
 import com.leetcode.tests.datastructures.TreeNode;
-import com.leetcode.trees.ProblemsEasy;
 
 import java.util.List;
 import java.util.stream.Stream;
@@ -15,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 
-public class ProblemsEasyTest extends TreeTestsBase {
+public class TreesProblemsEasyTest extends TreeTestsBase {
 
     static Stream<Arguments> source_rangeSumBST() {
         return Stream.of(arguments(new int[]{1, 5, 7}, 3, 5, 5),
@@ -28,7 +27,7 @@ public class ProblemsEasyTest extends TreeTestsBase {
     @MethodSource("source_rangeSumBST")
     void test_rangeSumBST(int[] array, int left, int right, int expected) {
         TreeNode root = createBstTreeNodes(array);
-        int actual = ProblemsEasy.rangeSumBST(root, left, right);
+        int actual = TreesProblemsEasy.rangeSumBST(root, left, right);
         assertEquals(expected, actual);
     }
 
@@ -36,7 +35,7 @@ public class ProblemsEasyTest extends TreeTestsBase {
     @MethodSource("source_rangeSumBST")
     void test_rangeSumBSTIter(int[] array, int left, int right, int expected) {
         TreeNode root = createBstTreeNodes(array);
-        int actual = ProblemsEasy.rangeSumBSTIter(root, left, right);
+        int actual = TreesProblemsEasy.rangeSumBSTIter(root, left, right);
         assertEquals(expected, actual);
     }
 
@@ -51,7 +50,7 @@ public class ProblemsEasyTest extends TreeTestsBase {
     @MethodSource("source_getLonelyNodes")
     void test_getLonelyNodes(int[] array, int[] expected) {
         TreeNode root = createTreeNodes(array);
-        List<Integer> actual = ProblemsEasy.getLonelyNodes(root);
+        List<Integer> actual = TreesProblemsEasy.getLonelyNodes(root);
         assertArrayEquals(expected, ArrayListToArray(actual));
     }
 
@@ -59,7 +58,7 @@ public class ProblemsEasyTest extends TreeTestsBase {
     @MethodSource("source_getLonelyNodes")
     void test_getLonelyNodesIter(int[] array, int[] expected) {
         TreeNode root = createTreeNodes(array);
-        List<Integer> actual = ProblemsEasy.getLonelyNodesIter(root);
+        List<Integer> actual = TreesProblemsEasy.getLonelyNodesIter(root);
         assertArrayEquals(expected, ArrayListToArray(actual));
     }
 
@@ -91,7 +90,7 @@ public class ProblemsEasyTest extends TreeTestsBase {
     @MethodSource("source_searchBST")
     void test_searchBST(int[] array, int val, int[] expected) {
         TreeNode root = createTreeNodes(array);
-        TreeNode actual = ProblemsEasy.searchBST(root, val);
+        TreeNode actual = TreesProblemsEasy.searchBST(root, val);
         int[] listActual = ArrayFromTree(actual);
         assertArrayEquals(expected, listActual);
     }
@@ -99,7 +98,7 @@ public class ProblemsEasyTest extends TreeTestsBase {
     @MethodSource("source_searchBST")
     void test_searchBSTIter(int[] array, int val, int[] expected) {
         TreeNode root = createTreeNodes(array);
-        TreeNode actual = ProblemsEasy.searchBSTIter(root, val);
+        TreeNode actual = TreesProblemsEasy.searchBSTIter(root, val);
         int[] listActual = ArrayFromTree(actual);
         assertArrayEquals(expected, listActual);
     }
