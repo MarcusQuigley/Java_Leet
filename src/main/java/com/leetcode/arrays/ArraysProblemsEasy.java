@@ -1,4 +1,4 @@
-package com.leetcode.tests.arrays;
+package com.leetcode.arrays;
 
 public class ArraysProblemsEasy {
     //https://leetcode.com/problems/fibonacci-number/

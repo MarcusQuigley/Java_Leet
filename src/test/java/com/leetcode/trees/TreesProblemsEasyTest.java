@@ -1,6 +1,6 @@
-package com.leetcode.tests.trees;
+package com.leetcode.trees;
 
-import com.leetcode.tests.datastructures.TreeNode;
+import com.leetcode.datastructures.TreeNode;
 
 import java.util.List;
 import java.util.stream.Stream;

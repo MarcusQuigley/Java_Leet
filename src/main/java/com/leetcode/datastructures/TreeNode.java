@@ -1,4 +1,4 @@
-package com.leetcode.tests.datastructures;
+package com.leetcode.datastructures;
 
 public class TreeNode {
     public int val;

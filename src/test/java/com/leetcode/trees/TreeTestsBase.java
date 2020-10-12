@@ -1,5 +1,5 @@
-package com.leetcode.tests.trees;
-import com.leetcode.tests.datastructures.TreeNode;
+package com.leetcode.trees;
+import com.leetcode.datastructures.TreeNode;
 
 import java.util.*;
 
