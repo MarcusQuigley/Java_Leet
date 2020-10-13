@@ -7,6 +7,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.List;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
@@ -25,5 +26,20 @@ public class RecursionLearningTest extends TreeTestsBase {
         TreeNode root = createTreeNodes(array);
         TreeNode actual = RecursionLearning.searchBST(root, val);
         assertArrayEquals(expected, ArrayFromTree(actual));
+    }
+
+    static Stream<Arguments> source_pascalTriangle2() {
+        return Stream.of(arguments(2, new int[]{1, 2, 1}),
+                arguments(3, new int[]{1, 3,3, 1}),
+                arguments(1, new int[]{1,  1}),
+                arguments(4, new int[]{1, 4,6,4, 1})
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource("source_pascalTriangle2")
+    void test_pascalTriangle2(int rowIndex, int[] expected) {
+        List<Integer> actual = RecursionLearning.pascalTriangle2(rowIndex);
+        assertArrayEquals(expected, ArrayListToArray(actual));
     }
 }

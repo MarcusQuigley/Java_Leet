@@ -74,4 +74,22 @@ public class RecursionLearning {
             return searchBST(root.right,val);
     }
 
+    public static List<Integer> pascalTriangle2(int rowIndex){
+        List<List<Integer>> triangle = new ArrayList<List<Integer>>();
+
+        triangle.add(new ArrayList<Integer>());
+        triangle.get(0).add(1);
+        for (int i = 1; i <= rowIndex; i++) {
+            ArrayList<Integer> row = new ArrayList<>();
+            row.add(1);
+            for (int j = 1;j<i;j++){
+                row.add(triangle.get(i-1).get(j-1)+ triangle.get(i-1).get(j));
+            }
+            row.add(1);
+            triangle.add(row);
+        }
+        return triangle.get(rowIndex);
+
+    }
+
 }

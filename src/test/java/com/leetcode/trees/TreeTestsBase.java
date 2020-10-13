@@ -20,7 +20,7 @@ public class TreeTestsBase {
         return node;
     }
 
-    int[] ArrayListToArray(List<Integer> list) {
+   public int[] ArrayListToArray(List<Integer> list) {
         return list.stream().mapToInt(i -> i).toArray();
 //        int[] result = new int[list.size()];
 //        for (int i = 0; i < list.size(); i++) {
