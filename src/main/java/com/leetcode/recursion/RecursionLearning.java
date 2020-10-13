@@ -1,4 +1,6 @@
 package com.leetcode.recursion;
+import java.util.ArrayList;
+import java.util.List;
 
 public class RecursionLearning {
 
@@ -35,5 +37,27 @@ public class RecursionLearning {
         for (int i = 0; i < s.length; i++) {
             System.out.print(s[i]);
         }
+    }
+
+    //f(i,j)=f(i−1,j−1)+f(i−1,j)
+    public static List<List<Integer>> pascalTriangle(int numRows) {
+        List<List<Integer>> answer = new ArrayList<List<Integer>>();
+        if (numRows == 0)
+            return answer;
+
+        answer.add(new ArrayList<>());
+        answer.get(0).add(1);
+
+        for (int i = 1; i < numRows; i++) {
+            answer.add(new ArrayList<>());
+            answer.get(i).add(1);
+            for (int j = 1; j < i; j++) {
+                int leftUp = answer.get(i - 1).get(j - 1);
+                int rightUp = answer.get(i - 1).get(j);
+                answer.get(i).add(leftUp + rightUp);
+            }
+            answer.get(i).add(1);
+        }
+        return answer;
     }
 }
