@@ -61,4 +61,30 @@ public class RecursionLearningTest extends TreeTestsBase {
         Integer actual = RecursionLearning.fib(n);
         assertEquals(expected,  actual);
     }
+
+    static Stream<Arguments> source_climbStairs() {
+        return Stream.of(arguments(2, 2)
+                , arguments(3, 3)
+                , arguments(1, 1)
+                , arguments(4, 5)
+                , arguments(5, 8)
+                , arguments(6, 13)
+                , arguments(8, 34)
+        );
+    }
+    @ParameterizedTest
+    @MethodSource("source_climbStairs")
+    void test_climbStairs(Integer n, Integer  expected) {
+        Integer actual = RecursionLearning.climbStairs(n);
+        assertEquals(expected,  actual);
+    }
+
+    @ParameterizedTest
+    @MethodSource("source_climbStairs")
+    void test_climbStairsIter(Integer n, Integer  expected) {
+        Integer actual = RecursionLearning.climbStairsIter(n);
+        assertEquals(expected,  actual);
+    }
+
+
 }

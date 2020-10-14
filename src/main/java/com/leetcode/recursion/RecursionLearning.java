@@ -36,9 +36,9 @@ public class RecursionLearning {
     }
 
     static void printArray(char[] s) {
-        for (int i = 0; i < s.length; i++) {
-            System.out.print(s[i]);
-        }
+        for (char c : s)
+            System.out.print(c);
+
     }
 
     //f(i,j)=f(i−1,j−1)+f(i−1,j)
@@ -110,5 +110,49 @@ public class RecursionLearning {
 
         return memo[n];
     }
+// 1| 1| 2| 3|
+    //topdown
+    public static int climbStairs(int n) {
+        if(n<1)
+            return -1;
+        int[] memo = new int[n + 1];
+        memo[0] = 1;
+        memo[1] = 1;
+        return climbStairsWorker(n, memo);
+    }
 
+    static int climbStairsWorker(int n, int[] memo) {
+        if (n < 0)
+            return 0;
+        if (memo[n]==0)
+            memo[n] = climbStairsWorker(n-1,memo) + climbStairsWorker(n-2,memo);
+        return memo[n];
+    }
+
+    //bottom up
+    public static int climbStairsIterOld(int n) {
+        if(n<1)
+            return -1;
+        int[] memo = new int[n + 1];
+        memo[0]=1;
+        memo[1]=1;
+
+        for (int i = 2; i <=n ; i++) {
+            memo[i] = memo[i-1] + memo[i-2];
+        }
+        return memo[n];
+    }
+
+    public static int climbStairsIter(int n) {
+        if (n < 1)
+            return -1;
+        int twoBack = 1;
+        int oneBack = 1;
+        for (int i = 2; i <= n; i++) {
+            int temp = oneBack + twoBack;
+            twoBack = oneBack;
+            oneBack = temp;
+        }
+        return oneBack;
+    }
 }
