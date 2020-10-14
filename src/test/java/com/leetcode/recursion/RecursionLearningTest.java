@@ -29,10 +29,10 @@ public class RecursionLearningTest extends TreeTestsBase {
     }
 
     static Stream<Arguments> source_pascalTriangle2() {
-        return Stream.of(arguments(2, new int[]{1, 2, 1}),
-                arguments(3, new int[]{1, 3,3, 1}),
-                arguments(1, new int[]{1,  1}),
-                arguments(4, new int[]{1, 4,6,4, 1})
+        return Stream.of(arguments(2, new int[]{1, 2, 1})
+                ,arguments(3, new int[]{1, 3,3, 1})
+                ,arguments(1, new int[]{1,  1})
+                ,arguments(4, new int[]{1, 4,6,4, 1})
         );
     }
 
@@ -41,5 +41,24 @@ public class RecursionLearningTest extends TreeTestsBase {
     void test_pascalTriangle2(int rowIndex, int[] expected) {
         List<Integer> actual = RecursionLearning.pascalTriangle2(rowIndex);
         assertArrayEquals(expected, ArrayListToArray(actual));
+    }
+
+    static Stream<Arguments> source_fib() {
+        return Stream.of(arguments(2, 1)
+                , arguments(3, 2)
+                , arguments(1, 1)
+                , arguments(4, 3)
+                , arguments(5, 5)
+                , arguments(6, 8)
+                , arguments(8, 21)
+                , arguments(0,0)
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource("source_fib")
+    void test_fib(Integer n, Integer  expected) {
+        Integer actual = RecursionLearning.fib(n);
+        assertEquals(expected,  actual);
     }
 }

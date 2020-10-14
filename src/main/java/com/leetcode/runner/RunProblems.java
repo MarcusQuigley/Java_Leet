@@ -6,7 +6,7 @@ public class RunProblems{
     public static void main(String[] args) {
         //RecursionLearning.printReverse("Hello".toCharArray());
        // RecursionLearning.reverseString("ReverseString".toCharArray());
-        RecursionLearning.pascalTriangle(3);
+        RecursionLearning.fib(7);
 
     }
 }
