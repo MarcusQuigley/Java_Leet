@@ -2,7 +2,6 @@ package com.leetcode.recursion;
 
 import com.leetcode.datastructures.TreeNode;
 import com.leetcode.trees.TreeTestsBase;
-import com.leetcode.trees.TreesProblemsEasy;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -82,9 +81,28 @@ public class RecursionLearningTest extends TreeTestsBase {
     @ParameterizedTest
     @MethodSource("source_climbStairs")
     void test_climbStairsIter(Integer n, Integer  expected) {
-        Integer actual = RecursionLearning.climbStairsIter(n);
+        Integer actual = RecursionLearning.climbStairsIterOld(n);
         assertEquals(expected,  actual);
     }
 
+    static  Stream<Arguments> source_sum_recursion(){
+        return  Stream.of(arguments(new int[]{1,2,3},6)
+                ,arguments(new int[]{1},1)
+                ,arguments(new int[]{},0)
+        );
+    }
+    @ParameterizedTest
+    @MethodSource("source_sum_recursion")
+    void test_sum_non_tail_recursion(int[] ls, int  expected) {
+        int actual = RecursionLearning.sum_non_tail_recursion(ls);
+        assertEquals(expected,  actual);
+    }
+
+    @ParameterizedTest
+    @MethodSource("source_sum_recursion")
+    void test_sum_tail_recursion(int[] ls, int  expected) {
+        int actual = RecursionLearning.sum_tail_recursion(ls);
+        assertEquals(expected,  actual);
+    }
 
 }

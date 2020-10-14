@@ -14,7 +14,7 @@ public class RecursionLearning {
         if (i < 0)
             return;
         System.out.print(str[i]);
-        printReverseWorker(str, i - 1);
+        printReverseWorker(str, i - 1) ;
     }
 
     public static void reverseString(char[] s) {
@@ -131,13 +131,13 @@ public class RecursionLearning {
 
     //bottom up
     public static int climbStairsIterOld(int n) {
-        if(n<1)
-            return -1;
+        if(n==1)
+            return n;
         int[] memo = new int[n + 1];
-        memo[0]=1;
         memo[1]=1;
+        memo[2]=2;
 
-        for (int i = 2; i <=n ; i++) {
+        for (int i = 3; i <=n ; i++) {
             memo[i] = memo[i-1] + memo[i-2];
         }
         return memo[n];
@@ -155,4 +155,27 @@ public class RecursionLearning {
         }
         return oneBack;
     }
+
+    public static int sum_non_tail_recursion(int [] ls) {
+        if(ls==null|| ls.length==0)
+            return 0;
+        return sum_non_tail_recursion_worker(ls, ls.length-1);
+    }
+    static int sum_non_tail_recursion_worker(int [] ls, int index) {
+        if(index < 0)
+            return  0;
+        return sum_non_tail_recursion_worker(ls, index-1)+ ls[index];
+    }
+
+    public static int sum_tail_recursion(int [] ls) {
+        if(ls==null|| ls.length==0)
+            return 0;
+        return  sum_tail_recursion_worker(ls,0,0);
+    }
+    static int sum_tail_recursion_worker(int [] ls, int index, int sum) {
+        if(index>=ls.length)
+            return sum;
+        return sum_tail_recursion_worker(ls,index+1,sum+ls[index]);
+    }
+
 }
