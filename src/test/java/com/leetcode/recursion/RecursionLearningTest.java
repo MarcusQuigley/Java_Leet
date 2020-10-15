@@ -7,11 +7,14 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 import java.util.List;
 import java.util.stream.Stream;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import com.leetcode.datastructures.ListNode;
 import com.leetcode.datastructures.TreeNode;
+import com.leetcode.linkedlists.LinkedListHelper;
 import com.leetcode.trees.TreeTestsBase;
 
 public class RecursionLearningTest extends TreeTestsBase {
@@ -117,10 +120,37 @@ public class RecursionLearningTest extends TreeTestsBase {
 	}
 
 	@ParameterizedTest
+	@Disabled
 	@MethodSource("source_myPow")
 	void test_myPow(double x, int n, double expected) {
 		double actual = RecursionLearning.myPow(x, n);
 		assertEquals(expected, actual);
+	}
+
+	static Stream<Arguments> source_mergeTwoLists() {
+		return Stream.of(arguments(new int[] { 1, 2, 4 }, new int[] { 1, 3, 4 }, new int[] { 1, 1, 2, 3, 4, 4 }),
+				arguments(new int[] {}, new int[] {}, new int[] {}),
+				arguments(new int[] { -9, 3 }, new int[] { 5, 7 }, new int[] { -9, 3, 5, 7 }),
+				arguments(new int[] { 3, 17 }, new int[] { 5, 7 }, new int[] { 3, 5, 7, 17 }),
+				arguments(new int[] {}, new int[] { 4 }, new int[] { 4 }));
+	}
+
+	@ParameterizedTest
+	@MethodSource("source_mergeTwoLists")
+	void test_mergeTwoListsIter(int[] arr1, int[] arr2, int[] expected) {
+		ListNode l1 = LinkedListHelper.CreateLinkedList(arr1);
+		ListNode l2 = LinkedListHelper.CreateLinkedList(arr2);
+		ListNode actual = RecursionLearning.mergeTwoListsIter(l1, l2);
+		assertArrayEquals(expected, LinkedListHelper.ListFromListNode(actual));
+	}
+
+	@ParameterizedTest
+	@MethodSource("source_mergeTwoLists")
+	void test_mergeTwoLists(int[] arr1, int[] arr2, int[] expected) {
+		ListNode l1 = LinkedListHelper.CreateLinkedList(arr1);
+		ListNode l2 = LinkedListHelper.CreateLinkedList(arr2);
+		ListNode actual = RecursionLearning.mergeTwoLists(l1, l2);
+		assertArrayEquals(expected, LinkedListHelper.ListFromListNode(actual));
 	}
 
 }
