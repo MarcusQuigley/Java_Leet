@@ -105,4 +105,26 @@ public class RecursionLearningTest extends TreeTestsBase {
         assertEquals(expected,  actual);
     }
 
+    static  Stream<Arguments> source_maxDepth(){
+        return  Stream.of(arguments(new int[]{1,2,3,5},3)
+                ,arguments(new int[]{1,2},2)
+                ,arguments(new int[]{1,3,5,6,7,8,9,6},4)
+        );
+    }
+    @ParameterizedTest
+    @MethodSource("source_maxDepth")
+    void test_maxDepth(int[] array, int  expected) {
+        TreeNode root = createTreeNodes(array);
+        int actual = RecursionLearning.maxDepth(root);
+        assertEquals(expected,  actual);
+    }
+
+    @ParameterizedTest
+    @MethodSource("source_maxDepth")
+    void test_maxDepth_tail_worker(int[] array, int  expected) {
+        TreeNode root = createTreeNodes(array);
+        int actual = RecursionLearning.maxDepth_tail(root);
+        assertEquals(expected,  actual);
+    }
+
 }

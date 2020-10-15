@@ -110,10 +110,11 @@ public class RecursionLearning {
 
         return memo[n];
     }
-// 1| 1| 2| 3|
+
+    // 1| 1| 2| 3|
     //topdown
     public static int climbStairs(int n) {
-        if(n<1)
+        if (n < 1)
             return -1;
         int[] memo = new int[n + 1];
         memo[0] = 1;
@@ -124,21 +125,21 @@ public class RecursionLearning {
     static int climbStairsWorker(int n, int[] memo) {
         if (n < 0)
             return 0;
-        if (memo[n]==0)
-            memo[n] = climbStairsWorker(n-1,memo) + climbStairsWorker(n-2,memo);
+        if (memo[n] == 0)
+            memo[n] = climbStairsWorker(n - 1, memo) + climbStairsWorker(n - 2, memo);
         return memo[n];
     }
 
     //bottom up
     public static int climbStairsIterOld(int n) {
-        if(n==1)
+        if (n == 1)
             return n;
         int[] memo = new int[n + 1];
-        memo[1]=1;
-        memo[2]=2;
+        memo[1] = 1;
+        memo[2] = 2;
 
-        for (int i = 3; i <=n ; i++) {
-            memo[i] = memo[i-1] + memo[i-2];
+        for (int i = 3; i <= n; i++) {
+            memo[i] = memo[i - 1] + memo[i - 2];
         }
         return memo[n];
     }
@@ -156,26 +157,54 @@ public class RecursionLearning {
         return oneBack;
     }
 
-    public static int sum_non_tail_recursion(int [] ls) {
-        if(ls==null|| ls.length==0)
+    public static int sum_non_tail_recursion(int[] ls) {
+        if (ls == null || ls.length == 0)
             return 0;
-        return sum_non_tail_recursion_worker(ls, ls.length-1);
-    }
-    static int sum_non_tail_recursion_worker(int [] ls, int index) {
-        if(index < 0)
-            return  0;
-        return sum_non_tail_recursion_worker(ls, index-1)+ ls[index];
+        return sum_non_tail_recursion_worker(ls, ls.length - 1);
     }
 
-    public static int sum_tail_recursion(int [] ls) {
-        if(ls==null|| ls.length==0)
+    static int sum_non_tail_recursion_worker(int[] ls, int index) {
+        if (index < 0)
             return 0;
-        return  sum_tail_recursion_worker(ls,0,0);
+        return sum_non_tail_recursion_worker(ls, index - 1) + ls[index];
     }
-    static int sum_tail_recursion_worker(int [] ls, int index, int sum) {
-        if(index>=ls.length)
+
+    public static int sum_tail_recursion(int[] ls) {
+        if (ls == null || ls.length == 0)
+            return 0;
+        return sum_tail_recursion_worker(ls, 0, 0);
+    }
+
+    static int sum_tail_recursion_worker(int[] ls, int index, int sum) {
+        if (index >= ls.length)
             return sum;
-        return sum_tail_recursion_worker(ls,index+1,sum+ls[index]);
+        return sum_tail_recursion_worker(ls, index + 1, sum + ls[index]);
     }
 
+    //static int maxDepth_max = 0;
+
+    public static int maxDepth(TreeNode root) {
+        if (root == null)
+            return 0;
+        int left = maxDepth(root.left);
+        int right = maxDepth(root.right);
+        return Math.max(left, right) + 1;
+
+       // return maxDepth_max;
+    }
+
+    public static int maxDepth_tail(TreeNode root) {
+        if (root == null)
+            return 0;
+        int sum = 0;
+        return maxDepth_tail_worker(root, sum);
+    }
+
+    static int maxDepth_tail_worker(TreeNode root, int sum) {
+        if (root == null)
+            return sum ;
+        int left = maxDepth_tail_worker(root.left,sum+1);
+        int right = maxDepth_tail_worker(root.right,sum+1);
+        return Math.max(left,right);
+    }
 }
