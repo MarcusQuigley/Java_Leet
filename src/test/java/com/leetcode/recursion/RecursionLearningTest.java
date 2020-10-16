@@ -165,4 +165,15 @@ public class RecursionLearningTest extends TreeTestsBase {
 		assertEquals(expected, actual);
 	}
 
+	static Stream<Arguments> source_uniquenumBSTrees() {
+		return Stream.of(arguments(1, 1), arguments(2, 2), arguments(3, 5), arguments(4, 14));
+	}
+
+	@ParameterizedTest
+	@MethodSource("source_uniquenumBSTrees")
+	void test_uniquenumBSTrees(int n, int expected) {
+		int actual = RecursionLearning.uniquenumBSTrees(n);
+		assertEquals(expected, actual);
+	}
+
 }
