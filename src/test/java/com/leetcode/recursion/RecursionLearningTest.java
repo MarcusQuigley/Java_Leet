@@ -153,4 +153,16 @@ public class RecursionLearningTest extends TreeTestsBase {
 		assertArrayEquals(expected, LinkedListHelper.ListFromListNode(actual));
 	}
 
+	static Stream<Arguments> source_kthGrammarBrute() {
+		return Stream.of(arguments(1, 1, 0), arguments(2, 1, 0), arguments(2, 2, 1), arguments(4, 5, 1),
+				arguments(4, 7, 0));
+	}
+
+	@ParameterizedTest
+	@MethodSource("source_kthGrammarBrute")
+	void test_kthGrammarBrute(int n, int k, int expected) {
+		int actual = RecursionLearning.kthGrammar(n, k);
+		assertEquals(expected, actual);
+	}
+
 }

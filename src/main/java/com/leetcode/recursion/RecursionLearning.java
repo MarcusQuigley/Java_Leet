@@ -262,4 +262,17 @@ public class RecursionLearning {
 		}
 	}
 
+	public static int kthGrammar(int n, int k) {
+		StringBuilder sb = new StringBuilder("01");
+		if (n > 2) {
+			for (int i = 3; i <= n; i++) {
+				int length = sb.length();
+				int start = (length / 2);// + 1;
+				for (int j = start; j < length; j++) {
+					sb.append(sb.charAt(j) == '0' ? "01" : "10");
+				}
+			}
+		}
+		return (int) sb.charAt(k - 1) - '0';
+	}
 }
