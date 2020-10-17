@@ -165,4 +165,48 @@ public class TreesProblemsEasy {
 		}
 		return list;
 	}
+
+	public static TreeNode increasingBSTIter(TreeNode root) {
+		if (root == null)
+			return null;
+		TreeNode result = new TreeNode(0);
+		TreeNode tempNode = result;
+		Stack<TreeNode> stack = new Stack<>();
+		TreeNode current = root;
+		while (!stack.isEmpty() || current != null) {
+			while (current != null) {
+				stack.push(current);
+				current = current.left;
+			}
+			current = stack.pop();
+			tempNode.right = new TreeNode(current.val);
+			tempNode = tempNode.right;
+			current = current.right;
+		}
+		return result.right;
+	}
+
+	public static TreeNode increasingBST(TreeNode root) {
+		if (root == null)
+			return null;
+		List<Integer> list = new ArrayList<>();
+		increasingBST_worker(root, list);
+		TreeNode temp = new TreeNode(0);
+		TreeNode result = temp;
+
+		for (int i = 0; i < list.size(); i++) {
+			temp.right = new TreeNode(list.get(i));
+			temp = temp.right;
+		}
+		return result.right;
+	}
+
+	static void increasingBST_worker(TreeNode root, List<Integer> list) {
+		if (root == null)
+			return;
+		increasingBST_worker(root.left, list);
+		list.add(root.val);
+		increasingBST_worker(root.right, list);
+	}
+
 }
