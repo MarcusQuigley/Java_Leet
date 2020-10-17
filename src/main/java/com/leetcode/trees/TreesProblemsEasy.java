@@ -145,4 +145,24 @@ public class TreesProblemsEasy {
 		for (int i = 0; i < root.children.size(); i++)
 			preorderNary_worker(root.children.get(i), list);
 	}
+
+	public List<Integer> postorderNary(NaryNode root) {
+		List<Integer> list = new ArrayList<>();
+		if (root != null) {
+			Stack<NaryNode> left = new Stack<>();
+			Stack<NaryNode> right = new Stack<>();
+			left.push(root);
+			while (!left.isEmpty()) {
+				var current = left.pop();
+				for (int i = 0; i < current.children.size(); i++) {
+					left.push(current.children.get(i));
+				}
+				right.push(current);
+			}
+			while (!right.isEmpty()) {
+				list.add(right.pop().val);
+			}
+		}
+		return list;
+	}
 }
