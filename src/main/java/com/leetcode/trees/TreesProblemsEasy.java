@@ -1,6 +1,8 @@
 package com.leetcode.trees;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -8,6 +10,8 @@ import java.util.Stack;
 
 import com.leetcode.datastructures.NaryNode;
 import com.leetcode.datastructures.TreeNode;
+
+import javafx.util.Pair;
 
 public class TreesProblemsEasy {
 	// https://leetcode.com/problems/range-sum-of-bst
@@ -209,4 +213,24 @@ public class TreesProblemsEasy {
 		increasingBST_worker(root.right, list);
 	}
 
+	public static int sumRootToLeaf(TreeNode root) {
+		if (root == null)
+			return 0;
+		var sum = 0;
+		Deque<Pair<TreeNode, Integer>> stack = new ArrayDeque<>();
+		stack.push(new Pair<TreeNode, Integer>(root, root.val));
+		while (!stack.isEmpty()) {
+			var current = stack.pop();
+			var node = current.getKey();
+			if (node.left == null && node.right == null)
+				sum += current.getValue();
+			else {
+				if (node.left != null)
+					stack.push(new Pair<TreeNode, Integer>(node.left, current.getValue() * 2 + node.left.val));
+				if (node.right != null)
+					stack.push(new Pair<TreeNode, Integer>(node.right, current.getValue() * 2 + node.right.val));
+			}
+		}
+		return sum;
+	}
 }

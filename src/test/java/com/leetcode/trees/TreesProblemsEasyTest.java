@@ -121,4 +121,16 @@ public class TreesProblemsEasyTest extends TreeTestsBase {
 		assertArrayEquals(expected, listActual);
 	}
 
+	static Stream<Arguments> source_sumRootToLeaf() {
+		return Stream.of(arguments(new int[] { 1, 0, 1, 0, 1, 0, 1 }, 22));
+	}
+
+	@ParameterizedTest
+	@MethodSource("source_sumRootToLeaf")
+	void test_sumRootToLeaf(int[] array, int expected) {
+		TreeNode root = createTreeNodes(array);
+		var actual = TreesProblemsEasy.sumRootToLeaf(root);
+		assertEquals(expected, actual);
+	}
+
 }
