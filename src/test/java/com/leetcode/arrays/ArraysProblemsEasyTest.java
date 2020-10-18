@@ -19,6 +19,7 @@ public class ArraysProblemsEasyTest {
                 , arguments(5,5)
                 , arguments(6, 8)
                 , arguments(8, 21)
+                , arguments(0,0)
         );
     }
 
