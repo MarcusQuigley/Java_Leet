@@ -213,7 +213,7 @@ public class TreesProblemsEasy {
 		increasingBST_worker(root.right, list);
 	}
 
-	public static int sumRootToLeaf(TreeNode root) {
+	public static int sumRootToLeafIter(TreeNode root) {
 		if (root == null)
 			return 0;
 		var sum = 0;
@@ -226,11 +226,30 @@ public class TreesProblemsEasy {
 				sum += current.getValue();
 			else {
 				if (node.left != null)
-					stack.push(new Pair<TreeNode, Integer>(node.left, current.getValue() * 2 + node.left.val));
+					stack.push(new Pair<TreeNode, Integer>(node.left, current.getValue() << 1 | node.left.val));
 				if (node.right != null)
-					stack.push(new Pair<TreeNode, Integer>(node.right, current.getValue() * 2 + node.right.val));
+					stack.push(new Pair<TreeNode, Integer>(node.right, current.getValue() << 1 | node.right.val));
 			}
 		}
 		return sum;
+	}
+
+	static int sumrtl = 0;
+	public static int sumRootToLeaf(TreeNode root) {
+		if (root != null)
+			sumRootToLeafWorker(root, 0);
+		return sumrtl;
+	}
+
+	static void sumRootToLeafWorker(TreeNode root, int val) {
+		var acc = val << 1 | root.val;
+		if (root.left == null && root.right == null) {
+			sumrtl += acc;
+			return;
+		}
+		if (root.left != null)
+			sumRootToLeafWorker(root.left, acc);
+		if (root.right != null)
+			sumRootToLeafWorker(root.right, acc);
 	}
 }
