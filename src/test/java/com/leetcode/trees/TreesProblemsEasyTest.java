@@ -133,4 +133,12 @@ public class TreesProblemsEasyTest extends TreeTestsBase {
 		assertEquals(expected, actual);
 	}
 
+	@ParameterizedTest
+	@MethodSource("source_sumRootToLeaf")
+	void test_sumRootToLeafIter(int[] array, int expected) {
+		TreeNode root = createTreeNodes(array);
+		var actual = TreesProblemsEasy.sumRootToLeafIter(root);
+		assertEquals(expected, actual);
+	}
+
 }
