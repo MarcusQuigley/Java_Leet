@@ -4,13 +4,16 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import com.leetcode.datastructures.NaryNode;
 import com.leetcode.datastructures.TreeNode;
 
 public class TreesProblemsEasyTest extends TreeTestsBase {
@@ -141,4 +144,24 @@ public class TreesProblemsEasyTest extends TreeTestsBase {
 		assertEquals(expected, actual);
 	}
 
+	@Test
+	void test_nary_MaxDepth() {
+		NaryNode node5 = new NaryNode(5);
+		NaryNode node6 = new NaryNode(6);
+
+		List<NaryNode> kids3 = new ArrayList<NaryNode>();
+		kids3.add(node5);
+		kids3.add(node6);
+		NaryNode node3 = new NaryNode(3, kids3);
+		NaryNode node4 = new NaryNode(4);
+		NaryNode node2 = new NaryNode(2);
+		List<NaryNode> kids1 = new ArrayList<NaryNode>();
+		kids1.add(node3);
+		kids1.add(node2);
+		kids1.add(node4);
+		NaryNode node1 = new NaryNode(1, kids1);
+		var expected = 3;
+		var actual = TreesProblemsEasy.nary_MaxDepthIter(node1);
+		assertEquals(expected, actual);
+	}
 }
