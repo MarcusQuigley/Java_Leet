@@ -235,6 +235,7 @@ public class TreesProblemsEasy {
 	}
 
 	static int sumrtl = 0;
+
 	public static int sumRootToLeaf(TreeNode root) {
 		if (root != null)
 			sumRootToLeafWorker(root, 0);
@@ -252,4 +253,24 @@ public class TreesProblemsEasy {
 		if (root.right != null)
 			sumRootToLeafWorker(root.right, acc);
 	}
+
+	public static int nary_MaxDepthIter(NaryNode root) {
+		if (root == null)
+			return 0;
+		int max = 0;
+		Queue<Pair<NaryNode[], Integer>> q = new LinkedList<Pair<NaryNode[], Integer>>();
+		q.add(new Pair<NaryNode[], Integer>(new NaryNode[] { root }, 1));
+		while (!q.isEmpty()) {
+			var row = q.remove();
+			for (var n : row.getKey()) {
+				if (n.children != null && n.children.size() > 0)
+					q.add(new Pair<NaryNode[], Integer>(n.children.toArray(new NaryNode[0]), row.getValue() + 1));
+				else
+					max = Math.max(max, row.getValue());
+			}
+		}
+		return max;
+	}
+	// TODO recursive for narynode max depth
+
 }
