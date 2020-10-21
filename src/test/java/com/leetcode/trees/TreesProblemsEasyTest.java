@@ -220,4 +220,25 @@ public class TreesProblemsEasyTest extends TreeTestsBase {
 		var actual = TreesProblemsEasy.maxDepthIter(root);
 		assertEquals(expected, actual);
 	}
+
+	static Stream<Arguments> source_invertTree() {
+		return Stream.of(arguments(new int[] { 4, 2, 7, 1, 3, 6, 9 }, new int[] { 4, 7, 2, 9, 6, 3, 1 }),
+				arguments(new int[] { 1, 2, 3 }, new int[] { 1, 3, 2 }));
+	}
+
+	@ParameterizedTest
+	@MethodSource("source_invertTree")
+	void test_invertTree(int[] array, int[] expected) {
+		TreeNode root = createTreeNodes(array);
+		var actual = TreesProblemsEasy.invertTree(root);
+		assertArrayEquals(expected, ArrayFromTree(actual));
+	}
+
+	@ParameterizedTest
+	@MethodSource("source_invertTree")
+	void test_invertTreeIter(int[] array, int[] expected) {
+		TreeNode root = createTreeNodes(array);
+		var actual = TreesProblemsEasy.invertTreeIter(root);
+		assertArrayEquals(expected, ArrayFromTree(actual));
+	}
 }
