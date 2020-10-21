@@ -263,7 +263,7 @@ public class TreesProblemsEasy {
 		while (!q.isEmpty()) {
 			var row = q.remove();
 			for (var n : row.getKey()) {
-				if (n.children != null && n.children.size() > 0)
+				if (n.children.size() > 0)
 					q.add(new Pair<NaryNode[], Integer>(n.children.toArray(new NaryNode[0]), row.getValue() + 1));
 				else
 					max = Math.max(max, row.getValue());
@@ -271,6 +271,77 @@ public class TreesProblemsEasy {
 		}
 		return max;
 	}
-	// TODO recursive for narynode max depth
+
+	public static int nary_MaxDepth(NaryNode root) {
+		if (root == null)
+			return 0;
+		int max = 0;
+		for (NaryNode child : root.children) {
+			int value = nary_MaxDepth(child);
+			max = Math.max(max, value);
+		}
+		return max + 1;
+	}
+
+	public static boolean isUnivalTree(TreeNode root) {
+		if (root == null)
+			return false;
+		return isUnivalTreeWorker(root, root.val);
+	}
+
+	static boolean isUnivalTreeWorker(TreeNode root, int value) {
+		if (root == null)
+			return true;
+		return (root.val == value && isUnivalTreeWorker(root.left, value) && isUnivalTreeWorker(root.right, value));
+	}
+
+	public static boolean isUnivalTreeIter(TreeNode root) {
+		if (root == null)
+			return false;
+		int value = root.val;
+		Stack<TreeNode> stack = new Stack<TreeNode>();
+		stack.push(root);
+		while (!stack.isEmpty()) {
+			var node = stack.pop();
+			if (value != node.val)// stack.peek().val)
+				return false;
+
+			if (node.right != null)
+				stack.push(node.right);
+			if (node.left != null)
+				stack.push(node.left);
+		}
+		return true;
+	}
+
+	// https://leetcode.com/problems/maximum-depth-of-binary-tree/
+	public static int maxDepth(TreeNode root) {
+		if (root == null)
+			return 0;
+		var left = maxDepth(root.left);
+		var right = maxDepth(root.right);
+		return Math.max(left, right) + 1;
+	}
+
+	public static int maxDepthIter(TreeNode root) {
+		if (root == null)
+			return 0;
+		int max = 0;
+		Deque<TreeNode> q = new ArrayDeque<>();
+		q.add(root);
+		while (!q.isEmpty()) {
+			var count = q.size();
+
+			for (int i = 0; i < count; i++) {
+				var n = q.poll();
+				if (n.left != null)
+					q.add(n.left);
+				if (n.right != null)
+					q.add(n.right);
+			}
+			max++;
+		}
+		return max;
+	}
 
 }
