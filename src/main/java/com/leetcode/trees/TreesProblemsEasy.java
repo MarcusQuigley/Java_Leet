@@ -344,4 +344,35 @@ public class TreesProblemsEasy {
 		return max;
 	}
 
+	// https://leetcode.com/problems/invert-binary-tree/
+	public static TreeNode invertTree(TreeNode root) {
+		if (root == null)
+			return root;
+		var right = invertTree(root.right);
+		var left = invertTree(root.left);
+
+		root.left = right;
+		root.right = left;
+		return root;
+	}
+
+	public static TreeNode invertTreeIter(TreeNode root) {
+		if (root == null)
+			return null;
+		Queue<TreeNode> q = new LinkedList<>();
+		q.add(root);
+
+		while (!q.isEmpty()) {
+			var current = q.remove();
+			var temp = current.left;
+			current.left = current.right;
+			current.right = temp;
+			if (current.left != null)
+				q.add(current.left);
+			if (current.right != null)
+				q.add(current.right);
+		}
+		return root;
+	}
+
 }
