@@ -144,24 +144,80 @@ public class TreesProblemsEasyTest extends TreeTestsBase {
 		assertEquals(expected, actual);
 	}
 
-	@Test
-	void test_nary_MaxDepth() {
-		NaryNode node5 = new NaryNode(5);
-		NaryNode node6 = new NaryNode(6);
+	NaryNode populateNaryNodes() {
+		var emptyList = new ArrayList<NaryNode>();
+		NaryNode node5 = new NaryNode(5, emptyList);
+		NaryNode node6 = new NaryNode(6, emptyList);
 
 		List<NaryNode> kids3 = new ArrayList<NaryNode>();
 		kids3.add(node5);
 		kids3.add(node6);
 		NaryNode node3 = new NaryNode(3, kids3);
-		NaryNode node4 = new NaryNode(4);
-		NaryNode node2 = new NaryNode(2);
+		NaryNode node4 = new NaryNode(4, emptyList);
+		NaryNode node2 = new NaryNode(2, emptyList);
 		List<NaryNode> kids1 = new ArrayList<NaryNode>();
 		kids1.add(node3);
 		kids1.add(node2);
 		kids1.add(node4);
 		NaryNode node1 = new NaryNode(1, kids1);
+		return node1;
+	}
+
+	@Test
+	void test_nary_MaxDepthIter() {
+		var node = populateNaryNodes();
 		var expected = 3;
-		var actual = TreesProblemsEasy.nary_MaxDepthIter(node1);
+		var actual = TreesProblemsEasy.nary_MaxDepthIter(node);
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	void test_nary_MaxDepth() {
+		var node = populateNaryNodes();
+		var expected = 3;
+		var actual = TreesProblemsEasy.nary_MaxDepth(node);
+		assertEquals(expected, actual);
+	}
+
+	static Stream<Arguments> source_isUnivalTree() {
+		return Stream.of(arguments(new int[] { 1, 1, 1, 1, 1, 1 }, true),
+				arguments(new int[] { 1, 1, 1, 4, 1 }, false));
+	}
+
+	@ParameterizedTest
+	@MethodSource("source_isUnivalTree")
+	void test_isUnivalTree(int[] array, boolean expected) {
+		TreeNode root = createTreeNodes(array);
+		var actual = TreesProblemsEasy.isUnivalTree(root);
+		assertEquals(expected, actual);
+	}
+
+	@ParameterizedTest
+	@MethodSource("source_isUnivalTree")
+	void test_isUnivalTreeIter(int[] array, boolean expected) {
+		TreeNode root = createTreeNodes(array);
+		var actual = TreesProblemsEasy.isUnivalTreeIter(root);
+		assertEquals(expected, actual);
+	}
+
+	static Stream<Arguments> source_maxDepth() {
+		return Stream.of(arguments(new int[] { 3, 9, 20, -666, -666, 15, 7 }, 3), arguments(new int[] { 1, 1 }, 2),
+				arguments(new int[] { 1, 2, 3, 4, -666, -666, 5 }, 3));
+	}
+
+	@ParameterizedTest
+	@MethodSource("source_maxDepth")
+	void test_maxDepth(int[] array, int expected) {
+		TreeNode root = createTreeNodes(array);
+		var actual = TreesProblemsEasy.maxDepth(root);
+		assertEquals(expected, actual);
+	}
+
+	@ParameterizedTest
+	@MethodSource("source_maxDepth")
+	void test_maxDepthIter(int[] array, int expected) {
+		TreeNode root = createTreeNodes(array);
+		var actual = TreesProblemsEasy.maxDepthIter(root);
 		assertEquals(expected, actual);
 	}
 }
