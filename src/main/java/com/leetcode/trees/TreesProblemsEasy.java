@@ -430,4 +430,26 @@ public class TreesProblemsEasy {
 				stack.push(current.right);
 		}
 	}
+
+	public static List<Double> averageOfLevels(TreeNode root) {
+		List<Double> list = new ArrayList<>();
+		if (root != null) {
+			Deque<TreeNode> q = new ArrayDeque<>();
+			q.add(root);
+			while (!q.isEmpty()) {
+				var levelAverage = 0.0d;
+				var count = q.size();
+				for (int i = 0; i < count; i++) {
+					var node = q.remove();
+					levelAverage += node.val;
+					if (node.left != null)
+						q.add(node.left);
+					if (node.right != null)
+						q.add(node.right);
+				}
+				list.add(levelAverage / count);
+			}
+		}
+		return list;
+	}
 }
