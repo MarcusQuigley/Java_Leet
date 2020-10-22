@@ -265,4 +265,17 @@ public class TreesProblemsEasyTest extends TreeTestsBase {
 		assertEquals(expected, actual);
 	}
 
+	static Stream<Arguments> source_averageOfLevels() {
+		return Stream.of(arguments(new int[] { 3, 9, 20, -666, -666, 15, 7 }, new double[] { 3, 14.5, 11 }), arguments(
+				new int[] { 2147483647, 2147483647, 2147483647 }, new double[] { 2147483647.00000, 2147483647.00000 }));
+	}
+
+	@ParameterizedTest
+	@MethodSource("source_averageOfLevels")
+	void test_averageOfLevels(int[] array, double[] expected) {
+		TreeNode node = createTreeNodes(array);
+		var actual = TreesProblemsEasy.averageOfLevels(node);
+		assertArrayEquals(expected, actual.stream().mapToDouble(i -> i).toArray());
+	}
+
 }
