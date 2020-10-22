@@ -375,4 +375,59 @@ public class TreesProblemsEasy {
 		return root;
 	}
 
+	// https://leetcode.com/problems/leaf-similar-trees/
+	public static boolean leafSimilarIter(TreeNode root1, TreeNode root2) {
+		if (root1 == null && root2 == null)
+			return true;
+		if (root1 == null || root2 == null)
+			return false;
+		var listLeafs1 = leafSimilarWorker(root1);
+		var listLeafs2 = leafSimilarWorker(root2);
+		if (listLeafs1.size() != listLeafs2.size())
+			return false;
+		for (int i = 0; i < listLeafs1.size(); i++) {
+			if (listLeafs1.get(i) != listLeafs2.get(i))
+				return false;
+		}
+		return true;
+	}
+
+	static List<Integer> leafSimilarWorker(TreeNode node) {
+		List<Integer> list = new ArrayList<>();
+		Stack<TreeNode> stack = new Stack<>();
+		stack.add(node);
+		while (!stack.isEmpty()) {
+			var current = stack.pop();
+			if (current.left == null && current.right == null)
+				list.add(current.val);
+			if (current.right != null)
+				stack.push(current.right);
+			if (current.left != null)
+				stack.push(current.left);
+		}
+		return list;
+	}
+
+	public static boolean leafSimilarBetter(TreeNode root1, TreeNode root2) {
+		Stack<TreeNode> s1 = new Stack<>(), s2 = new Stack<>();
+		s1.push(root1);
+		s2.push(root2);
+		while (!s1.isEmpty() && !s2.isEmpty()) {
+			if (dfs(s1) != dfs(s2))
+				return false;
+		}
+		return s1.isEmpty() && s2.isEmpty();
+	}
+
+	static int dfs(Stack<TreeNode> stack) {
+		while (true) {
+			var current = stack.pop();
+			if (current.left == null && current.right == null)
+				return current.val;
+			if (current.left != null)
+				stack.push(current.left);
+			if (current.right != null)
+				stack.push(current.right);
+		}
+	}
 }

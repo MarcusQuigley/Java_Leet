@@ -241,4 +241,28 @@ public class TreesProblemsEasyTest extends TreeTestsBase {
 		var actual = TreesProblemsEasy.invertTreeIter(root);
 		assertArrayEquals(expected, ArrayFromTree(actual));
 	}
+
+	static Stream<Arguments> source_leafSimilar() {
+		return Stream.of(arguments(new int[] { 1, 2, 3 }, new int[] { 1, 2, 3 }, true),
+				arguments(new int[] { 1, 2, 3 }, new int[] { 1, 3, 2 }, false));
+	}
+
+	@ParameterizedTest
+	@MethodSource("source_leafSimilar")
+	void test_leafSimilarIter(int[] array1, int[] array2, boolean expected) {
+		TreeNode node1 = createTreeNodes(array1);
+		TreeNode node2 = createTreeNodes(array2);
+		var actual = TreesProblemsEasy.leafSimilarIter(node1, node2);
+		assertEquals(expected, actual);
+	}
+
+	@ParameterizedTest
+	@MethodSource("source_leafSimilar")
+	void test_leafSimilarBetter(int[] array1, int[] array2, boolean expected) {
+		TreeNode node1 = createTreeNodes(array1);
+		TreeNode node2 = createTreeNodes(array2);
+		var actual = TreesProblemsEasy.leafSimilarBetter(node1, node2);
+		assertEquals(expected, actual);
+	}
+
 }
