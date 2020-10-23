@@ -291,4 +291,18 @@ public class TreesProblemsEasyTest extends TreeTestsBase {
 		assertArrayEquals(expected, ArrayFromTree(actual));
 	}
 
+	static Stream<Arguments> source_sortedArrayToBST() {
+		return Stream.of(arguments(new int[] { -10, -3, 0 }, new int[] { -3, -10, 0 })
+		// , arguments( new int[] { 3, 0, 4, -666, 2, -666, -666, -666, -666, 1 }, 1, 3,
+		// new int[] { 3, 2, -666, 1 })
+		);
+	}
+
+	@ParameterizedTest
+	@MethodSource("source_sortedArrayToBST")
+	void test_sortedArrayToBST(int[] array, int[] expected) {
+		var actual = TreesProblemsEasy.sortedArrayToBST(array);
+		assertArrayEquals(expected, ArrayFromTree(actual));
+	}
+
 }

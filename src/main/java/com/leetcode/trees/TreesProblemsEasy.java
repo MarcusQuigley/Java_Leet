@@ -476,4 +476,26 @@ public class TreesProblemsEasy {
 		root.right = trimBST(root.right, low, high);
 		return root;
 	}
+
+	public static TreeNode sortedArrayToBST(int[] nums) {
+		if (nums == null || nums.length == 0)
+			return null;
+
+		return sortedArrayToBSTWorker(nums, 0, nums.length - 1);
+	}
+
+	static TreeNode sortedArrayToBSTWorker(int[] nums, int low, int high) {
+		if (low > high)
+			return null;
+		var length = high + low;
+		var mid = length / 2;
+//			if (length % 2 == 0)
+//				mid++;
+		TreeNode node = new TreeNode(nums[mid]);
+
+		node.left = sortedArrayToBSTWorker(nums, low, mid - 1);
+		node.right = sortedArrayToBSTWorker(nums, mid + 1, high);
+		return node;
+
+	}
 }
