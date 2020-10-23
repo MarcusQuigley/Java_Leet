@@ -278,4 +278,17 @@ public class TreesProblemsEasyTest extends TreeTestsBase {
 		assertArrayEquals(expected, actual.stream().mapToDouble(i -> i).toArray());
 	}
 
+	static Stream<Arguments> source_trimBST() {
+		return Stream.of(arguments(new int[] { 1, 0, 2 }, 1, 2, new int[] { 1, -666, 2 }), arguments(
+				new int[] { 3, 0, 4, -666, 2, -666, -666, -666, -666, 1 }, 1, 3, new int[] { 3, 2, -666, 1 }));
+	}
+
+	@ParameterizedTest
+	@MethodSource("source_trimBST")
+	void test_trimBST(int[] array, int low, int high, int[] expected) {
+		TreeNode node = createTreeNodes(array);
+		var actual = TreesProblemsEasy.trimBST(node, low, high);
+		assertArrayEquals(expected, ArrayFromTree(actual));
+	}
+
 }
