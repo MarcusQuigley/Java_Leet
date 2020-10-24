@@ -3,9 +3,11 @@ package com.leetcode.trees;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import java.util.Set;
 import java.util.Stack;
 
 import com.leetcode.datastructures.NaryNode;
@@ -496,6 +498,7 @@ public class TreesProblemsEasy {
 
 	}
 
+	// https://leetcode.com/problems/two-sum-iv-input-is-a-bst/
 	public static boolean findTarget(TreeNode root, int k) {
 		if (root == null)
 			return false;
@@ -537,6 +540,49 @@ public class TreesProblemsEasy {
 				start++;
 		}
 		return false;
-
 	}
+
+	// https://leetcode.com/problems/construct-string-from-binary-tree/
+	public static String tree2str(TreeNode t) {
+		if (t == null) {
+			return "";
+		}
+		if (t.left == null && t.right == null)
+			return t.val + "";// .toString();// new String(t.val);
+		if (t.right == null)
+			return "" + t.val + "(" + tree2str(t.left) + ")";
+		// if (t.left == null)
+		// return "" + t.val + "()(" + tree2str(t.right) + ")";
+		return "" + t.val + "(" + tree2str(t.left) + ")(" + tree2str(t.right) + ")";
+	}
+
+	public static String tree2strIter(TreeNode t) {
+		if (t == null)
+			return "";
+		Stack<TreeNode> stack = new Stack<>();
+		Set<TreeNode> set = new HashSet<>();
+		StringBuilder sb = new StringBuilder();
+		stack.push(t);
+		while (!stack.isEmpty()) {
+			var current = stack.peek();
+			if (set.contains(current)) {
+				stack.pop();
+				sb.append(")");
+			} else {
+				set.add(current);
+				sb.append("(" + current.val);
+				if (current.left == null && current.right != null) {
+					sb.append("()");
+					stack.push(current.right);
+				} else {
+					if (current.right != null)
+						stack.push(current.right);
+					if (current.left != null)
+						stack.push(current.left);
+				}
+			}
+		}
+		return sb.substring(1, sb.length() - 1);
+	}
+
 }
