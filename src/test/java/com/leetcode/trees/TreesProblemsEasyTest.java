@@ -305,4 +305,19 @@ public class TreesProblemsEasyTest extends TreeTestsBase {
 		assertArrayEquals(expected, ArrayFromTree(actual));
 	}
 
+	static Stream<Arguments> source_findTarget() {
+		return Stream.of(arguments(new int[] { 5, 3, 6, 2, 4, -666, 7 }, 28, false),
+				arguments(new int[] { 5, 3, 6, 2, 4, -666, 7 }, 9, true), arguments(new int[] { 1 }, 2, false)
+		// new int[] { 3, 2, -666, 1 })
+		);
+	}
+
+	@ParameterizedTest
+	@MethodSource("source_findTarget")
+	void test_findTarget(int[] array, int k, boolean expected) {
+		TreeNode node = createTreeNodes(array);
+		var actual = TreesProblemsEasy.findTarget(node, k);
+		assertEquals(expected, actual);
+	}
+
 }
