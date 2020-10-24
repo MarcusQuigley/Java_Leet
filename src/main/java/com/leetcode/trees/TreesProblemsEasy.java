@@ -489,13 +489,54 @@ public class TreesProblemsEasy {
 			return null;
 		var length = high + low;
 		var mid = length / 2;
-//			if (length % 2 == 0)
-//				mid++;
 		TreeNode node = new TreeNode(nums[mid]);
-
 		node.left = sortedArrayToBSTWorker(nums, low, mid - 1);
 		node.right = sortedArrayToBSTWorker(nums, mid + 1, high);
 		return node;
+
+	}
+
+	public static boolean findTarget(TreeNode root, int k) {
+		if (root == null)
+			return false;
+
+		TreeNode current = root;
+		List<Integer> list = new ArrayList<>();
+		// Map<Integer, Integer> map = new HashMap<>();
+		Stack<TreeNode> stack = new Stack<>();
+		while (!stack.isEmpty() || current != null) {
+			while (current != null) {
+				stack.push(current);
+				current = current.left;
+			}
+			current = stack.pop();
+			list.add(current.val);
+//			if (map.containsKey(k - current.val))
+//				return true;
+//			if (!map.containsKey(current.val))
+//				map.put(current.val, current.val);
+			current = current.right;
+
+		}
+		return findTargetWorker(list, k);
+		// return false;
+	}
+
+	static boolean findTargetWorker(List<Integer> list, int k) {
+		if (list == null || list.size() < 2)
+			return false;
+		var start = 0;
+		var end = list.size() - 1;
+		while (start < end) {
+			var total = list.get(start) + list.get(end);
+			if (total == k)
+				return true;
+			if (total > k)
+				end--;
+			else
+				start++;
+		}
+		return false;
 
 	}
 }
