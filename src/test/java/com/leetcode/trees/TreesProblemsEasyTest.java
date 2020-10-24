@@ -320,4 +320,27 @@ public class TreesProblemsEasyTest extends TreeTestsBase {
 		assertEquals(expected, actual);
 	}
 
+	static Stream<Arguments> source_tree2str() {
+		return Stream.of(arguments(new int[] { 1, 2, 3, 4 }, "1(2(4))(3)"),
+				arguments(new int[] { 1, 2, 3, -666, 4 }, "1(2()(4))(3)"), arguments(new int[] { 1 }, "1")
+
+		// new int[] { 3, 2, -666, 1 })
+		);
+	}
+
+	@ParameterizedTest
+	@MethodSource("source_tree2str")
+	void test_tree2str(int[] array, String expected) {
+		TreeNode node = createTreeNodes(array);
+		var actual = TreesProblemsEasy.tree2str(node);
+		assertEquals(expected, actual);
+	}
+
+	@ParameterizedTest
+	@MethodSource("source_tree2str")
+	void test_tree2strIter(int[] array, String expected) {
+		TreeNode node = createTreeNodes(array);
+		var actual = TreesProblemsEasy.tree2strIter(node);
+		assertEquals(expected, actual);
+	}
 }
