@@ -322,10 +322,7 @@ public class TreesProblemsEasyTest extends TreeTestsBase {
 
 	static Stream<Arguments> source_tree2str() {
 		return Stream.of(arguments(new int[] { 1, 2, 3, 4 }, "1(2(4))(3)"),
-				arguments(new int[] { 1, 2, 3, -666, 4 }, "1(2()(4))(3)"), arguments(new int[] { 1 }, "1")
-
-		// new int[] { 3, 2, -666, 1 })
-		);
+				arguments(new int[] { 1, 2, 3, -666, 4 }, "1(2()(4))(3)"), arguments(new int[] { 1 }, "1"));
 	}
 
 	@ParameterizedTest
@@ -342,5 +339,28 @@ public class TreesProblemsEasyTest extends TreeTestsBase {
 		TreeNode node = createTreeNodes(array);
 		var actual = TreesProblemsEasy.tree2strIter(node);
 		assertEquals(expected, actual);
+	}
+
+	static Stream<Arguments> source_levelOrderBottom() {
+		return Stream.of(arguments(new int[] { 3, 9, 20, -666, -666, 15, 7 }));
+	}
+
+	@ParameterizedTest
+	@MethodSource("source_levelOrderBottom")
+	void test_levelOrderBottom(int[] array) {
+		TreeNode node = createTreeNodes(array);
+		var actual = TreesProblemsEasy.levelOrderBottom(node);
+
+		int[][] expected = new int[3][];
+		expected[0] = new int[] { 15, 7 };
+		expected[1] = new int[] { 9, 20 };
+		expected[2] = new int[] { 3 };
+
+		var actualLength = actual.size() - 1;
+		var expectedLength = expected.length - 1;
+		assertEquals(actualLength, expectedLength);
+		while (actualLength > -1 && expectedLength >= 0) {
+			assertArrayEquals(ArrayListToArray(actual.get(actualLength--)), expected[expectedLength--]);
+		}
 	}
 }
