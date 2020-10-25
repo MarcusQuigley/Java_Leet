@@ -585,4 +585,32 @@ public class TreesProblemsEasy {
 		return sb.substring(1, sb.length() - 1);
 	}
 
+	// https://leetcode.com/problems/binary-tree-level-order-traversal-ii/
+	public static List<List<Integer>> levelOrderBottom(TreeNode root) {
+		List<List<Integer>> result = new ArrayList<List<Integer>>();
+		if (root != null) {
+			Deque<TreeNode> q = new ArrayDeque<>();
+			Stack<List<Integer>> stack = new Stack<>();
+			q.add(root);
+			while (!q.isEmpty()) {
+				var count = q.size();
+				List<Integer> list = new ArrayList<Integer>(count);
+				for (int i = 0; i < count; i++) {
+					var node = q.poll();
+					list.add(node.val);
+					if (node.left != null)
+						q.add(node.left);
+					if (node.right != null)
+						q.add(node.right);
+				}
+				stack.push(list);
+
+			}
+			while (!stack.isEmpty())
+				result.add(stack.pop());
+		}
+		return result;
+
+	}
+
 }
