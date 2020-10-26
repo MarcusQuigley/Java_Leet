@@ -495,7 +495,40 @@ public class TreesProblemsEasy {
 		node.left = sortedArrayToBSTWorker(nums, low, mid - 1);
 		node.right = sortedArrayToBSTWorker(nums, mid + 1, high);
 		return node;
+	}
 
+	public static TreeNode sortedArrayToBSTIter(int[] nums) {
+		if (nums == null || nums.length == 0)
+			return null;
+
+		Deque<Integer> qLow = new ArrayDeque<>();
+		Deque<Integer> qHigh = new ArrayDeque<>();
+		Deque<TreeNode> q = new ArrayDeque<>();
+		TreeNode root = new TreeNode(0);
+
+		qLow.add(0);
+		qHigh.add(nums.length - 1);
+		q.add(root);
+		while (!q.isEmpty()) {
+			var l = qLow.remove();
+			var h = qHigh.remove();
+			int mid = l + (h - l) / 2;
+			var node = q.remove();
+			node.val = nums[mid];
+			if (l <= mid - 1) {
+				node.left = new TreeNode(0);
+				qLow.add(l);
+				qHigh.add(mid - 1);
+				q.add(node.left);
+			}
+			if (h >= mid + 1) {
+				node.right = new TreeNode(0);
+				qLow.add(mid + 1);
+				qHigh.add(h);
+				q.add(node.right);
+			}
+		}
+		return root;
 	}
 
 	// https://leetcode.com/problems/two-sum-iv-input-is-a-bst/
@@ -505,7 +538,6 @@ public class TreesProblemsEasy {
 
 		TreeNode current = root;
 		List<Integer> list = new ArrayList<>();
-		// Map<Integer, Integer> map = new HashMap<>();
 		Stack<TreeNode> stack = new Stack<>();
 		while (!stack.isEmpty() || current != null) {
 			while (current != null) {
@@ -514,15 +546,9 @@ public class TreesProblemsEasy {
 			}
 			current = stack.pop();
 			list.add(current.val);
-//			if (map.containsKey(k - current.val))
-//				return true;
-//			if (!map.containsKey(current.val))
-//				map.put(current.val, current.val);
 			current = current.right;
-
 		}
 		return findTargetWorker(list, k);
-		// return false;
 	}
 
 	static boolean findTargetWorker(List<Integer> list, int k) {
