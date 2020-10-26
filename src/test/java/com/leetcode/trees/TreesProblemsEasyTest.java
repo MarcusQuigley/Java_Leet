@@ -370,4 +370,20 @@ public class TreesProblemsEasyTest extends TreeTestsBase {
 			assertArrayEquals(ArrayListToArray(actual.get(actualLength--)), expected[expectedLength--]);
 		}
 	}
+
+	static Stream<Arguments> source_isSameTree() {
+		return Stream.of(arguments(new int[] { 1, 2, 3 }, new int[] { 1, 2, 3 }, true),
+				arguments(new int[] { 1, 2 }, new int[] { 1, -666, 2 }, false),
+				arguments(new int[] { 1, 1 }, new int[] { 1, -666, 1 }, false));
+	}
+
+	@ParameterizedTest
+	@MethodSource("source_isSameTree")
+	void test_isSameTree(int[] array1, int[] array2, boolean expected) {
+		TreeNode node1 = createTreeNodes(array1);
+		TreeNode node2 = createTreeNodes(array2);
+		var actual = TreesProblemsEasy.isSameTree(node1, node2);
+		assertEquals(expected, actual);
+	}
+
 }
