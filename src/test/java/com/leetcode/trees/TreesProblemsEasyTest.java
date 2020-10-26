@@ -305,6 +305,13 @@ public class TreesProblemsEasyTest extends TreeTestsBase {
 		assertArrayEquals(expected, ArrayFromTree(actual));
 	}
 
+	@ParameterizedTest
+	@MethodSource("source_sortedArrayToBST")
+	void test_sortedArrayToBSTIter(int[] array, int[] expected) {
+		var actual = TreesProblemsEasy.sortedArrayToBSTIter(array);
+		assertArrayEquals(expected, ArrayFromTree(actual));
+	}
+
 	static Stream<Arguments> source_findTarget() {
 		return Stream.of(arguments(new int[] { 5, 3, 6, 2, 4, -666, 7 }, 28, false),
 				arguments(new int[] { 5, 3, 6, 2, 4, -666, 7 }, 9, true), arguments(new int[] { 1 }, 2, false)
