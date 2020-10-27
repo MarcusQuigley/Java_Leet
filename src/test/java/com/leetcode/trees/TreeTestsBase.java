@@ -25,6 +25,10 @@ public class TreeTestsBase {
 		return node;
 	}
 
+	public String[] ArrayListToArrayString(List<String> list) {
+		return list.stream().toArray(String[]::new);
+	}
+
 	public int[] ArrayListToArray(List<Integer> list) {
 		return list.stream().mapToInt(i -> i).toArray();
 //        int[] result = new int[list.size()];

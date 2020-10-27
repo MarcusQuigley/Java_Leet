@@ -1,11 +1,13 @@
 package com.leetcode.trees;
 
+import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.Queue;
 import java.util.Set;
 import java.util.Stack;
@@ -647,4 +649,59 @@ public class TreesProblemsEasy {
 
 		return p.val == q.val && isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
 	}
+
+	// https://leetcode.com/problems/binary-tree-paths/
+	public static List<String> binaryTreePaths(TreeNode root) {
+		List<String> result = new ArrayList<>();
+		if (root != null)
+			binaryTreePathsWorker(root, result, new StringBuilder()); // "");
+		return result;
+
+	}
+
+	static void binaryTreePathsWorker(TreeNode root, List<String> result, StringBuilder sb) {
+		if (root == null)
+			return;
+		var len = sb.length();
+		// s = s + root.val + "->";
+		sb.append(root.val);
+
+		if (root.left == null && root.right == null)
+			result.add(sb.toString());// s.substring(0, s.length() - 2));
+		else {
+			sb.append("->");
+			binaryTreePathsWorker(root.left, result, sb);
+			binaryTreePathsWorker(root.right, result, sb);
+		}
+		sb.setLength(len);
+	}
+
+	public static List<String> binaryTreePathsIter(TreeNode root) {
+		List<String> result = new ArrayList<>();
+		if (root == null)
+			return result;
+		StringBuilder sb = new StringBuilder();
+		Stack<Entry<TreeNode, Integer>> stack = new Stack<>();
+		stack.push(new SimpleEntry<>(root, 0));
+		while (!stack.isEmpty()) {
+			var curKvp = stack.pop();
+			var current = curKvp.getKey();
+			sb.setLength(curKvp.getValue());
+			sb.append(current.val);
+
+			if (current.left == null && current.right == null) {
+				result.add(sb.toString());
+
+			} else {
+				sb.append("->");
+				var len = sb.length();
+				if (current.right != null)
+					stack.push(new SimpleEntry<>(current.right, len));
+				if (current.left != null)
+					stack.push(new SimpleEntry<>(current.left, len));
+			}
+		}
+		return result;
+	}
+
 }
