@@ -704,4 +704,51 @@ public class TreesProblemsEasy {
 		return result;
 	}
 
+	// https://leetcode.com/problems/minimum-absolute-difference-in-bst/
+	public static int getMinimumDifferenceIter(TreeNode root) {
+		if (root == null)
+			return 0;
+		int min = Integer.MAX_VALUE;
+		Integer prev = null;
+		// boolean poppedTwice = false;
+		Stack<TreeNode> stack = new Stack<>();
+		var current = root;
+		while (!stack.isEmpty() || current != null) {
+			while (current != null) {
+				stack.push(current);
+				current = current.left;
+			}
+			current = stack.pop();
+			if (prev != null) {
+				min = Math.min(min, Math.abs(prev - current.val));
+			}
+			prev = current.val;
+			current = current.right;
+		}
+		return min;
+	}
+
+	static int min_getMinimumDifference = Integer.MAX_VALUE;
+	static Integer prev_getMinimumDifference = null;
+
+	public static int getMinimumDifference(TreeNode root) {
+		if (root == null)
+			return 0;
+		getMinimumDifferenceWorker(root);
+		return min_getMinimumDifference;
+	}
+
+	static void getMinimumDifferenceWorker(TreeNode root) {
+		if (root == null)
+			return;
+
+		getMinimumDifferenceWorker(root.left);
+		if (prev_getMinimumDifference != null)
+			min_getMinimumDifference = Math.min(min_getMinimumDifference,
+					Math.abs(root.val - prev_getMinimumDifference));
+		prev_getMinimumDifference = root.val;
+
+		getMinimumDifferenceWorker(root.right);
+	}
+
 }

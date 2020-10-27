@@ -410,4 +410,26 @@ public class TreesProblemsEasyTest extends TreeTestsBase {
 		assertArrayEquals(expected, actualAsArray);
 	}
 
+	static Stream<Arguments> source_getMinimumDifference() {
+		return Stream.of(arguments(new int[] { 1, -666, 3, -666, -666, -666, 2 }, 1));
+	}
+
+	@ParameterizedTest
+	@MethodSource("source_getMinimumDifference")
+	void test_getMinimumDifferenceIter(int[] array, int expected) {
+		TreeNode node = createTreeNodes(array);
+		var actual = TreesProblemsEasy.getMinimumDifferenceIter(node);
+
+		assertEquals(expected, actual);
+	}
+
+	@ParameterizedTest
+	@MethodSource("source_getMinimumDifference")
+	void test_getMinimumDifference(int[] array, int expected) {
+		TreeNode node = createTreeNodes(array);
+		var actual = TreesProblemsEasy.getMinimumDifference(node);
+
+		assertEquals(expected, actual);
+	}
+
 }
