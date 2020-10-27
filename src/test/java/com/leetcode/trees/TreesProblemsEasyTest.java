@@ -386,4 +386,28 @@ public class TreesProblemsEasyTest extends TreeTestsBase {
 		assertEquals(expected, actual);
 	}
 
+	static Stream<Arguments> source_binaryTreePaths() {
+		return Stream.of(arguments(new int[] { 1, 2, 3 }, new String[] { "1->2", "1->3" }),
+				arguments(new int[] { 1, 2, 3, -666, 5 }, new String[] { "1->2->5", "1->3" }),
+				arguments(new int[] { 1, 2, 3, 5, 6 }, new String[] { "1->2->5", "1->2->6", "1->3" }));
+	}
+
+	@ParameterizedTest
+	@MethodSource("source_binaryTreePaths")
+	void test_isSameTree(int[] array, String[] expected) {
+		TreeNode node = createTreeNodes(array);
+		var actual = TreesProblemsEasy.binaryTreePaths(node);
+		var actualAsArray = ArrayListToArrayString(actual);
+		assertArrayEquals(expected, actualAsArray);
+	}
+
+	@ParameterizedTest
+	@MethodSource("source_binaryTreePaths")
+	void test_binaryTreePathsIter(int[] array, String[] expected) {
+		TreeNode node = createTreeNodes(array);
+		var actual = TreesProblemsEasy.binaryTreePathsIter(node);
+		var actualAsArray = ArrayListToArrayString(actual);
+		assertArrayEquals(expected, actualAsArray);
+	}
+
 }
