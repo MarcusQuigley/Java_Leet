@@ -478,4 +478,21 @@ public class TreesProblemsEasyTest extends TreeTestsBase {
 
 		assertEquals(expected, actual.val);
 	}
+
+	static Stream<Arguments> source_closestValueIter() {
+		return Stream.of(arguments(new int[] { 4, 3, 5, 1, 3 }, 3.714286, 4)
+//				arguments(new int[] { 6, 2, 8, 0, 4, 7, 9, -666, -666, 3, 5 }, 2, 4, 2),
+//				arguments(new int[] { 2, 1 }, 2, 1, 2)
+		);
+	}
+
+	@ParameterizedTest
+	@MethodSource("source_closestValueIter")
+	void test_closestValueIter(int[] array, double target, int expected) {
+		TreeNode node = createTreeNodes(array);
+		var actual = TreesProblemsEasy.closestValueIter(node, target);
+
+		assertEquals(expected, actual);
+	}
+
 }

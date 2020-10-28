@@ -815,4 +815,28 @@ public class TreesProblemsEasy {
 
 		return null;
 	}
+
+	// https://leetcode.com/problems/closest-binary-search-tree-value/
+	// static int closestCV=0;
+	public static int closestValueIter(TreeNode root, double target) {
+		if (root == null)
+			return 0;
+		Stack<TreeNode> stack = new Stack<>();
+		var current = root;
+		double minDiff = Double.MAX_VALUE;
+		int result = 0;
+		while (!stack.isEmpty() || current != null) {
+			while (current != null) {
+				stack.push(current);
+				current = current.left;
+			}
+			current = stack.pop();
+			if (Math.abs(target - (current.val * 1.0D)) < minDiff) {
+				minDiff = Math.abs(target - (current.val * 1.0D));
+				result = current.val;
+			}
+			current = current.right;
+		}
+		return result;
+	}
 }
