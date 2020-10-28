@@ -782,4 +782,37 @@ public class TreesProblemsEasy {
 		}
 		return sum;
 	}
+
+	// https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/
+	public static TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+		if (root == null)
+			return null;
+		if ((p.val <= root.val && q.val >= root.val) || (p.val >= root.val && q.val <= root.val))
+			return root;
+		if (p.val <= root.val)
+			return lowestCommonAncestor(root.left, p, q);
+		else
+			return lowestCommonAncestor(root.right, p, q);
+	}
+
+	public static TreeNode lowestCommonAncestorIter(TreeNode root, TreeNode p, TreeNode q) {
+		if (root == null)
+			return null;
+		Stack<TreeNode> stack = new Stack<>();
+		stack.push(root);
+
+		while (!stack.isEmpty()) {
+			var current = stack.pop();
+			if (p.val > current.val && q.val > current.val)
+				stack.push(current.right);
+
+			if (p.val < current.val && q.val < current.val)
+				stack.push(current.left);
+			else
+				return current;
+
+		}
+
+		return null;
+	}
 }

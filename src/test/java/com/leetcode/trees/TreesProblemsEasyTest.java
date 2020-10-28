@@ -455,4 +455,27 @@ public class TreesProblemsEasyTest extends TreeTestsBase {
 		assertEquals(expected, actual);
 	}
 
+	static Stream<Arguments> source_lowestCommonAncestor() {
+		return Stream.of(arguments(new int[] { 6, 2, 8, 0, 4, 7, 9, -666, -666, 3, 5 }, 2, 8, 6),
+				arguments(new int[] { 6, 2, 8, 0, 4, 7, 9, -666, -666, 3, 5 }, 2, 4, 2),
+				arguments(new int[] { 2, 1 }, 2, 1, 2));
+	}
+
+	@ParameterizedTest
+	@MethodSource("source_lowestCommonAncestor")
+	void test_lowestCommonAncestor(int[] array, int p, int q, int expected) {
+		TreeNode node = createTreeNodes(array);
+		var actual = TreesProblemsEasy.lowestCommonAncestor(node, new TreeNode(p), new TreeNode(q));
+
+		assertEquals(expected, actual.val);
+	}
+
+	@ParameterizedTest
+	@MethodSource("source_lowestCommonAncestor")
+	void test_lowestCommonAncestorIter(int[] array, int p, int q, int expected) {
+		TreeNode node = createTreeNodes(array);
+		var actual = TreesProblemsEasy.lowestCommonAncestorIter(node, new TreeNode(p), new TreeNode(q));
+
+		assertEquals(expected, actual.val);
+	}
 }
