@@ -432,4 +432,27 @@ public class TreesProblemsEasyTest extends TreeTestsBase {
 		assertEquals(expected, actual);
 	}
 
+	static Stream<Arguments> source_sumOfLeftLeaves() {
+		return Stream.of(arguments(new int[] { 1, 9, 20, -666, -666, 15, 7 }, 24),
+				arguments(new int[] { 1, 2, 3, 4, 5 }, 4));
+	}
+
+	@ParameterizedTest
+	@MethodSource("source_sumOfLeftLeaves")
+	void test_sumOfLeftLeaves(int[] array, int expected) {
+		TreeNode node = createTreeNodes(array);
+		var actual = TreesProblemsEasy.sumOfLeftLeaves(node);
+
+		assertEquals(expected, actual);
+	}
+
+	@ParameterizedTest
+	@MethodSource("source_sumOfLeftLeaves")
+	void test_sumOfLeftLeavesIter(int[] array, int expected) {
+		TreeNode node = createTreeNodes(array);
+		var actual = TreesProblemsEasy.sumOfLeftLeavesIter(node);
+
+		assertEquals(expected, actual);
+	}
+
 }

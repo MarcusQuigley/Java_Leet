@@ -728,14 +728,14 @@ public class TreesProblemsEasy {
 		return min;
 	}
 
-	static int min_getMinimumDifference = Integer.MAX_VALUE;
-	static Integer prev_getMinimumDifference = null;
+	static int min_gmd = Integer.MAX_VALUE;
+	static Integer prev_gmd = null;
 
 	public static int getMinimumDifference(TreeNode root) {
 		if (root == null)
 			return 0;
 		getMinimumDifferenceWorker(root);
-		return min_getMinimumDifference;
+		return min_gmd;
 	}
 
 	static void getMinimumDifferenceWorker(TreeNode root) {
@@ -743,12 +743,43 @@ public class TreesProblemsEasy {
 			return;
 
 		getMinimumDifferenceWorker(root.left);
-		if (prev_getMinimumDifference != null)
-			min_getMinimumDifference = Math.min(min_getMinimumDifference,
-					Math.abs(root.val - prev_getMinimumDifference));
-		prev_getMinimumDifference = root.val;
+		if (prev_gmd != null)
+			min_gmd = Math.min(min_gmd, Math.abs(root.val - prev_gmd));
+		prev_gmd = root.val;
 
 		getMinimumDifferenceWorker(root.right);
 	}
 
+	// https://leetcode.com/problems/sum-of-left-leaves/
+	public static int sumOfLeftLeaves(TreeNode root) {
+		if (root == null)
+			return 0;
+
+		int l = sumOfLeftLeaves(root.left);
+		int r = sumOfLeftLeaves(root.right);
+		return l + r + (root.left != null && root.left.left == null && root.left.right == null ? root.left.val : 0);
+	}
+
+	public static int sumOfLeftLeavesIter(TreeNode root) {
+		if (root == null)
+			return 0;
+		int sum = 0;
+//		Stack<Entry<TreeNode, Boolean>> stack = new Stack<>();
+//		stack.push(new SimpleEntry<>(root, false));
+		Stack<TreeNode> stack = new Stack<>();
+		stack.push(root);
+
+		while (!stack.isEmpty()) {
+			var current = stack.pop();
+			if (current.left != null && current.left.left == null && current.left.right == null)
+				// if (curKvp.getValue() == true && current.left == null && current.right ==
+				// null)
+				sum += current.left.val;
+			if (current.left != null)
+				stack.push(current.left);
+			if (current.right != null)
+				stack.push(current.right);
+		}
+		return sum;
+	}
 }
