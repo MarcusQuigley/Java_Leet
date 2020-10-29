@@ -515,4 +515,25 @@ public class TreesProblemsEasyTest extends TreeTestsBase {
 		assertEquals(expected, actual);
 	}
 
+	static Stream<Arguments> source_isSymmetric() {
+		return Stream.of(arguments(new int[] { 1, 2, 2, 3, 4, 4, 3 }, true),
+				arguments(new int[] { 1, 2, 2, 4, 5, 5 }, false),
+				arguments(new int[] { 1, 2, 2, -666, 4, 4, -666 }, true));
+	}
+
+	@ParameterizedTest
+	@MethodSource("source_isSymmetric")
+	void test_isSymmetric(int[] array, boolean expected) {
+		TreeNode node = createTreeNodes(array);
+		var actual = sut.isSymmetric(node);
+		assertEquals(expected, actual);
+	}
+
+	@ParameterizedTest
+	@MethodSource("source_isSymmetric")
+	void test_isSymmetricIter(int[] array, boolean expected) {
+		TreeNode node = createTreeNodes(array);
+		var actual = sut.isSymmetricIter(node);
+		assertEquals(expected, actual);
+	}
 }

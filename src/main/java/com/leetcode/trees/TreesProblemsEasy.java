@@ -857,4 +857,41 @@ public class TreesProblemsEasy {
 		return Math.max(l, r) + 1;
 	}
 
+	public boolean isSymmetric(TreeNode root) {
+		if (root == null)
+			return true;
+		return isSymmetricWorker(root.left, root.right);
+	}
+
+	private boolean isSymmetricWorker(TreeNode left, TreeNode right) {
+		if (left == null && right == null)
+			return true;
+		if (left == null || right == null)
+			return false;
+		var l = isSymmetricWorker(left.left, right.right);
+		var r = isSymmetricWorker(left.right, right.left);
+		return l && r && left.val == right.val;
+	}
+
+	public boolean isSymmetricIter(TreeNode root) {
+		if (root == null)
+			return true;
+		Queue<TreeNode> q = new LinkedList<>();
+		q.add(root.left);
+		q.add(root.right);
+		while (!q.isEmpty()) {
+			var l = q.poll();
+			var r = q.poll();
+			if (l == null && r == null)
+				continue;
+			if (l == null || r == null || l.val != r.val)
+				return false;
+			q.add(l.left);
+			q.add(r.right);
+			q.add(l.right);
+			q.add(r.left);
+		}
+		return true;
+	}
+
 }
