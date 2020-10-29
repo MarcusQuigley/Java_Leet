@@ -18,6 +18,12 @@ import com.leetcode.datastructures.TreeNode;
 
 public class TreesProblemsEasyTest extends TreeTestsBase {
 
+	TreesProblemsEasy sut;
+
+	public TreesProblemsEasyTest() {
+		sut = new TreesProblemsEasy();
+	}
+
 	static Stream<Arguments> source_rangeSumBST() {
 		return Stream.of(arguments(new int[] { 1, 5, 7 }, 3, 5, 5), arguments(new int[] { 3, 5, 7, 10, 15 }, 7, 15, 32),
 				arguments(new int[] { 1, 3, 5, 7, 10, 13, 15, 18 }, 6, 10, 17));
@@ -492,6 +498,20 @@ public class TreesProblemsEasyTest extends TreeTestsBase {
 		TreeNode node = createTreeNodes(array);
 		var actual = TreesProblemsEasy.closestValueIter(node, target);
 
+		assertEquals(expected, actual);
+	}
+
+	static Stream<Arguments> source_diameterOfBinaryTree() {
+		return Stream.of(arguments(new int[] { 1, 2 }, 1), arguments(new int[] { 1, 2, 3, 4, 5 }, 3)
+//				arguments(new int[] { 2, 1 }, 2, 1, 2)
+		);
+	}
+
+	@ParameterizedTest
+	@MethodSource("source_diameterOfBinaryTree")
+	void test_diameterOfBinaryTree(int[] array, int expected) {
+		TreeNode node = createTreeNodes(array);
+		var actual = TreesProblemsEasy.diameterOfBinaryTree(node);
 		assertEquals(expected, actual);
 	}
 

@@ -839,4 +839,22 @@ public class TreesProblemsEasy {
 		}
 		return result;
 	}
+
+	// static int max_dobt;
+
+	public static int diameterOfBinaryTree(TreeNode root) {
+		int[] ans = new int[] { Integer.MIN_VALUE };
+		diameterOfBinaryTreeWorker(root, ans);
+		return ans[0];
+	}
+
+	static int diameterOfBinaryTreeWorker(TreeNode root, int[] maxValues) {
+		if (root == null)
+			return 0;
+		var l = diameterOfBinaryTreeWorker(root.left, maxValues);
+		var r = diameterOfBinaryTreeWorker(root.right, maxValues);
+		maxValues[0] = Math.max(maxValues[0], l + r);
+		return Math.max(l, r) + 1;
+	}
+
 }
