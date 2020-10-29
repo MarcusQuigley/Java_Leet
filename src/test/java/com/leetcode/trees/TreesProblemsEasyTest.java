@@ -536,4 +536,20 @@ public class TreesProblemsEasyTest extends TreeTestsBase {
 		var actual = sut.isSymmetricIter(node);
 		assertEquals(expected, actual);
 	}
+
+	static Stream<Arguments> source_isSubtree() {
+		return Stream.of(arguments(new int[] { 4, 1, 2 }, new int[] { 4, 1, 2 }, true),
+				arguments(new int[] { 1 }, new int[] { 1 }, true),
+				arguments(new int[] { 3, 4, 5, 1, 2 }, new int[] { 4, 1, 2 }, true));
+	}
+
+	@ParameterizedTest
+	@MethodSource("source_isSubtree")
+	void test_isSubtree(int[] array, int[] array2, boolean expected) {
+		TreeNode node = createTreeNodes(array);
+		TreeNode node2 = createTreeNodes(array2);
+		var actual = sut.isSubtree(node, node2);
+		assertEquals(expected, actual);
+	}
+
 }
