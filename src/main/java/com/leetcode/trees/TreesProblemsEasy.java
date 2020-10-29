@@ -894,4 +894,24 @@ public class TreesProblemsEasy {
 		return true;
 	}
 
+	// https://leetcode.com/problems/subtree-of-another-tree/
+	public boolean isSubtree(TreeNode s, TreeNode t) {
+		if (s == null)
+			return false;
+		if (isSubtreeWorker(s, t))
+			return true;
+
+		return isSubtree(s.left, t.left) || isSubtree(s.right, t.right);
+	}
+
+	boolean isSubtreeWorker(TreeNode t1, TreeNode t2) {
+		if (t1 == null && t2 == null)
+			return true;
+		if (t1 == null || t2 == null)
+			return false;
+		if (t1.val != t2.val)
+			return false;
+		return isSubtreeWorker(t1.left, t2.left) && isSubtreeWorker(t1.right, t2.right);
+	}
+
 }
