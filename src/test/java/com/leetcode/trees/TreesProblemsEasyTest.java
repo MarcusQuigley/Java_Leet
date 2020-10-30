@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -544,11 +545,27 @@ public class TreesProblemsEasyTest extends TreeTestsBase {
 	}
 
 	@ParameterizedTest
+	@Disabled
 	@MethodSource("source_isSubtree")
 	void test_isSubtree(int[] array, int[] array2, boolean expected) {
 		TreeNode node = createTreeNodes(array);
 		TreeNode node2 = createTreeNodes(array2);
 		var actual = sut.isSubtree(node, node2);
+		assertEquals(expected, actual);
+	}
+
+	static Stream<Arguments> source_hasPathSum() {
+		return Stream.of(arguments(new int[] { 5, 4, 8, 11, -666, 13, 4, 7, 2, -666, -666, -666, 1 }, 22, true),
+				arguments(new int[] { 1 }, 3, false), arguments(new int[] {}, 0, false),
+				arguments(new int[] { 1, 2 }, 1, false));
+	}
+
+	@ParameterizedTest
+	@MethodSource("source_hasPathSum")
+	void test_hasPathSum(int[] array, int sum, boolean expected) {
+		TreeNode node = createTreeNodes(array);
+
+		var actual = sut.hasPathSum(node, sum);
 		assertEquals(expected, actual);
 	}
 
