@@ -1,7 +1,9 @@
 package com.leetcode.trees;
 
 import java.util.AbstractMap.SimpleEntry;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map.Entry;
@@ -36,10 +38,51 @@ public class TreeProblemsInterviewCake {
 					q.add(new SimpleEntry<TreeNode, Integer>(node.right, current.getValue() + 1));
 			}
 		}
-		// if (heap.size() <= 2) {
-		if (list.size() == 1)
+		return (list.size() == 1) ? true : Math.abs(list.get(0) - list.get(1)) == 1;
+	}
+
+	public boolean validBST(TreeNode root) {
+		return validBSTWorker(root, Integer.MIN_VALUE, Integer.MAX_VALUE);
+
+	}
+
+	boolean validBSTWorker(TreeNode root, int lower, int upper) {
+		if (root == null)
 			return true;
-		else
-			return Math.abs(list.get(0) - list.get(1)) == 1;
+		if (root.val < lower || root.val > upper)
+			return false;
+		return validBSTWorker(root.left, lower, root.val) && validBSTWorker(root.right, root.val, upper);
+	}
+
+	public boolean validBSTIter(TreeNode root) {
+		if (root == null)
+			return true;
+		Deque<NodeBound> stack = new ArrayDeque<>();
+		stack.push(new NodeBound(root, Integer.MIN_VALUE, Integer.MAX_VALUE));
+		while (!stack.isEmpty()) {
+			var c = stack.pop();
+			if (c.node.val < c.lowerBound || c.node.val > c.upperBound)
+				return false;
+			if (c.node.left != null)
+				stack.push(new NodeBound(c.node.left, c.lowerBound, c.node.val));
+			if (c.node.right != null)
+				stack.push(new NodeBound(c.node.right, c.node.val, c.upperBound));
+		}
+		return true;
+	}
+
+	class NodeBound {
+		public TreeNode node;
+		public int lowerBound;
+		public int upperBound;
+
+		public NodeBound() {
+		}
+
+		public NodeBound(TreeNode node, int lbound, int ubound) {
+			this.node = node;
+			this.lowerBound = lbound;
+			this.upperBound = ubound;
+		}
 	}
 }
