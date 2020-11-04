@@ -326,13 +326,37 @@ public class TreesProblemsEasyTest extends TreeTestsBase {
 		);
 	}
 
+//	@ParameterizedTest
+//	@MethodSource("source_findTarget")
+//	void test_findTarget(int[] array, int k, boolean expected) {
+//		TreeNode node = createTreeNodes(array);
+//		var actual = TreesProblemsEasy.findTarget(node, k);
+//		assertEquals(expected, actual);
+//	}
+
 	@ParameterizedTest
 	@MethodSource("source_findTarget")
-	void test_findTarget(int[] array, int k, boolean expected) {
+	void test_findTargetIter1(int[] array, int k, boolean expected) {
 		TreeNode node = createTreeNodes(array);
-		var actual = TreesProblemsEasy.findTarget(node, k);
+		var actual = TreesProblemsEasy.findTargetIter1(node, k);
 		assertEquals(expected, actual);
 	}
+
+	@ParameterizedTest
+	@MethodSource("source_findTarget")
+	void test_findTargetIter2(int[] array, int k, boolean expected) {
+		TreeNode node = createTreeNodes(array);
+		var actual = TreesProblemsEasy.findTargetIter2(node, k);
+		assertEquals(expected, actual);
+	}
+
+//	@ParameterizedTest
+//	@MethodSource("source_findTarget")
+//	void test_findTargetIter3(int[] array, int k, boolean expected) {
+//		TreeNode node = createTreeNodes(array);
+//		var actual = TreesProblemsEasy.findTargetIterBEST(node, k);
+//		assertEquals(expected, actual);
+//	}
 
 	static Stream<Arguments> source_tree2str() {
 		return Stream.of(arguments(new int[] { 1, 2, 3, 4 }, "1(2(4))(3)"),
