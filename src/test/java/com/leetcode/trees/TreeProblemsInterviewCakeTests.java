@@ -54,4 +54,28 @@ public class TreeProblemsInterviewCakeTests extends TreeTestsBase {
 		assertEquals(expected, actual);
 	}
 
+	static Stream<Arguments> source_test_kthElementIter() {
+		return Stream.of(arguments(new int[] { 1, 2, 3, 4, 5 }, 2, 2), arguments(new int[] { 3, 1, 4, -666, 2 }, 1, 1),
+				arguments(new int[] { 5, 3, 6, 2, 4, -666, -666, 1 }, 1, 1)
+//				arguments(new int[] { 10, 23, 15, -666, 17 }, false)
+
+		);
+	}
+
+	@ParameterizedTest
+	@MethodSource("source_test_ValidBSTIter")
+	void test_ValidBST(int[] array, int k, int expected) {
+		TreeNode root = super.createTreeNodes(array);
+		boolean actual = sut.validBST(root);
+		assertEquals(expected, actual);
+	}
+
+	@ParameterizedTest
+	@MethodSource("source_test_kthElementIter")
+	void test_kthElementIter(int[] array, int k, int expected) {
+		TreeNode root = super.createTreeNodes(array);
+		int actual = sut.kthElementIter(root, k);
+		assertEquals(expected, actual);
+	}
+
 }

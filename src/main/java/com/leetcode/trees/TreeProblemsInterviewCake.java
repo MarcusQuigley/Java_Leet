@@ -85,4 +85,36 @@ public class TreeProblemsInterviewCake {
 			this.upperBound = ubound;
 		}
 	}
+
+	public int kthElement(TreeNode root, int k) {
+		if (root == null)
+			return -1;
+		kthElement(root.left, k);
+		if (k-- == 0)
+			return root.val;
+		kthElement(root.right, k);
+		// List<Integer> list = new ArrayList<>(k);
+
+		return -1;
+	}
+
+	public int kthElementIter(TreeNode root, int k) {
+		if (root == null)
+			return -1;
+		List<Integer> list = new ArrayList<>();
+		Deque<TreeNode> q = new ArrayDeque<>();
+		var current = root;
+		while (!q.isEmpty() || current != null) {
+			while (current != null) {
+				q.add(current);
+				current = current.left;
+			}
+			current = q.poll();
+			list.add(current.val);
+			// if (k-- == 0)
+			// return current.val;
+			current = current.right;
+		}
+		return k < list.size() - 1 ? list.get(list.size() - k) : -1;
+	}
 }
