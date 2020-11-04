@@ -534,7 +534,7 @@ public class TreesProblemsEasy {
 	}
 
 	// https://leetcode.com/problems/two-sum-iv-input-is-a-bst/
-	public static boolean findTarget(TreeNode root, int k) {
+	public static boolean findTargetIter1(TreeNode root, int k) {
 		if (root == null)
 			return false;
 
@@ -570,17 +570,35 @@ public class TreesProblemsEasy {
 		return false;
 	}
 
+	public static boolean findTargetIter2(TreeNode root, int k) {
+		Set<Integer> set = new HashSet<>();
+		Queue<TreeNode> q = new LinkedList<>();
+		q.add(root);
+		while (!q.isEmpty()) {
+			if (q.peek() != null) {
+				TreeNode current = q.poll();
+				if (set.contains(k - current.val))
+					return true;
+				set.add(current.val);
+				q.add(current.left);
+				q.add(current.right);
+			} else
+				q.poll();
+		}
+		return false;
+	}
+
+	 
+
 	// https://leetcode.com/problems/construct-string-from-binary-tree/
 	public static String tree2str(TreeNode t) {
 		if (t == null) {
 			return "";
 		}
 		if (t.left == null && t.right == null)
-			return t.val + "";// .toString();// new String(t.val);
+			return t.val + "";
 		if (t.right == null)
 			return "" + t.val + "(" + tree2str(t.left) + ")";
-		// if (t.left == null)
-		// return "" + t.val + "()(" + tree2str(t.right) + ")";
 		return "" + t.val + "(" + tree2str(t.left) + ")(" + tree2str(t.right) + ")";
 	}
 
