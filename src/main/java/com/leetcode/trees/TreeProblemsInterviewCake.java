@@ -8,6 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Queue;
+import java.util.Stack;
 
 import com.leetcode.datastructures.TreeNode;
 
@@ -86,35 +87,90 @@ public class TreeProblemsInterviewCake {
 		}
 	}
 
-	public int kthElement(TreeNode root, int k) {
-		if (root == null)
-			return -1;
-		kthElement(root.left, k);
-		if (k-- == 0)
-			return root.val;
-		kthElement(root.right, k);
-		// List<Integer> list = new ArrayList<>(k);
-
-		return -1;
-	}
+	// public int kthElement(TreeNode root, int k) {
+//		if (root == null)
+//			return -1;
+//		kthElement(root.left, k);
+//		if (k-- == 0)
+//			return root.val;
+//		kthElement(root.right, k);
+//		// List<Integer> list = new ArrayList<>(k);
+//
+//		return -1;
+	// }
+//
+//	public int kthElementIter(TreeNode root, int k) {
+//		if (root == null)
+//			return -1;
+//		List<Integer> list = new ArrayList<>();
+//		Deque<TreeNode> q = new ArrayDeque<>();
+//		var current = root;
+//		while (!q.isEmpty() || current != null) {
+//			while (current != null) {
+//				q.add(current);
+//				current = current.left;
+//			}
+//			current = q.poll();
+//			list.add(current.val);
+//			// if (k-- == 0)
+//			// return current.val;
+//			current = current.right;
+//		}
+//		return k < list.size() - 1 ? list.get(list.size() - k) : -1;
+//	}
 
 	public int kthElementIter(TreeNode root, int k) {
 		if (root == null)
 			return -1;
-		List<Integer> list = new ArrayList<>();
-		Deque<TreeNode> q = new ArrayDeque<>();
-		var current = root;
-		while (!q.isEmpty() || current != null) {
+		Stack<TreeNode> stack = new Stack<>();
+		TreeNode current = root;
+		while (!stack.isEmpty() || current != null) {
 			while (current != null) {
-				q.add(current);
+				stack.push(current);
 				current = current.left;
 			}
-			current = q.poll();
-			list.add(current.val);
-			// if (k-- == 0)
-			// return current.val;
+			current = stack.pop();
+			if (--k == 0)
+				return current.val;
 			current = current.right;
 		}
-		return k < list.size() - 1 ? list.get(list.size() - k) : -1;
+		return -1;
+	}
+
+//	public int kthElement(TreeNode root, int k) {
+//		if (root == null)
+//			return -1;
+//		kthElement(root.left, k);
+//		if (--k == 0)
+//			return root.val;
+//		kthElement(root.right, k);
+//		return -1;
+//	}
+	int kthElementCount = 0;
+	int kthElementResult = 0;
+
+	public int kthElement(TreeNode root, int k) {
+		if (root == null)
+			return -1;
+		kthElementCount = k;
+		List<Integer> list = new ArrayList<>();
+		kthElementWorker(root, k, list);
+		// return (list.size() >= k) ? list.get(k - 1) : -1;
+		return kthElementResult;
+	}
+
+	void kthElementWorker(TreeNode root, int k, List<Integer> list) {
+		if (root == null)
+			return;
+		kthElementWorker(root.left, k, list);
+		list.add(root.val);
+		kthElementCount--;
+		// if (list.size() == k)
+		if (kthElementCount == 0) {
+			kthElementResult = root.val;
+			return;
+		}
+
+		kthElementWorker(root.right, k, list);
 	}
 }

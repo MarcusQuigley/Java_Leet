@@ -63,10 +63,10 @@ public class TreeProblemsInterviewCakeTests extends TreeTestsBase {
 	}
 
 	@ParameterizedTest
-	@MethodSource("source_test_ValidBSTIter")
-	void test_ValidBST(int[] array, int k, int expected) {
+	@MethodSource("source_test_kthElementIter")
+	void test_kthElement(int[] array, int k, int expected) {
 		TreeNode root = super.createTreeNodes(array);
-		boolean actual = sut.validBST(root);
+		int actual = sut.kthElement(root, k);
 		assertEquals(expected, actual);
 	}
 

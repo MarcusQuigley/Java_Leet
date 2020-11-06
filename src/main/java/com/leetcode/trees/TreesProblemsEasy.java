@@ -15,7 +15,7 @@ import java.util.Stack;
 import com.leetcode.datastructures.NaryNode;
 import com.leetcode.datastructures.TreeNode;
 
-import javafx.util.Pair;
+//import javafx.util.Pair;
 
 public class TreesProblemsEasy {
 	// https://leetcode.com/problems/range-sum-of-bst
@@ -221,8 +221,8 @@ public class TreesProblemsEasy {
 		if (root == null)
 			return 0;
 		var sum = 0;
-		Deque<Pair<TreeNode, Integer>> stack = new ArrayDeque<>();
-		stack.push(new Pair<TreeNode, Integer>(root, root.val));
+		Deque<Entry<TreeNode, Integer>> stack = new ArrayDeque<>();
+		stack.push(new SimpleEntry<TreeNode, Integer>(root, root.val));
 		while (!stack.isEmpty()) {
 			var current = stack.pop();
 			var node = current.getKey();
@@ -230,10 +230,10 @@ public class TreesProblemsEasy {
 				sum += current.getValue();
 			else {
 				if (node.left != null)
-					stack.push(new Pair<TreeNode, Integer>(node.left, current.getValue() << 1 | node.left.val));
+					stack.push(new SimpleEntry<TreeNode, Integer>(node.left, current.getValue() << 1 | node.left.val));
 				if (node.right != null)
-					stack.push(new Pair<TreeNode, Integer>(node.right, current.getValue() << 1 | node.right.val));
-			}
+					stack.push(new SimpleEntry<TreeNode, Integer>(node.right, current.getValue() << 1 | node.right.val));
+			} 
 		}
 		return sum;
 	}
@@ -262,13 +262,13 @@ public class TreesProblemsEasy {
 		if (root == null)
 			return 0;
 		int max = 0;
-		Queue<Pair<NaryNode[], Integer>> q = new LinkedList<Pair<NaryNode[], Integer>>();
-		q.add(new Pair<NaryNode[], Integer>(new NaryNode[] { root }, 1));
+		Queue<Entry<NaryNode[], Integer>> q = new LinkedList<>();
+		q.add(new SimpleEntry<NaryNode[], Integer>(new NaryNode[] { root }, 1));
 		while (!q.isEmpty()) {
 			var row = q.remove();
 			for (var n : row.getKey()) {
 				if (n.children.size() > 0)
-					q.add(new Pair<NaryNode[], Integer>(n.children.toArray(new NaryNode[0]), row.getValue() + 1));
+					q.add(new SimpleEntry<NaryNode[], Integer>(n.children.toArray(new NaryNode[0]), row.getValue() + 1));
 				else
 					max = Math.max(max, row.getValue());
 			}
