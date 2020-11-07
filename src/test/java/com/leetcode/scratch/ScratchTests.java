@@ -12,7 +12,6 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import com.leetcode.datastructures.TreeNode;
 import com.leetcode.trees.TreeTestsBase;
-import com.leetcode.trees.TreesProblemsEasy;
 
 public class ScratchTests extends TreeTestsBase {
 
@@ -79,4 +78,38 @@ public class ScratchTests extends TreeTestsBase {
 		assertArrayEquals(expected, actualAsArray);
 	}
 
+	static Stream<Arguments> source_numberOfNodes() {
+		return Stream.of(arguments(new int[] { 1, 2, 3 }, 3), arguments(new int[] { 1, 2, 3, -666, 5 }, 4),
+				arguments(new int[] { 1, 2, 3, 5, 6, 7, 8, 9 }, 8));
+	}
+
+	@ParameterizedTest
+	@MethodSource("source_numberOfNodes")
+	void test_numberOfNodes(int[] array, int expected) {
+		TreeNode node = createTreeNodes(array);
+		var actual = sut.numberOfNodes(node);
+		assertEquals(expected, actual);
+	}
+
+	static Stream<Arguments> source_deepestNode() {
+		return Stream.of(arguments(new int[] { 1, 2 }, 2), arguments(new int[] { 1, 2, 3, -666, 5 }, 5),
+				arguments(new int[] { 1, 2, 9, 5, 6, 7, -666, 3 }, 3),
+				arguments(new int[] { 1, 2, 3, -666, -666, 5, 6, -666, -666, -666, -666, -666, -666, 7, 6 }, 6));
+	}
+
+	@ParameterizedTest
+	@MethodSource("source_deepestNode")
+	void test_deepestNodeIter(int[] array, int expected) {
+		TreeNode node = createTreeNodes(array);
+		var actual = sut.deepestNodeIter(node);
+		assertEquals(expected, actual.val);
+	}
+
+	@ParameterizedTest
+	@MethodSource("source_deepestNode")
+	void test_deepestNode(int[] array, int expected) {
+		TreeNode node = createTreeNodes(array);
+		var actual = sut.deepestNode(node);
+		assertEquals(expected, actual.val);
+	}
 }
