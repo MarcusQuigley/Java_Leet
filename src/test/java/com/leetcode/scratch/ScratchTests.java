@@ -112,4 +112,20 @@ public class ScratchTests extends TreeTestsBase {
 		var actual = sut.deepestNode(node);
 		assertEquals(expected, actual.val);
 	}
+
+	static Stream<Arguments> source_heightBinaryTree() {
+		return Stream.of(arguments(new int[] { 1, 2 }, 2), arguments(new int[] { 1, 2, 3, -666, 5 }, 3),
+				arguments(new int[] { 1, 2, 9, 5, 6, 7, -666, 3 }, 4),
+				arguments(new int[] { 1, 2, 3, -666, -666, 5, 6, -666, -666, -666, -666, -666, -666, -666, 7, -666,
+						-666, -666, -666, -666, -666, -666, -666, -666, -666, -666, -666, -666, -666, -666, 6 }, 5));
+	}
+
+	@ParameterizedTest
+	@MethodSource("source_heightBinaryTree")
+	void test_heightBinaryTree(int[] array, int expected) {
+		TreeNode node = createTreeNodes(array);
+		var actual = sut.heightBinaryTree1(node);
+		assertEquals(expected, actual);
+	}
+
 }
