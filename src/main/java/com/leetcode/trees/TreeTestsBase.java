@@ -104,4 +104,8 @@ public class TreeTestsBase {
 //	java streams. not fixed..	return list.stream().limit(list.lastIndexOf(list.stream().))
 
 	}
+
+	public static TreeNode createTreeNodesStatic(int[] values) {
+		return new TreeTestsBase().createTreeNodes(values);
+	}
 }
