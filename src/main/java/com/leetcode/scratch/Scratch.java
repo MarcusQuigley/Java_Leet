@@ -186,4 +186,34 @@ public class Scratch {
 			deepestNodeWorker(node.right, level, state);
 		}
 	}
+
+	public int heightBinaryTree(TreeNode root) {
+		if (root == null)
+			return 0;
+		var l = heightBinaryTree(root.left);
+		var r = heightBinaryTree(root.right);
+		return Math.max(l, r) + 1;
+	}
+
+	int heighthBT = 0;
+
+	public int heightBinaryTree1(TreeNode root) {
+		if (root == null)
+			return 0;
+		heightBinaryTreeWorker(root, 1);
+		return heighthBT;
+	}
+
+	private void heightBinaryTreeWorker(TreeNode root, int level) {
+		if (root == null)
+			return;
+		if (root.left == null && root.right == null) {
+			heighthBT = Math.max(heighthBT, level);
+			return;
+		} else {
+			level++;
+			heightBinaryTreeWorker(root.left, level);
+			heightBinaryTreeWorker(root.right, level);
+		}
+	}
 }
