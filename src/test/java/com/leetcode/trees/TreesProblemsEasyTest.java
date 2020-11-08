@@ -25,6 +25,27 @@ public class TreesProblemsEasyTest extends TreeTestsBase {
 		sut = new TreesProblemsEasy();
 	}
 
+	static Stream<Arguments> source_heightBinaryTree() {
+		return Stream.of(arguments(new int[] { 1, 5, 7 }, 2), arguments(new int[] { 3, 5, 7, -666, 15 }, 3),
+				arguments(new int[] { 1, 3, 5, 7, 10, 13, 15, 18 }, 4));
+	}
+
+	@ParameterizedTest
+	@MethodSource("source_heightBinaryTree")
+	void test_heightBinaryTree(int[] array, int expected) {
+		TreeNode root = createBstTreeNodes(array);
+		int actual = sut.heightBinaryTree(root);
+		assertEquals(expected, actual);
+	}
+
+	@ParameterizedTest
+	@MethodSource("source_heightBinaryTree")
+	void test_heightBinaryTreeIter(int[] array, int expected) {
+		TreeNode root = createBstTreeNodes(array);
+		int actual = sut.heightBinaryTreeIter(root);
+		assertEquals(expected, actual);
+	}
+
 	static Stream<Arguments> source_rangeSumBST() {
 		return Stream.of(arguments(new int[] { 1, 5, 7 }, 3, 5, 5), arguments(new int[] { 3, 5, 7, 10, 15 }, 7, 15, 32),
 				arguments(new int[] { 1, 3, 5, 7, 10, 13, 15, 18 }, 6, 10, 17));

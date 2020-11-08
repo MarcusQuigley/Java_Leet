@@ -50,6 +50,34 @@ public class TreesProblemsEasy {
 		return acc;
 	}
 
+	public int heightBinaryTree(TreeNode root) {
+		if (root == null)
+			return 0;
+		var l = heightBinaryTree(root.left);
+		var r = heightBinaryTree(root.right);
+		return Math.max(l, r) + 1;
+	}
+
+	public int heightBinaryTreeIter(TreeNode root) {
+		if (root == null)
+			return 0;
+		int height = 0;
+		Queue<TreeNode> q = new LinkedList<>();
+		q.add(root);
+		while (!q.isEmpty()) {
+			var size = q.size();
+			for (int i = 0; i < size; i++) {
+				var current = q.remove();
+				if (current.left != null)
+					q.add(current.left);
+				if (current.right != null)
+					q.add(current.right);
+			}
+			height++;
+		}
+		return height;
+	}
+
 	// https://leetcode.com/problems/find-all-the-lonely-nodes/
 	public static List<Integer> getLonelyNodes(TreeNode root) {
 		if (root == null)
@@ -232,8 +260,9 @@ public class TreesProblemsEasy {
 				if (node.left != null)
 					stack.push(new SimpleEntry<TreeNode, Integer>(node.left, current.getValue() << 1 | node.left.val));
 				if (node.right != null)
-					stack.push(new SimpleEntry<TreeNode, Integer>(node.right, current.getValue() << 1 | node.right.val));
-			} 
+					stack.push(
+							new SimpleEntry<TreeNode, Integer>(node.right, current.getValue() << 1 | node.right.val));
+			}
 		}
 		return sum;
 	}
@@ -268,7 +297,8 @@ public class TreesProblemsEasy {
 			var row = q.remove();
 			for (var n : row.getKey()) {
 				if (n.children.size() > 0)
-					q.add(new SimpleEntry<NaryNode[], Integer>(n.children.toArray(new NaryNode[0]), row.getValue() + 1));
+					q.add(new SimpleEntry<NaryNode[], Integer>(n.children.toArray(new NaryNode[0]),
+							row.getValue() + 1));
 				else
 					max = Math.max(max, row.getValue());
 			}
@@ -587,8 +617,6 @@ public class TreesProblemsEasy {
 		}
 		return false;
 	}
-
-	 
 
 	// https://leetcode.com/problems/construct-string-from-binary-tree/
 	public static String tree2str(TreeNode t) {
