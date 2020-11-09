@@ -4,9 +4,11 @@ import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Queue;
 import java.util.Set;
@@ -76,6 +78,62 @@ public class TreesProblemsEasy {
 			height++;
 		}
 		return height;
+	}
+
+	private class DeepestState {
+		public int level;
+		public TreeNode node;
+
+		public DeepestState(int level, TreeNode node) {
+			this.level = level;
+			this.node = node;
+		}
+	}
+
+	public TreeNode deepestNode(TreeNode root) {
+		if (root == null)
+			return null;
+		DeepestState state = new DeepestState(0, root);
+		deepestNodeWorker(root, 0, state);
+		System.out.println("===========");
+		mapdN.forEach((k, v) -> System.out.println("Node " + k + " level " + v));
+		System.out.println("===========");
+		return state.node;
+	}
+
+	Map<Integer, Integer> mapdN = new HashMap<Integer, Integer>();
+
+	private void deepestNodeWorker(TreeNode node, int level, DeepestState state) {
+		mapdN.put(node.val, level);
+		if (node.left == null && node.right == null) {
+			if (level > state.level) {
+				state.level = level;
+				state.node = node;
+			}
+		} else {
+			level++;
+			if (node.left != null)
+				deepestNodeWorker(node.left, level, state);
+			if (node.right != null)
+				deepestNodeWorker(node.right, level, state);
+		}
+	}
+
+	public TreeNode deepestNodeIter(TreeNode root) {
+		if (root == null)
+			return null;
+		Queue<TreeNode> q = new LinkedList<>();
+		q.add(root);
+		while (!q.isEmpty()) {
+			var current = q.remove();
+			if (current.left != null)
+				q.add(current.left);
+			if (current.right != null)
+				q.add(current.right);
+			if (q.isEmpty())
+				return current;
+		}
+		return null;
 	}
 
 	// https://leetcode.com/problems/find-all-the-lonely-nodes/
