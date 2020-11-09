@@ -216,4 +216,25 @@ public class Scratch {
 			heightBinaryTreeWorker(root.right, level);
 		}
 	}
+
+	public boolean isValidBST(TreeNode root) {
+		if (root == null)
+			return true;
+		return isValidBSTWorker(root, Integer.MIN_VALUE, Integer.MAX_VALUE);
+	}
+
+	private boolean isValidBSTWorker(TreeNode node, int low, int high) {
+//		if (node == null)
+//			return true;
+		if (node.val < low || node.val > high)
+			return false;
+		if (node.left != null && (node.right != null))
+			return isValidBSTWorker(node.left, low, node.val - 1) && isValidBSTWorker(node.right, node.val + 1, high);
+
+		if (node.left != null)
+			return isValidBSTWorker(node.left, low, node.val - 1);
+		if (node.right != null)
+			return isValidBSTWorker(node.right, node.val + 1, high);
+		return true;
+	}
 }
