@@ -95,9 +95,9 @@ public class TreesProblemsEasy {
 			return null;
 		DeepestState state = new DeepestState(0, root);
 		deepestNodeWorker(root, 0, state);
-		System.out.println("===========");
-		mapdN.forEach((k, v) -> System.out.println("Node " + k + " level " + v));
-		System.out.println("===========");
+//		System.out.println("===========");
+//		mapdN.forEach((k, v) -> System.out.println("Node " + k + " level " + v));
+//		System.out.println("===========");
 		return state.node;
 	}
 
