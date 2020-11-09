@@ -168,7 +168,7 @@ public class Scratch {
 			return null;
 		var state = new deepestNodeState();
 		deepestNodeWorker(root, 0, state);
-		map.forEach((k, v) -> System.out.println("node: " + k + " level: " + v));
+		// map.forEach((k, v) -> System.out.println("node: " + k + " level: " + v));
 		return state.deepestN2;
 	}
 
