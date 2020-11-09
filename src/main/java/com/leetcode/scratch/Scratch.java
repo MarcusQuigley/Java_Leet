@@ -218,23 +218,53 @@ public class Scratch {
 	}
 
 	public boolean isValidBST(TreeNode root) {
-		if (root == null)
+		if (root == null || (root.left == null && root.right == null))
 			return true;
-		return isValidBSTWorker(root, Integer.MIN_VALUE, Integer.MAX_VALUE);
+		return isValidBSTWorker(root, Long.MIN_VALUE, Long.MAX_VALUE);
 	}
 
-	private boolean isValidBSTWorker(TreeNode node, int low, int high) {
-//		if (node == null)
-//			return true;
-		if (node.val < low || node.val > high)
+	private boolean isValidBSTWorker(TreeNode node, long low, long high) {
+
+		if (node.val <= low || node.val >= high)
 			return false;
 		if (node.left != null && (node.right != null))
-			return isValidBSTWorker(node.left, low, node.val - 1) && isValidBSTWorker(node.right, node.val + 1, high);
+			return isValidBSTWorker(node.left, low, node.val) && isValidBSTWorker(node.right, node.val, high);
 
 		if (node.left != null)
-			return isValidBSTWorker(node.left, low, node.val - 1);
+			return isValidBSTWorker(node.left, low, node.val);
 		if (node.right != null)
-			return isValidBSTWorker(node.right, node.val + 1, high);
+			return isValidBSTWorker(node.right, node.val, high);
+		return true;
+	}
+
+	private class isValidBSTstate {
+		public TreeNode node;
+		public Integer low;
+		public Integer high;
+
+		public isValidBSTstate(TreeNode node, Integer low, Integer high) {
+			this.node = node;
+			this.low = low;
+			this.high = high;
+		}
+	}
+
+	public boolean isValidBSTIter(TreeNode root) {
+		if (root == null || (root.left == null && root.right == null))
+			return true;
+		Stack<isValidBSTstate> stack = new Stack<>();
+		stack.add(new isValidBSTstate(root, null, null));
+		while (!stack.isEmpty()) {
+			var state = stack.pop();
+			if (state.low != null && state.low >= state.node.val)
+				return false;
+			if (state.high != null && state.high <= state.node.val)
+				return false;
+			if (state.node.left != null)
+				stack.push(new isValidBSTstate(state.node.left, state.low, state.node.val));
+			if (state.node.right != null)
+				stack.push(new isValidBSTstate(state.node.right, state.node.val, state.high));
+		}
 		return true;
 	}
 }
