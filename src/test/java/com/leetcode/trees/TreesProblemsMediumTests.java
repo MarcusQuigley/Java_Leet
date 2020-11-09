@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
+import java.util.List;
 import java.util.stream.Stream;
 
 import org.junit.jupiter.params.ParameterizedTest;
@@ -39,4 +40,29 @@ public class TreesProblemsMediumTests extends TreeTestsBase {
 		assertEquals(expected, actual);
 	}
 
+	static Stream<Arguments> source_rightSideView() {
+		return Stream.of(arguments(new int[] { 2, 1, 3 }, new int[] { 2, 3 }),
+				arguments(new int[] { 1, 2, 3, -666, 5 }, new int[] { 1, 3, 5 }),
+				arguments(new int[] { 5, 1, 4, -666, -666, 3, 6 }, new int[] { 5, 4, 6 }),
+				arguments(new int[] { 1, 2 }, new int[] { 1, 2 }),
+				arguments(new int[] { 1, -666, 1 }, new int[] { 1, 1 }), arguments(new int[] { -2, }, new int[] { -2 }),
+				arguments(new int[] { 1, 2, 3, -666, 5, -666, 4 }, new int[] { 1, 3, 4 }));
+
+	}
+
+	@ParameterizedTest
+	@MethodSource("source_rightSideView")
+	void test_rightSideView(int[] array, int[] expected) {
+		TreeNode root = this.createTreeNodes(array);
+		List<Integer> actual = sut.rightSideView(root);
+		assertArrayEquals(expected, ArrayListToArray(actual));
+	}
+
+	@ParameterizedTest
+	@MethodSource("source_rightSideView")
+	void test_rightSideViewIter(int[] array, int[] expected) {
+		TreeNode root = this.createTreeNodes(array);
+		List<Integer> actual = sut.rightSideViewIter(root);
+		assertArrayEquals(expected, ArrayListToArray(actual));
+	}
 }
