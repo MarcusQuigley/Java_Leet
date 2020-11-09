@@ -132,7 +132,9 @@ public class ScratchTests extends TreeTestsBase {
 		return Stream.of(arguments(new int[] { 2, 1, 3 }, true), arguments(new int[] { 1, 2, 3, -666, 5 }, false),
 				arguments(new int[] { 5, 1, 4, -666, -666, 3, 6 }, false), arguments(new int[] { 1, 2 }, false),
 				arguments(new int[] { 11, 2 }, true), arguments(new int[] { 1, -666, 1 }, false),
-				arguments(new int[] { -2147483648, -2147483648 }, false), arguments(new int[] { -21, -21 }, false));
+				arguments(new int[] { -2147483648, -2147483648 }, false), arguments(new int[] { -21, -21 }, false),
+				arguments(new int[] { -2147483648, }, true),
+				arguments(new int[] { -2147483648, -666, 2147483647 }, true));
 	}
 
 	@ParameterizedTest
@@ -140,6 +142,14 @@ public class ScratchTests extends TreeTestsBase {
 	void test_isValidBST(int[] array, boolean expected) {
 		TreeNode node = createTreeNodes(array);
 		var actual = sut.isValidBST(node);
+		assertEquals(expected, actual);
+	}
+
+	@ParameterizedTest
+	@MethodSource("source_isValidBST")
+	void test_isValidBSTIter(int[] array, boolean expected) {
+		TreeNode node = createTreeNodes(array);
+		var actual = sut.isValidBSTIter(node);
 		assertEquals(expected, actual);
 	}
 
