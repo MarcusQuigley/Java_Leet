@@ -12,6 +12,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import com.leetcode.datastructures.TreeNode;
 import com.leetcode.trees.TreeTestsBase;
+import com.leetcode.trees.TreesProblemsEasy;
 
 public class ScratchTests extends TreeTestsBase {
 
@@ -151,6 +152,21 @@ public class ScratchTests extends TreeTestsBase {
 		TreeNode node = createTreeNodes(array);
 		var actual = sut.isValidBSTIter(node);
 		assertEquals(expected, actual);
+	}
+
+	static Stream<Arguments> source_lowestCommonAncestor() {
+		return Stream.of(arguments(new int[] { 6, 2, 8, 0, 4, 7, 9, -666, -666, 3, 5 }, 2, 8, 6),
+				arguments(new int[] { 6, 2, 8, 0, 4, 7, 9, -666, -666, 3, 5 }, 2, 4, 2),
+				arguments(new int[] { 2, 1 }, 2, 1, 2));
+	}
+
+	@ParameterizedTest
+	@MethodSource("source_lowestCommonAncestor")
+	void test_lowestCommonAncestor(int[] array, int p, int q, int expected) {
+		TreeNode node = createTreeNodes(array);
+		var actual = sut.lowestCommonAncestor(node, new TreeNode(p), new TreeNode(q));
+
+		assertEquals(expected, actual.val);
 	}
 
 }

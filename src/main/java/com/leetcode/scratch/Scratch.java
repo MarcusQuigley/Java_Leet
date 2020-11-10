@@ -267,4 +267,19 @@ public class Scratch {
 		}
 		return true;
 	}
+
+	public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+		return (p.val > q.val) ? lowestCommonAncestorWorker(root, q, p) : lowestCommonAncestorWorker(root, p, q);
+	}
+
+	public TreeNode lowestCommonAncestorWorker(TreeNode root, TreeNode p, TreeNode q) {
+		if (root == null)
+			return null;
+		if (p.val <= root.val && q.val >= root.val)
+			return root;
+		if (root.val > p.val)
+			return lowestCommonAncestor(root.left, p, q);
+		else
+			return lowestCommonAncestor(root.right, p, q);
+	}
 }
