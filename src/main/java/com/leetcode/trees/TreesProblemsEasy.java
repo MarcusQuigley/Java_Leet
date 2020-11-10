@@ -1052,4 +1052,65 @@ public class TreesProblemsEasy {
 		return hasPathSum(root.left, sum) || hasPathSum(root.right, sum);
 	}
 
+	// https://leetcode.com/problems/cousins-in-binary-tree/
+	public boolean isCousinsIter(TreeNode root, int x, int y) {
+		if (root == null)
+			return false;
+		Queue<TreeNode> q = new LinkedList<>();
+		q.add(root);
+		while (!q.isEmpty()) {
+			var size = q.size();
+			boolean isSiblings = false; // true when current = null and startCheck=true
+			boolean isCousins = false;// true when we find first val
+			for (int i = 0; i < size; i++) {
+				TreeNode current = q.remove();
+				if (current == null)
+					isSiblings = false;
+				else {
+					if (current.val == x || current.val == y) {
+						if (isCousins == true)
+							return (isSiblings == false);
+						else
+							isCousins = true;
+						isSiblings = true;
+					}
+					if (current.left != null)
+						q.add(current.left);
+					if (current.right != null)
+						q.add(current.right);
+					q.add(null);
+				}
+			}
+			if (isCousins)
+				return false;
+		}
+		return false;
+	}
+
+	int xLeveliC = 0;
+	int yLeveliC = 0;
+	Integer xParentiC = null;
+	Integer yParentiC = null;
+
+	public boolean isCousins(TreeNode root, int x, int y) {
+		if (root == null)
+			return false;
+		isCousinsWorker(root, x, y, 0, null);
+		return (xLeveliC == yLeveliC && xParentiC != yParentiC);
+	}
+
+	void isCousinsWorker(TreeNode node, int x, int y, int level, Integer parentVal) {
+		if (node == null)
+			return;
+		if (node.val == x) {
+			xLeveliC = level;
+			xParentiC = parentVal;
+		} else if (node.val == y) {
+			yLeveliC = level;
+			yParentiC = parentVal;
+		}
+		isCousinsWorker(node.left, x, y, level + 1, node.val);
+		isCousinsWorker(node.right, x, y, level + 1, node.val);
+
+	}
 }

@@ -644,4 +644,27 @@ public class TreesProblemsEasyTest extends TreeTestsBase {
 		assertEquals(expected, actual);
 	}
 
+	static Stream<Arguments> source_isCousins() {
+		return Stream.of(arguments(new int[] { 1, 2, 3, 4 }, 4, 3, false),
+				arguments(new int[] { 1, 2, 3, -666, 4, -666, 5 }, 5, 4, true),
+				arguments(new int[] { 1, 2, 3, -666, 4 }, 2, 3, false));
+	}
+
+	@ParameterizedTest
+	@MethodSource("source_isCousins")
+	void test_isCousinsIter(int[] array, int x, int y, boolean expected) {
+		TreeNode node = createTreeNodes(array);
+
+		var actual = sut.isCousinsIter(node, x, y);
+		assertEquals(expected, actual);
+	}
+
+	@ParameterizedTest
+	@MethodSource("source_isCousins")
+	void test_isCousins(int[] array, int x, int y, boolean expected) {
+		TreeNode node = createTreeNodes(array);
+
+		var actual = sut.isCousins(node, x, y);
+		assertEquals(expected, actual);
+	}
 }
