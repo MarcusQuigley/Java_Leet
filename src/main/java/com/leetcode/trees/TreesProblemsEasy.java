@@ -892,16 +892,12 @@ public class TreesProblemsEasy {
 		if (root == null)
 			return 0;
 		int sum = 0;
-//		Stack<Entry<TreeNode, Boolean>> stack = new Stack<>();
-//		stack.push(new SimpleEntry<>(root, false));
 		Stack<TreeNode> stack = new Stack<>();
 		stack.push(root);
 
 		while (!stack.isEmpty()) {
 			var current = stack.pop();
 			if (current.left != null && current.left.left == null && current.left.right == null)
-				// if (curKvp.getValue() == true && current.left == null && current.right ==
-				// null)
 				sum += current.left.val;
 			if (current.left != null)
 				stack.push(current.left);
