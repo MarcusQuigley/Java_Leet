@@ -455,7 +455,16 @@ public class TreesProblemsEasyTest extends TreeTestsBase {
 	void test_isSameTree(int[] array1, int[] array2, boolean expected) {
 		TreeNode node1 = createTreeNodes(array1);
 		TreeNode node2 = createTreeNodes(array2);
-		var actual = TreesProblemsEasy.isSameTree(node1, node2);
+		var actual = sut.isSameTree(node1, node2);
+		assertEquals(expected, actual);
+	}
+
+	@ParameterizedTest
+	@MethodSource("source_isSameTree")
+	void test_isSameTreeIter(int[] array1, int[] array2, boolean expected) {
+		TreeNode node1 = createTreeNodes(array1);
+		TreeNode node2 = createTreeNodes(array2);
+		var actual = sut.isSameTreeIter(node1, node2);
 		assertEquals(expected, actual);
 	}
 

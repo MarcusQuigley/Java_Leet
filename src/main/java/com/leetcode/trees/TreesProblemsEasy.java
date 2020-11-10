@@ -745,13 +745,37 @@ public class TreesProblemsEasy {
 	}
 
 	// https://leetcode.com/problems/same-tree/
-	public static boolean isSameTree(TreeNode p, TreeNode q) {
+	public boolean isSameTree(TreeNode p, TreeNode q) {
 		if (p == null && q == null)
 			return true;
 		if (p == null || q == null)
 			return false;
 
 		return p.val == q.val && isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
+	}
+
+	public boolean isSameTreeIter(TreeNode p, TreeNode q) {
+		if (p == null && q == null)
+			return true;
+		if (p == null || q == null)
+			return false;
+
+		Queue<TreeNode> queue = new LinkedList<>();
+		queue.add(p);
+		queue.add(q);
+		while (!queue.isEmpty()) {
+			var left = queue.poll();
+			var right = queue.poll();
+			if (left == null && right == null)
+				continue;
+			if (left == null || right == null || left.val != right.val)
+				return false;
+			queue.add(left.left);
+			queue.add(right.left);
+			queue.add(left.right);
+			queue.add(right.right);
+		}
+		return true;
 	}
 
 	// https://leetcode.com/problems/binary-tree-paths/
