@@ -1025,7 +1025,7 @@ public class TreesProblemsEasy {
 		if (isSubtreeWorker(s, t))
 			return true;
 
-		return isSubtree(s.left, t.left) || isSubtree(s.right, t.right);
+		return isSubtree(s.left, t) || isSubtree(s.right, t);
 	}
 
 	boolean isSubtreeWorker(TreeNode t1, TreeNode t2) {

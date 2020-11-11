@@ -6,13 +6,13 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 import java.util.stream.Stream;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import com.leetcode.datastructures.TreeNode;
 import com.leetcode.trees.TreeTestsBase;
-import com.leetcode.trees.TreesProblemsEasy;
 
 public class ScratchTests extends TreeTestsBase {
 
@@ -169,4 +169,63 @@ public class ScratchTests extends TreeTestsBase {
 		assertEquals(expected, actual.val);
 	}
 
+	static Stream<Arguments> source_diameterOfBinaryTree() {
+		return Stream.of(arguments(new int[] { 1, 2 }, 1), arguments(new int[] { 1, 2, 3, 4, 5 }, 3)
+//				arguments(new int[] { 2, 1 }, 2, 1, 2)
+		);
+	}
+
+	@ParameterizedTest
+	@MethodSource("source_diameterOfBinaryTree")
+	void test_diameterOfBinaryTree(int[] array, int expected) {
+		TreeNode node = createTreeNodes(array);
+		var actual = sut.diameterOfBinaryTree(node);
+		assertEquals(expected, actual);
+	}
+
+	static Stream<Arguments> source_isSymmetric() {
+		return Stream.of(arguments(new int[] { 1, 2, 2, 3, 4, 4, 3 }, true),
+				arguments(new int[] { 1, 2, 2, 4, 5, 5 }, false),
+				arguments(new int[] { 1, 2, 2, -666, 4, 4, -666 }, true));
+	}
+
+	@ParameterizedTest
+	@MethodSource("source_isSymmetric")
+	void test_isSymmetric(int[] array, boolean expected) {
+		TreeNode node = createTreeNodes(array);
+		var actual = sut.isSymmetric(node);
+		assertEquals(expected, actual);
+	}
+
+	@ParameterizedTest
+	@MethodSource("source_isSymmetric")
+	void test_isSymmetricIter(int[] array, boolean expected) {
+		TreeNode node = createTreeNodes(array);
+		var actual = sut.isSymmetricIter(node);
+		assertEquals(expected, actual);
+	}
+
+	static Stream<Arguments> source_isSubtree() {
+		return Stream.of(arguments(new int[] { 4, 1, 2 }, new int[] { 4, 1, 2 }, true),
+				arguments(new int[] { 1 }, new int[] { 1 }, true),
+				arguments(new int[] { 3, 4, 5, 1, 2 }, new int[] { 4, 1, 2 }, true));
+	}
+
+	@ParameterizedTest
+	@MethodSource("source_isSubtree")
+	void test_isSubtree(int[] array, int[] array2, boolean expected) {
+		TreeNode node = createTreeNodes(array);
+		TreeNode node2 = createTreeNodes(array2);
+		var actual = sut.isSubtree(node, node2);
+		assertEquals(expected, actual);
+	}
+
+	@ParameterizedTest
+	@MethodSource("source_isSubtree")
+	void test_isSubtreeIter(int[] array, int[] array2, boolean expected) {
+		TreeNode node = createTreeNodes(array);
+		TreeNode node2 = createTreeNodes(array2);
+		var actual = sut.isSubtreeIter(node, node2);
+		assertEquals(expected, actual);
+	}
 }

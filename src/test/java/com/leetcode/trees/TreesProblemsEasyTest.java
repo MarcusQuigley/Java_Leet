@@ -620,7 +620,6 @@ public class TreesProblemsEasyTest extends TreeTestsBase {
 	}
 
 	@ParameterizedTest
-	@Disabled
 	@MethodSource("source_isSubtree")
 	void test_isSubtree(int[] array, int[] array2, boolean expected) {
 		TreeNode node = createTreeNodes(array);

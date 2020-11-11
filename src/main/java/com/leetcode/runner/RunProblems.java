@@ -1,7 +1,7 @@
 package com.leetcode.runner;
 
 import com.leetcode.datastructures.TreeNode;
-import com.leetcode.recursion.RecursionLearning;
+//import com.leetcode.recursion.RecursionLearning;
 import com.leetcode.scratch.Scratch;
 import com.leetcode.trees.TreeTestsBase;
 import com.leetcode.trees.TreesProblemsEasy;
@@ -15,6 +15,7 @@ public class RunProblems {
 		runTreesEasy();
 	}
 
+	@SuppressWarnings("unused")
 	private static void runScratch() {
 		var sut = new Scratch();
 		int[] vals = new int[] { 1, 2, 3, -666, 5 };
