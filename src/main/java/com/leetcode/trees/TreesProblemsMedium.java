@@ -1,20 +1,19 @@
 package com.leetcode.trees;
 
-import java.util.AbstractMap.SimpleEntry;
+///import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
+//import java.util.HashMap;
+//import java.util.HashSet;
+//import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Queue;
-import java.util.Set;
+//import java.util.Map;
+//import java.util.Map.Entry;
+//import java.util.Queue;
+//import java.util.Set;
 import java.util.Stack;
 
-import com.leetcode.datastructures.NaryNode;
 import com.leetcode.datastructures.TreeNode;
 
 //import javafx.util.Pair;
