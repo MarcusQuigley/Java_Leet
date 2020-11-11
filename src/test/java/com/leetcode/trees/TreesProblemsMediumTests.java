@@ -65,26 +65,4 @@ public class TreesProblemsMediumTests extends TreeTestsBase {
 		List<Integer> actual = sut.rightSideViewIter(root);
 		assertArrayEquals(expected, ArrayListToArray(actual));
 	}
-
-	static Stream<Arguments> source_deepestLeavesSum() {
-		return Stream.of(arguments(new int[] { 1, 2, 3, 4, 5, -666, 6, 7, -666, -666, -666, -666, -666, -666, 8 }, 15));
-
-	}
-
-	@ParameterizedTest
-	@MethodSource("source_deepestLeavesSum")
-	void test_deepestLeavesSum(int[] array, int expected) {
-		TreeNode root = this.createTreeNodes(array);
-		int actual = sut.deepestLeavesSum(root);
-		assertEquals(expected, (actual));
-	}
-
-	@ParameterizedTest
-	@MethodSource("source_deepestLeavesSum")
-	void test_deepestLeavesSumIter(int[] array, int expected) {
-		TreeNode root = this.createTreeNodes(array);
-		int actual = sut.deepestLeavesSumIter(root);
-		assertEquals(expected, (actual));
-	}
-
 }
