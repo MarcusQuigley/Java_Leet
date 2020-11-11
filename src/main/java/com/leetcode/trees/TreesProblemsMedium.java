@@ -141,4 +141,56 @@ public class TreesProblemsMedium {
 			return false;
 		return t1.val == t2.val && isSameTree(t1.left, t2.left) && isSameTree(t1.right, t2.right);
 	}
+
+//https://leetcode.com/problems/deepest-leaves-sum
+	int maxLeveldLS = 0;
+	int sumdLS = 0;
+
+	public int deepestLeavesSum(TreeNode root) {
+		if (root == null)
+			return 0;
+		deepestLeavesSumWorker(root, 0);
+		return sumdLS;
+	}
+
+	private void deepestLeavesSumWorker(TreeNode root, int level) {
+		if (root == null)
+			return;
+		if (root.left == null && root.right == null) {
+			if (level > maxLeveldLS) {
+				maxLeveldLS = level;
+				sumdLS = root.val;
+			} else if (level == maxLeveldLS)
+				sumdLS += root.val;
+		}
+		level++;
+		deepestLeavesSumWorker(root.left, level);
+		deepestLeavesSumWorker(root.right, level);
+
+	}
+
+	public int deepestLeavesSumIter(TreeNode root) {
+		if (root == null)
+			return 0;
+		int sum = 0;
+		int level = 0;
+		Deque<TreeNode> q = new ArrayDeque<>();
+		q.add(root);
+		while (!q.isEmpty()) {
+			sum = 0;
+			int size = q.size();
+			while (size-- > 0) {
+				// for (int i = 0; i < size; i++) {
+				TreeNode node = q.pop();
+				if (node.left == null && node.right == null)
+					sum += node.val;
+				if (node.left != null)
+					q.add(node.left);
+				if (node.right != null)
+					q.add(node.right);
+			}
+		}
+		return sum;
+
+	}
 }
