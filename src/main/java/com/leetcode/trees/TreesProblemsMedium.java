@@ -6,8 +6,9 @@ import java.util.ArrayList;
 import java.util.Deque;
 //import java.util.HashMap;
 //import java.util.HashSet;
-//import java.util.LinkedList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 //import java.util.Map;
 //import java.util.Map.Entry;
 //import java.util.Queue;
@@ -77,5 +78,67 @@ public class TreesProblemsMedium {
 			current = current.right;
 		}
 		return true;
+	}
+
+	// https://leetcode.com/problems/find-a-corresponding-node-of-a-binary-tree-in-a-clone-of-that-tree/
+	public final TreeNode getTargetCopy(final TreeNode original, final TreeNode cloned, final TreeNode target) {
+		if (original == null || original == target)
+			return cloned;
+
+		TreeNode res = getTargetCopy(original.left, cloned.left, target);
+		if (res != null)
+			return res;
+		return getTargetCopy(original.right, cloned.right, target);
+	}
+
+	public final TreeNode getTargetCopyIter(final TreeNode original, final TreeNode cloned, final TreeNode target) {
+		if (original == null || cloned == null || target == null)
+			return null;
+		Queue<TreeNode[]> q = new LinkedList<TreeNode[]>();
+		q.add(new TreeNode[] { original, cloned });
+		while (!q.isEmpty()) {
+			var nodes = q.remove();
+			TreeNode orig = nodes[0];
+			TreeNode clone = nodes[1];
+			if (orig.val == target.val)
+				return clone;
+			else {
+				if (orig.left != null)
+					q.add(new TreeNode[] { orig.left, clone.left });
+				if (orig.right != null)
+					q.add(new TreeNode[] { orig.right, clone.right });
+			}
+		}
+		return null;
+	}
+
+	public final TreeNode getTargetCopyWithDups(final TreeNode original, final TreeNode cloned, final TreeNode target) {
+		if (original == null || original == target)
+			return cloned;
+		Queue<TreeNode[]> q = new LinkedList<TreeNode[]>();
+		q.add(new TreeNode[] { original, cloned });
+		while (!q.isEmpty()) {
+			var nodes = q.remove();
+			TreeNode orig = nodes[0];
+			TreeNode clone = nodes[1];
+			if (orig.val == target.val && isSameTree(orig, target))
+				return clone;
+			else {
+				if (orig.left != null)
+					q.add(new TreeNode[] { orig.left, clone.left });
+				if (orig.right != null)
+					q.add(new TreeNode[] { orig.right, clone.right });
+			}
+		}
+		return null;
+
+	}
+
+	private boolean isSameTree(TreeNode t1, TreeNode t2) {
+		if (t1 == null && t2 == null)
+			return true;
+		if (t1 == null || t2 == null)
+			return false;
+		return t1.val == t2.val && isSameTree(t1.left, t2.left) && isSameTree(t1.right, t2.right);
 	}
 }
