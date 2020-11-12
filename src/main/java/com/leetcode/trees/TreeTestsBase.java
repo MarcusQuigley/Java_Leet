@@ -25,6 +25,10 @@ public class TreeTestsBase {
 		return node;
 	}
 
+	public String[] ArrayListToArrayString(List<String> list) {
+		return list.stream().toArray(String[]::new);
+	}
+
 	public int[] ArrayListToArray(List<Integer> list) {
 		return list.stream().mapToInt(i -> i).toArray();
 //        int[] result = new int[list.size()];
@@ -99,5 +103,9 @@ public class TreeTestsBase {
 //                       .ToArray();
 //	java streams. not fixed..	return list.stream().limit(list.lastIndexOf(list.stream().))
 
+	}
+
+	public static TreeNode createTreeNodesStatic(int[] values) {
+		return new TreeTestsBase().createTreeNodes(values);
 	}
 }
