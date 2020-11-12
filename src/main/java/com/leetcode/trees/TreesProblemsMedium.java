@@ -4,22 +4,21 @@ package com.leetcode.trees;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
-//import java.util.HashMap;
+import java.util.HashMap;
 //import java.util.HashSet;
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import java.util.List;
-//import java.util.Map;
+import java.util.Map;
 //import java.util.Map.Entry;
 //import java.util.Queue;
 //import java.util.Set;
 import java.util.Stack;
 
 import com.leetcode.datastructures.TreeNode;
-
-//import javafx.util.Pair;
+import com.leetcode.datastructures.NaryNode;
 
 public class TreesProblemsMedium {
 	// https://leetcode.com/problems/binary-tree-right-side-view/
@@ -193,6 +192,33 @@ public class TreesProblemsMedium {
 			}
 		}
 		return sum;
+	}
+
+	// https://leetcode.com/problems/clone-n-ary-tree/
+	public NaryNode cloneTree(NaryNode root) {
+		if (root == null)
+			return null;
+		Map<NaryNode, NaryNode> map = new HashMap<>();
+		Queue<NaryNode> q = new LinkedList<>();
+		q.offer(root);
+
+		// NaryNode clone = new NaryNode(0);
+		while (!q.isEmpty()) {
+			var size = q.size();
+			while (size-- > 0) {
+				var node = q.remove();
+				NaryNode cloned = map.getOrDefault(node, new NaryNode(node.val));
+
+				for (NaryNode child : node.children) {
+					q.add(child);
+					NaryNode clonedChild = map.getOrDefault(child, new NaryNode(child.val));
+					cloned.children.add(clonedChild);
+					map.put(child, clonedChild);
+				}
+				map.put(node, cloned);
+			}
+		}
+		return map.get(root);
 
 	}
 
