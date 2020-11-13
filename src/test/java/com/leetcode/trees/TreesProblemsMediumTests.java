@@ -124,25 +124,39 @@ public class TreesProblemsMediumTests extends TreeTestsBase {
 		assertArrayEquals(expected, super.ArrayFromTree(actual));
 	}
 
-//	static Stream<Arguments> source_lowestCommonAncestor() {
-//		return Stream.of(arguments(new int[] { 3, 5, 1, 6, 2, 0, 8, -666, -666, 7, 4 }, 5, 1, 3),
-//				arguments(new int[] { 3, 5, 1, 6, 2, 0, 8, -666, -666, 7, 4 }, 5, 4, 5),
-//				arguments(new int[] { 1, 2 }, 1, 2, 1));
-//
-//	}
-//
-//	@ParameterizedTest
-//	@MethodSource("source_lowestCommonAncestor")
-//	void test_lowestCommonAncestor(int[] array, int pVal, int qVal, int expected) {
-//		TreeNode root = this.createTreeNodes(array);
-//		TreeNode p = super.nodeFromNode(root, pVal);
-//		TreeNode q = super.nodeFromNode(root, qVal);
-//		if (p == null || q == null)
-//			assertFalse(false);
-//		else {
-//			TreeNode actual = sut.lowestCommonAncestor(root, p, q);
-//			assertEquals(expected, actual.val);
-//		}
-//	}
+	static Stream<Arguments> source_lowestCommonAncestor() {
+		return Stream.of(arguments(new int[] { 3, 5, 1, 6, 2, 0, 8, -666, -666, 7, 4 }, 5, 1, 3),
+				arguments(new int[] { 3, 5, 1, 6, 2, 0, 8, -666, -666, 7, 4 }, 5, 4, 5),
+				arguments(new int[] { 1, 2 }, 1, 2, 1), arguments(new int[] { 1, 2, 3 }, 2, 3, 1));
+
+	}
+
+	@ParameterizedTest
+	@MethodSource("source_lowestCommonAncestor")
+	void test_lowestCommonAncestorIter(int[] array, int pVal, int qVal, int expected) {
+		TreeNode root = this.createTreeNodes(array);
+		TreeNode p = super.nodeFromNode(root, pVal);
+		TreeNode q = super.nodeFromNode(root, qVal);
+		if (p == null || q == null)
+			assertFalse(false);
+		else {
+			TreeNode actual = sut.lowestCommonAncestorIter(root, p, q);
+			assertEquals(expected, actual.val);
+		}
+	}
+
+	@ParameterizedTest
+	@MethodSource("source_lowestCommonAncestor")
+	void test_lowestCommonAncestor(int[] array, int pVal, int qVal, int expected) {
+		TreeNode root = this.createTreeNodes(array);
+		TreeNode p = super.nodeFromNode(root, pVal);
+		TreeNode q = super.nodeFromNode(root, qVal);
+		if (p == null || q == null)
+			assertFalse(false);
+		else {
+			TreeNode actual = sut.lowestCommonAncestor(root, p, q);
+			assertEquals(expected, actual.val);
+		}
+	}
 
 }

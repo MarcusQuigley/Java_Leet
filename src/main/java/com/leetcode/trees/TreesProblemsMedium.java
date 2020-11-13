@@ -5,16 +5,16 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.HashMap;
-//import java.util.HashSet;
+import java.util.HashSet;
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import java.util.List;
 import java.util.Map;
-//import java.util.Map.Entry;
-//import java.util.Queue;
-//import java.util.Set;
+import java.util.Map.Entry;
+
+import java.util.Set;
 import java.util.Stack;
 
 import com.leetcode.datastructures.TreeNode;
@@ -282,5 +282,51 @@ public class TreesProblemsMedium {
 			stack.offer(current);
 		}
 		return stack.poll();
+	}
+
+	// https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/
+	public TreeNode lowestCommonAncestorIter(TreeNode root, TreeNode p, TreeNode q) {
+		if (root == null || root == p)
+			return root;
+
+		Map<TreeNode, TreeNode> map = new HashMap<>();
+		Queue<TreeNode> qu = new LinkedList<>();
+		map.put(root, null);
+		qu.add(root);
+		while (!qu.isEmpty() && (!map.containsKey(p) || !map.containsKey(q))) {
+			TreeNode current = qu.remove();
+
+			if (current.left != null) {
+				map.put(current.left, current);
+				qu.offer(current.left);
+			}
+			if (current.right != null) {
+				map.put(current.right, current);
+				qu.offer(current.right);
+			}
+		}
+		Set<TreeNode> set = new HashSet<>();
+		set.add(p);
+		var node = map.get(p);
+		while (node != null) {
+			set.add(node);
+			node = map.get(node);
+		}
+		var otherNode = map.get(q);
+		while (!set.contains(otherNode))
+			otherNode = map.get(otherNode);
+		return otherNode;
+	}
+
+	public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+		if (root == null || root == p || root == q)
+			return root;
+		var l = lowestCommonAncestor(root.left, p, q);
+		var r = lowestCommonAncestor(root.right, p, q);
+		if (l == null && r == null)
+			return null;
+		if (l != null && r != null)
+			return root;
+		return l != null ? l : r;
 	}
 }
