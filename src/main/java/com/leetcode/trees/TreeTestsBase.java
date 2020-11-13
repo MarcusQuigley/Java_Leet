@@ -108,4 +108,27 @@ public class TreeTestsBase {
 	public static TreeNode createTreeNodesStatic(int[] values) {
 		return new TreeTestsBase().createTreeNodes(values);
 	}
+
+	public static TreeNode nodeFromNode(TreeNode root, int valOfNode) {
+		if (root == null)
+			return null;
+		Stack<TreeNode> stack = new Stack<>();
+		stack.push(root);
+		while (!stack.isEmpty()) {
+			var node = stack.pop();
+			if (node.val == valOfNode)
+				return node;
+			if (node.left != null)
+				stack.push(node.left);
+			if (node.right != null)
+				stack.push(node.right);
+		}
+		return null;
+	}
+
+	public static TreeNode nodeFromNode(TreeNode root, TreeNode node) {
+		if (node == null)
+			return null;
+		return nodeFromNode(root, node.val);
+	}
 }

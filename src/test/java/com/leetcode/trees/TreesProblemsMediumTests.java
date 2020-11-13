@@ -2,6 +2,7 @@ package com.leetcode.trees;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 import java.util.List;
@@ -86,5 +87,26 @@ public class TreesProblemsMediumTests extends TreeTestsBase {
 		int actual = sut.deepestLeavesSumIter(root);
 		assertEquals(expected, (actual));
 	}
+
+//	static Stream<Arguments> source_lowestCommonAncestor() {
+//		return Stream.of(arguments(new int[] { 3, 5, 1, 6, 2, 0, 8, -666, -666, 7, 4 }, 5, 1, 3),
+//				arguments(new int[] { 3, 5, 1, 6, 2, 0, 8, -666, -666, 7, 4 }, 5, 4, 5),
+//				arguments(new int[] { 1, 2 }, 1, 2, 1));
+//
+//	}
+//
+//	@ParameterizedTest
+//	@MethodSource("source_lowestCommonAncestor")
+//	void test_lowestCommonAncestor(int[] array, int pVal, int qVal, int expected) {
+//		TreeNode root = this.createTreeNodes(array);
+//		TreeNode p = super.nodeFromNode(root, pVal);
+//		TreeNode q = super.nodeFromNode(root, qVal);
+//		if (p == null || q == null)
+//			assertFalse(false);
+//		else {
+//			TreeNode actual = sut.lowestCommonAncestor(root, p, q);
+//			assertEquals(expected, actual.val);
+//		}
+//	}
 
 }
