@@ -88,6 +88,28 @@ public class TreesProblemsMediumTests extends TreeTestsBase {
 		assertEquals(expected, (actual));
 	}
 
+	static Stream<Arguments> source_sumEvenGrandparent() {
+		return Stream.of(arguments(new int[] { 1, 2, 2, 4, }, 0), arguments(new int[] { 2, 2, 2, 4, }, 4),
+				arguments(new int[] { 6, 7, 8, 2, 7, 1, 3, 9, -666, 1, 4, -666, -666, -666, 5 }, 18));
+
+	}
+
+	@ParameterizedTest
+	@MethodSource("source_sumEvenGrandparent")
+	void test_sumEvenGrandparent(int[] array, int expected) {
+		TreeNode root = this.createTreeNodes(array);
+		int actual = sut.sumEvenGrandparent(root);
+		assertEquals(expected, (actual));
+	}
+
+	@ParameterizedTest
+	@MethodSource("source_sumEvenGrandparent")
+	void test_sumEvenGrandparentIter(int[] array, int expected) {
+		TreeNode root = this.createTreeNodes(array);
+		int actual = sut.sumEvenGrandparentIter(root);
+		assertEquals(expected, (actual));
+	}
+
 //	static Stream<Arguments> source_lowestCommonAncestor() {
 //		return Stream.of(arguments(new int[] { 3, 5, 1, 6, 2, 0, 8, -666, -666, 7, 4 }, 5, 1, 3),
 //				arguments(new int[] { 3, 5, 1, 6, 2, 0, 8, -666, -666, 7, 4 }, 5, 4, 5),

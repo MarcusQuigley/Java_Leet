@@ -135,7 +135,10 @@ public class ScratchTests extends TreeTestsBase {
 				arguments(new int[] { 11, 2 }, true), arguments(new int[] { 1, -666, 1 }, false),
 				arguments(new int[] { -2147483648, -2147483648 }, false), arguments(new int[] { -21, -21 }, false),
 				arguments(new int[] { -2147483648, }, true),
-				arguments(new int[] { -2147483648, -666, 2147483647 }, true));
+				arguments(new int[] { -2147483648, -666, 2147483647 }, true),
+				arguments(new int[] { 10, 5, 15, -666, -666, 6, 20 }, false)
+
+		);
 	}
 
 	@ParameterizedTest

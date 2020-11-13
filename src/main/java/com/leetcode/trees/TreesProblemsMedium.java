@@ -221,4 +221,48 @@ public class TreesProblemsMedium {
 		return map.get(root);
 	}
 
+	public int sumEvenGrandparent(TreeNode root) {
+		return sumEvenGrandparentWorker(root, null, null);
+	}
+
+	private int sumEvenGrandparentWorker(TreeNode node, TreeNode parent, TreeNode grandparent) {
+		if (node == null)
+			return 0;
+		var sum = 0;
+		if (grandparent != null && grandparent.val % 2 == 0)
+			sum = node.val;
+		return sumEvenGrandparentWorker(node.left, node, parent) + sumEvenGrandparentWorker(node.right, node, parent)
+				+ sum;
+	}
+
+	public int sumEvenGrandparentIter(TreeNode root) {
+		if (root == null)
+			return 0;
+
+		var sum = 0;
+		Queue<TreeNode> q = new LinkedList<>();
+		q.offer(root);
+		while (!q.isEmpty()) {
+			var current = q.poll();
+			if (current.val % 2 == 0) {
+				if (current.left != null) {
+					sum += (current.left.left != null) ? current.left.left.val : 0;
+					sum += (current.left.right != null) ? current.left.right.val : 0;
+					q.offer(current.left);
+				}
+				if (current.right != null) {
+					sum += (current.right.left != null) ? current.right.left.val : 0;
+					sum += (current.right.right != null) ? current.right.right.val : 0;
+					q.offer(current.right);
+				}
+
+			} else {
+				if (current.left != null)
+					q.offer(current.left);
+				if (current.right != null)
+					q.offer(current.right);
+			}
+		}
+		return sum;
+	}
 }
