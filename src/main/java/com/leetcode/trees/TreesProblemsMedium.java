@@ -265,4 +265,22 @@ public class TreesProblemsMedium {
 		}
 		return sum;
 	}
+
+	// https://leetcode.com/problems/maximum-binary-tree/
+	public TreeNode constructMaximumBinaryTree(int[] nums) {
+		if (nums == null || nums.length == 0)
+			return null;
+		Queue<TreeNode> stack = new LinkedList<>();
+		for (int i = 0; i < nums.length; i++) {
+			TreeNode current = new TreeNode(nums[i]);
+			while (!stack.isEmpty() && stack.peek().val < nums[i]) {
+				current.left = stack.poll();
+			}
+			if (!stack.isEmpty() && stack.peek().val > nums[i]) {
+				stack.peek().right = current;
+			}
+			stack.offer(current);
+		}
+		return stack.poll();
+	}
 }

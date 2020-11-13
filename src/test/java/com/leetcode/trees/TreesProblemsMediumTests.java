@@ -107,7 +107,21 @@ public class TreesProblemsMediumTests extends TreeTestsBase {
 	void test_sumEvenGrandparentIter(int[] array, int expected) {
 		TreeNode root = this.createTreeNodes(array);
 		int actual = sut.sumEvenGrandparentIter(root);
-		assertEquals(expected, (actual));
+		assertEquals(expected, actual);
+	}
+
+	static Stream<Arguments> source_constructMaximumBinaryTree() {
+		return Stream.of(arguments(new int[] { 3, 2, 1, 6, 0, 5 },
+				new int[] { 6, 3, 5, -666, 2, 0, -666, -666, -666, -666, 1 }));
+
+	}
+
+	@ParameterizedTest
+	@MethodSource("source_constructMaximumBinaryTree")
+	void test_constructMaximumBinaryTree(int[] array, int[] expected) {
+
+		TreeNode actual = sut.constructMaximumBinaryTree(array);
+		assertArrayEquals(expected, super.ArrayFromTree(actual));
 	}
 
 //	static Stream<Arguments> source_lowestCommonAncestor() {
