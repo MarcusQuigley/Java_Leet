@@ -24,6 +24,7 @@ public class TreesProblemsMediumTests extends TreeTestsBase {
 		sut = new TreesProblemsMedium();
 	}
 
+	// @formatter:off
 	static Stream<Arguments> source_isValidBST() {
 		return Stream.of(arguments(new int[] { 2, 1, 3 }, true), arguments(new int[] { 1, 2, 3, -666, 5 }, false),
 				arguments(new int[] { 5, 1, 4, -666, -666, 3, 6 }, false), arguments(new int[] { 1, 2 }, false),
@@ -159,4 +160,21 @@ public class TreesProblemsMediumTests extends TreeTestsBase {
 		}
 	}
 
+	static Stream<Arguments> source_bstFromPreorder() {
+		return Stream.of(
+				arguments(new int[] { 8, 5,  1 }, new int[] { 8, 5, -666,1 })
+					,arguments(new int[] { 8, 5, 1, 7, 10, 12 }, new int[] { 8, 5, 10, 1, 7, -666, 12 })
+					,arguments(new int[] { 4,5,14,20 }, new int[] { 4,-666, 5,  -666, 14,  -666, 20 })
+				  , arguments(new int[] { 2, 6, 5, 4, 9 }, new int[] { 2, -666, 6,   5, 9,   4 })
+				);
+
+	}
+
+	@ParameterizedTest
+	@MethodSource("source_bstFromPreorder")
+	void test_bstFromPreorder(int[] array, int[] expected) {
+		TreeNode actual = sut.bstFromPreorder(array);
+		assertArrayEquals(expected, super.ArrayFromTree(actual));
+	}
+	// @formatter:on
 }

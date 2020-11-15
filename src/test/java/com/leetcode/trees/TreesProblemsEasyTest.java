@@ -67,11 +67,6 @@ public class TreesProblemsEasyTest extends TreeTestsBase {
 		assertEquals(expected, actual);
 	}
 
-	static Stream<Arguments> source_getLonelyNodes() {
-		return Stream.of(arguments(new int[] { 1, 2, 3 }, new int[] {}),
-				arguments(new int[] { 3, 5, 7, 10 }, new int[] { 10 }), arguments(new int[] { 1, 3 }, new int[] { 3 }));
-	}
-
 	static Stream<Arguments> source_deepestNode() {
 		return Stream.of(arguments(new int[] { 1, 5, 7, 2 }, 2), arguments(new int[] { 3, 5, 7, -666, 15 }, 15),
 				arguments(new int[] { 1, 3, 5, 7, 10, 13, 15, 18 }, 18));
@@ -91,6 +86,11 @@ public class TreesProblemsEasyTest extends TreeTestsBase {
 		TreeNode root = createTreeNodesStatic(array);
 		TreeNode actual = sut.deepestNodeIter(root);
 		assertEquals(expected, actual.val);
+	}
+
+	static Stream<Arguments> source_getLonelyNodes() {
+		return Stream.of(arguments(new int[] { 1, 2, 3 }, new int[] {}),
+				arguments(new int[] { 3, 5, 7, 10 }, new int[] { 10 }), arguments(new int[] { 1, 3 }, new int[] { 3 }));
 	}
 
 	@ParameterizedTest

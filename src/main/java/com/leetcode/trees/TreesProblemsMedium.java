@@ -329,4 +329,55 @@ public class TreesProblemsMedium {
 			return root;
 		return l != null ? l : r;
 	}
+
+	public TreeNode bstFromPreorder(int[] preorder) {
+		if (preorder == null || preorder.length == 0)
+			return null;
+
+		Stack<TreeNode> stack = new Stack<>();
+		TreeNode root = new TreeNode(preorder[0]);
+		stack.push(root);
+
+		for (int i = 1; i < preorder.length; i++) {
+			var newNode = new TreeNode(preorder[i]);
+			if (newNode.val < stack.peek().val) {
+				stack.peek().left = newNode;
+				stack.push(newNode);
+			} else {
+				TreeNode temp = null;
+				while (!stack.isEmpty() && stack.peek().val < newNode.val) {
+					temp = stack.pop();
+				}
+				temp.right = newNode;
+				stack.push(newNode);
+			}
+		}
+		return root;
+	}
+
+	public TreeNode bstFromPreorderBad(int[] preorder) {
+		if (preorder == null || preorder.length == 0)
+			return null;
+
+		TreeNode root = new TreeNode(preorder[0]);
+		for (int i = 1; i < preorder.length; i++) {
+
+			TreeNode parent = null;
+			TreeNode current = root;
+			while (current != null) {
+				parent = current;
+				if (current.val > preorder[i])
+					current = current.left;
+				else
+					current = current.right;
+			}
+			if (parent.val > preorder[i])
+				parent.left = new TreeNode(preorder[i]);// newNode;
+			else
+				parent.right = new TreeNode(preorder[i]);// newNode;
+
+		}
+
+		return root;
+	}
 }
