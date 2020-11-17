@@ -174,7 +174,7 @@ public class TreesProblemsMedium {
 		if (root == null)
 			return 0;
 		int sum = 0;
-		int level = 0;
+
 		Deque<TreeNode> q = new ArrayDeque<>();
 		q.add(root);
 		while (!q.isEmpty()) {
@@ -380,4 +380,35 @@ public class TreesProblemsMedium {
 
 		return root;
 	}
+
+	public List<Integer> getAllElementsIter(TreeNode root1, TreeNode root2) {
+
+		Deque<TreeNode> q1 = new ArrayDeque<>();
+		Deque<TreeNode> q2 = new ArrayDeque<>();
+		List<Integer> list = new ArrayList<>();
+
+		while (root1 != null || !q1.isEmpty() || root2 != null || !q2.isEmpty()) {
+			while (root1 != null) {
+				q1.push(root1);
+				root1 = root1.left;
+			}
+			while (root2 != null) {
+				q2.push(root2);
+				root2 = root2.left;
+			}
+
+			if (q2.isEmpty() || !q1.isEmpty() && q1.peek().val < q2.peek().val) {
+				root1 = q1.pop();
+				list.add(root1.val);
+				root1 = root1.right;
+			} else {
+				root2 = q2.pop();
+				list.add(root2.val);
+				root2 = root2.right;
+			}
+
+		}
+		return list;
+	}
+
 }

@@ -176,5 +176,32 @@ public class TreesProblemsMediumTests extends TreeTestsBase {
 		TreeNode actual = sut.bstFromPreorder(array);
 		assertArrayEquals(expected, super.ArrayFromTree(actual));
 	}
+	
+	static Stream<Arguments> source_getAllElements() {
+		return Stream.of(
+				arguments(new int[] {2,1,4 }, new int[] {1,0,3 },new int[] {0,1,1,2,3,4 })
+					,arguments(new int[] {0,-10,10 }, new int[] {5,1,7,0,2 },new int[] {-10,0,0,1,2,5,7,10})
+					,arguments(new int[] {  }, new int[] {5,1,7,0,2 },new int[] {0,1,2,5,7})
+				  , arguments(new int[] {0,-10,10 }, new int[] {  },new int[] {-10,0,10 })
+				);
+
+	}
+
+	@ParameterizedTest
+	@MethodSource("source_getAllElements")
+	void test_getAllElements(int[] array1,int[] array2, int[] expected) {
+		var node1 = super.createTreeNodes(array1);
+		var node2 = super.createTreeNodes(array2);
+		List<Integer> actual = sut.getAllElementsIter(node1, node2);
+		assertArrayEquals(expected, super.ArrayListToArray(actual));
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 	// @formatter:on
 }
