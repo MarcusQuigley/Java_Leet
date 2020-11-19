@@ -196,7 +196,20 @@ public class TreesProblemsMediumTests extends TreeTestsBase {
 		assertArrayEquals(expected, super.ArrayListToArray(actual));
 	}
 	
-	
+	static Stream<Arguments> source_findNearestRightNode() {
+		return Stream.of(
+				arguments(new int[] {1,2,3,-666,4,5,6 },4,5))
+				;
+	}
+
+	@ParameterizedTest
+	@MethodSource("source_findNearestRightNode")
+	void test_findNearestRightNode(int[] array,int u, int expected) {
+		var node = super.createTreeNodes(array);
+		var nodeToFind = super.nodeFromNode(node,  u);
+		TreeNode actual = sut.findNearestRightNode(node,nodeToFind);
+		assertEquals(expected, actual.val);
+	}
 	
 	
 	

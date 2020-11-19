@@ -1,6 +1,6 @@
 package com.leetcode.trees;
 
-///import java.util.AbstractMap.SimpleEntry;
+import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
@@ -409,6 +409,30 @@ public class TreesProblemsMedium {
 
 		}
 		return list;
+	}
+
+	// https://leetcode.com/problems/find-nearest-right-node-in-binary-tree/
+	public TreeNode findNearestRightNode(TreeNode root, TreeNode u) {
+		Queue<TreeNode> q = new LinkedList<>();
+		q.add(root);
+
+		while (!q.isEmpty()) {
+			var size = q.size();
+			for (int i = 0; i < size; i++) {
+				var node = q.poll();
+				if (node == u) {
+					if (i + 1 == size)
+						return null;
+					else
+						return q.poll();
+				}
+				if (node.left != null)
+					q.add(node.left);
+				if (node.right != null)
+					q.add(node.right);
+			}
+		}
+		return null;
 	}
 
 }
