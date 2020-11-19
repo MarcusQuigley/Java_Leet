@@ -435,4 +435,37 @@ public class TreesProblemsMedium {
 		return null;
 	}
 
+	// https://leetcode.com/problems/insert-into-a-binary-search-tree/
+	public TreeNode insertIntoBST(TreeNode root, int val) {
+		if (root == null)
+			return new TreeNode(val);
+
+		if (root.val > val)
+			root.left = insertIntoBST(root.left, val);
+		else
+			root.right = insertIntoBST(root.right, val);
+		return root;
+	}
+
+	public TreeNode insertIntoBSTIter(TreeNode root, int val) {
+		if (root == null)
+			return new TreeNode(val);
+		var current = root;
+		while (true) {
+			if (current.val < val) {
+				if (current.right == null) {
+					current.right = new TreeNode(val);
+					break;
+				} else
+					current = current.right;
+			} else {
+				if (current.left == null) {
+					current.left = new TreeNode(val);
+					break;
+				} else
+					current = current.left;
+			}
+		}
+		return root;
+	}
 }

@@ -184,7 +184,6 @@ public class TreesProblemsMediumTests extends TreeTestsBase {
 					,arguments(new int[] {  }, new int[] {5,1,7,0,2 },new int[] {0,1,2,5,7})
 				  , arguments(new int[] {0,-10,10 }, new int[] {  },new int[] {-10,0,10 })
 				);
-
 	}
 
 	@ParameterizedTest
@@ -211,10 +210,32 @@ public class TreesProblemsMediumTests extends TreeTestsBase {
 		assertEquals(expected, actual.val);
 	}
 	
+	static Stream<Arguments> source_insertIntoBST() {
+		return Stream.of(
+				arguments(new int[] {4,2,7,1,3 },5,new int[] {4,2,7,1,3,5 })
+					,arguments(new int[] {40,20,60,10,30,50,70},25,new int[] {40,20,60,10,30,50,70,-666,-666,25 })
+					,arguments(new int[] {},5, new int[] {5})
+				 
+				);
+	}
+
+	@ParameterizedTest
+	@MethodSource("source_insertIntoBST")
+	void test_insertIntoBST(int[] array, int val, int[] expected) {
+		var node = super.createTreeNodes(array);
+		 
+		TreeNode actual = sut.insertIntoBST(node, val);
+		assertArrayEquals(expected, super.ArrayFromTree(actual));
+	}
 	
-	
-	
-	
+	@ParameterizedTest
+	@MethodSource("source_insertIntoBST")
+	void test_insertIntoBSTIter(int[] array, int val, int[] expected) {
+		var node = super.createTreeNodes(array);
+		 
+		TreeNode actual = sut.insertIntoBSTIter(node, val);
+		assertArrayEquals(expected, super.ArrayFromTree(actual));
+	}		
 	
 	// @formatter:on
 }
