@@ -404,4 +404,56 @@ public class Scratch {
 		}
 		return true;
 	}
+
+	public int sumEvenGrandparentIter(TreeNode root) {
+		if (root == null)
+			return 0;
+		int sum = 0;
+		Queue<TreeNode> q = new LinkedList<>();
+		q.offer(root);
+		while (!q.isEmpty()) {
+			var current = q.poll();
+
+			if (current.left != null) {
+				q.add(current.left);
+				if (current.val % 2 == 0) {
+					sum += (current.left.left != null) ? current.left.left.val : 0;
+					sum += (current.left.right != null) ? current.left.right.val : 0;
+				}
+			}
+			if (current.right != null) {
+				q.add(current.right);
+				if (current.val % 2 == 0) {
+					sum += current.right.left != null ? current.right.left.val : 0;
+					sum += current.right.right != null ? current.right.right.val : 0;
+				}
+
+			}
+		}
+		return sum;
+	}
+
+	// int sumsEG = 0;
+
+	public int sumEvenGrandparent(TreeNode root) {
+		if (root == null)
+			return 0;
+		return sumEvenGrandparentWorker(root, null, null);
+		// return sumsEG;
+	}
+
+	int sumEvenGrandparentWorker(TreeNode root, TreeNode parent, TreeNode grandParent) {
+		if (root == null)
+			return 0;
+		int sum = (grandParent != null && grandParent.val % 2 == 0) ? root.val : 0;
+		return sum + sumEvenGrandparentWorker(root.left, root, parent)
+				+ sumEvenGrandparentWorker(root.right, root, parent);
+//		if (grandParent != null && grandParent.val % 2 == 0)
+//			sumsEG += root.val;
+//		if (root.left != null)
+//			sumEvenGrandparentWorker(root.left, root, parent);
+//		if (root.right != null)
+//			sumEvenGrandparentWorker(root.right, root, parent);
+	}
+
 }
