@@ -215,7 +215,6 @@ public class TreesProblemsMediumTests extends TreeTestsBase {
 				arguments(new int[] {4,2,7,1,3 },5,new int[] {4,2,7,1,3,5 })
 					,arguments(new int[] {40,20,60,10,30,50,70},25,new int[] {40,20,60,10,30,50,70,-666,-666,25 })
 					,arguments(new int[] {},5, new int[] {5})
-				 
 				);
 	}
 
@@ -235,7 +234,43 @@ public class TreesProblemsMediumTests extends TreeTestsBase {
 		 
 		TreeNode actual = sut.insertIntoBSTIter(node, val);
 		assertArrayEquals(expected, super.ArrayFromTree(actual));
-	}		
+	}	
+	
+//	static Stream<Arguments> source_pruneTree() {
+//		return Stream.of(
+//				arguments(new int[] { 1,-666,0,-666,-666,0,1 } ,new int[] {1,-666,0,-666,1})
+//					,arguments(new int[] { 1,0,1,0,0,0,1 } ,new int[] {1,-666,1,-666,1})
+//					,arguments(new int[] {1,1,0,1,1,0,1,0 } ,new int[] {1,1,0,1,1,-666,1})
+//				);
+//	}
+//
+//	@ParameterizedTest
+//	@MethodSource("source_pruneTree")
+//	void test_pruneTree(int[] array,  int[] expected) {
+//		var node = super.createTreeNodes(array);
+//		 
+//		TreeNode actual = sut.pruneTree(node);
+//		assertArrayEquals(expected, super.ArrayFromTree(actual));
+//	}
+	
+	static Stream<Arguments> source_removeLeafNodes() {
+		return Stream.of(
+				arguments(new int[] { 1,3,3,3,2 } ,3, new int[] {1,3,-666,-666,2})
+					,arguments(new int[] { 1,2,3 },2 ,new int[] {1,-666,3})
+					,arguments(new int[] { 1,2,-666,2 },2 ,new int[] {1})
+					,arguments(new int[] {1,2,3,2,-666,2,4 },2 ,new int[] {1,-666,3,-666,4})
+				);
+	}
+
+	@ParameterizedTest
+	@MethodSource("source_removeLeafNodes")
+	void test_removeLeafNodes(int[] array, int target, int[] expected) {
+		var node = super.createTreeNodes(array);
+		TreeNode actual = sut.removeLeafNodes(node,target);
+		assertArrayEquals(expected, super.ArrayFromTree(actual));
+	}
+	
+	
 	
 	// @formatter:on
 }

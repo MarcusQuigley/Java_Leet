@@ -468,4 +468,38 @@ public class TreesProblemsMedium {
 		}
 		return root;
 	}
+
+	public TreeNode pruneTreeIter(TreeNode root) {
+		if (root == null)
+			return null;
+		Deque<TreeNode> q = new ArrayDeque<>();
+		return null;
+	}
+
+	public TreeNode removeLeafNodes(TreeNode root, int target) {
+		if (root == null)
+			return null;
+		root.left = removeLeafNodes(root.left, target);
+		root.right = removeLeafNodes(root.right, target);
+		if (root.left == null && root.right == null && root.val == target)
+			return null;
+		else {
+			return root;
+		}
+
+	}
+
+//	public TreeNode pruneTree(TreeNode root) {
+//	if (root == null)
+//		return null;
+//	root.left = pruneTree(root.left);
+//	root.right = pruneTree(root.right);
+//
+//	if (root.val == 0 && root.left == null && root.right == null)
+//		return null;
+//	return root;
+//	// return (root.val == 0) ? null : root;
+//
+//}
+
 }
