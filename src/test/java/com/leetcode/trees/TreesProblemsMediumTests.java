@@ -13,8 +13,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import com.leetcode.datastructures.TreeNode;
-import com.leetcode.scratch.Scratch;
-import com.leetcode.trees.TreeTestsBase;
+//import com.leetcode.scratch.Scratch;
 
 public class TreesProblemsMediumTests extends TreeTestsBase {
 
@@ -268,6 +267,70 @@ public class TreesProblemsMediumTests extends TreeTestsBase {
 		var node = super.createTreeNodes(array);
 		TreeNode actual = sut.removeLeafNodes(node,target);
 		assertArrayEquals(expected, super.ArrayFromTree(actual));
+	}
+	
+	static Stream<Arguments> source_inorder() {
+		return Stream.of(
+				arguments(new int[] { 1,-666,2,-666,-666,3 } , new int[] {1,3,2})
+					,arguments(new int[] { 4,2,8,1,3,6 },new int[] {1,2,3,4,6,8})
+					,arguments(new int[] { 1,2  } ,new int[] {2,1})
+					,arguments(new int[] {1,-666,2 } ,new int[] {1,2})
+				);
+	}
+	
+	
+	@ParameterizedTest
+	@MethodSource("source_inorder")
+	void test_inorderTraversal(int[] array,  int[] expected) {
+		var node = super.createTreeNodes(array);
+		List<Integer> actual = sut.inorderTraversal(node);
+	 
+		assertArrayEquals(expected, super.ArrayListToArray(actual));
+	}
+	@ParameterizedTest
+	@MethodSource("source_inorder")
+	void test_inorderTraversalIter(int[] array,  int[] expected) {
+		var node = super.createTreeNodes(array);
+		List<Integer> actual = sut.inorderTraversalIter(node);
+	 
+		assertArrayEquals(expected, super.ArrayListToArray(actual));
+	}
+	
+	@ParameterizedTest
+	@MethodSource("source_inorder")
+	void test_inorderTraversalIntuitive(int[] array,  int[] expected) {
+		var node = super.createTreeNodes(array);
+		List<Integer> actual = sut.inorderTraversalIterIntuitive(node);
+	 
+		assertArrayEquals(expected, super.ArrayListToArray(actual));
+	}
+	
+	static Stream<Arguments> source_postOrderTraversal() {
+		return Stream.of(
+				arguments(new int[] {1, 2 } , new int[] {2,1})
+//					,arguments(new int[] { 4, 2, 8, 1, 3, 6 },new int[] { 1, 3, 2, 6, 8, 4})
+//					,arguments(new int[] { 1, 4, 3, 2  } ,new int[] { 2, 4, 3, 1})
+//					,arguments(new int[] {1, -666, 2, -666, -666, 3 } ,new int[] {3, 2, 1})
+//					,arguments(new int[] {   } ,new int[] { })
+				);
+	}
+	
+	@ParameterizedTest
+	@MethodSource("source_postOrderTraversal")
+	void test_postOrderTraversalIntuitive(int[] array,  int[] expected) {
+		var node = super.createTreeNodes(array);
+		List<Integer> actual = sut.postOrderTraversalIntuitive(node);
+	 
+		assertArrayEquals(expected, super.ArrayListToArray(actual));
+	}
+	
+	@ParameterizedTest
+	@MethodSource("source_postOrderTraversal")
+	void test_postOrderTraversalWithPrev(int[] array,  int[] expected) {
+		var node = super.createTreeNodes(array);
+		List<Integer> actual = sut.postOrderTraversalWithPrevNode(node);
+	 
+		assertArrayEquals(expected, super.ArrayListToArray(actual));
 	}
 	
 	

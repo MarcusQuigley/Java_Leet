@@ -6,7 +6,7 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 import java.util.stream.Stream;
 
-import org.junit.jupiter.api.Disabled;
+//import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -157,6 +157,14 @@ public class ScratchTests extends TreeTestsBase {
 		assertEquals(expected, actual);
 	}
 
+	@ParameterizedTest
+	@MethodSource("source_isValidBST")
+	void test_isValidBST2(int[] array, boolean expected) {
+		TreeNode node = createTreeNodes(array);
+		var actual = sut.isValidBST2(node);
+		assertEquals(expected, actual);
+	}
+
 	static Stream<Arguments> source_lowestCommonAncestor() {
 		return Stream.of(arguments(new int[] { 6, 2, 8, 0, 4, 7, 9, -666, -666, 3, 5 }, 2, 8, 6),
 				arguments(new int[] { 6, 2, 8, 0, 4, 7, 9, -666, -666, 3, 5 }, 2, 4, 2),
@@ -253,4 +261,20 @@ public class ScratchTests extends TreeTestsBase {
 		int actual = sut.sumEvenGrandparent(root);
 		assertEquals(expected, (actual));
 	}
+
+	static Stream<Arguments> source_increasingBST() {
+		return Stream.of(arguments(new int[] { 5, 3, 6 }, new int[] { 3, -666, 5, -666, 6 }),
+				arguments(new int[] { 5, 3, 6, 2, 4, -666, 8, 1, -666, -666, -666, -666, -666, 7, 9 },
+						new int[] { 1, -666, 2, -666, 3, -666, 4, -666, 5, -666, 6, -666, 7, -666, 8, -666, 9 }));
+	}
+
+	@ParameterizedTest
+	@MethodSource("source_increasingBST")
+	void test_increasingBSTIter(int[] array, int[] expected) {
+		TreeNode root = createTreeNodes(array);
+		TreeNode actual = sut.increasingBSTIter(root);
+		int[] listActual = ArrayFromTree(actual);
+		assertArrayEquals(expected, listActual);
+	}
+
 }

@@ -1,6 +1,5 @@
 package com.leetcode.trees;
 
-import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
@@ -10,9 +9,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
-import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import java.util.Set;
 import java.util.Stack;
@@ -469,13 +466,6 @@ public class TreesProblemsMedium {
 		return root;
 	}
 
-	public TreeNode pruneTreeIter(TreeNode root) {
-		if (root == null)
-			return null;
-		Deque<TreeNode> q = new ArrayDeque<>();
-		return null;
-	}
-
 	public TreeNode removeLeafNodes(TreeNode root, int target) {
 		if (root == null)
 			return null;
@@ -489,17 +479,147 @@ public class TreesProblemsMedium {
 
 	}
 
-//	public TreeNode pruneTree(TreeNode root) {
-//	if (root == null)
-//		return null;
-//	root.left = pruneTree(root.left);
-//	root.right = pruneTree(root.right);
-//
-//	if (root.val == 0 && root.left == null && root.right == null)
-//		return null;
-//	return root;
-//	// return (root.val == 0) ? null : root;
-//
-//}
+	public List<Integer> inorderTraversal(TreeNode root) {
+		List<Integer> list = new ArrayList<>();
+		if (root != null)
+			inorderTraversalWorker(root, list);
+		return list;
+	}
+
+	void inorderTraversalWorker(TreeNode node, List<Integer> list) {
+		if (node == null)
+			return;
+		inorderTraversalWorker(node.left, list);
+		list.add(node.val);
+		inorderTraversalWorker(node.right, list);
+	}
+
+	public List<Integer> inorderTraversalIter(TreeNode root) {
+		List<Integer> list = new ArrayList<>();
+		if (root == null)
+			return list;
+
+		var current = root;
+		Deque<TreeNode> stack = new ArrayDeque<>();
+		while (!stack.isEmpty() || current != null) {
+			while (current != null) {
+				stack.push(current);
+				current = current.left;
+			}
+			current = stack.pop();
+			list.add(current.val);
+			current = current.right;
+		}
+		return list;
+	}
+
+	public List<Integer> inorderTraversalIterIntuitive(TreeNode root) {
+		List<Integer> list = new ArrayList<>();
+		if (root == null)
+			return list;
+		Deque<TreeNode> stack = new ArrayDeque<>();
+		Set<TreeNode> set = new HashSet<>();
+		stack.add(root);
+		TreeNode current = null;
+		while (!stack.isEmpty()) {
+			current = stack.pop();
+			if (set.contains(current))
+				list.add(current.val);
+			else {
+				set.add(current);
+				if (current.right != null)
+					stack.push(current.right);
+				stack.push(current);
+				if (current.left != null)
+					stack.push(current.left);
+
+			}
+		}
+		return list;
+	}
+
+	public List<Integer> postOrderTraversalIntuitive2(TreeNode root) {
+		List<Integer> list = new ArrayList<Integer>();
+		if (root == null)
+			return list;
+
+		HashSet<TreeNode> set = new HashSet<TreeNode>();
+		Deque<TreeNode> stack = new ArrayDeque<TreeNode>();
+		stack.push(root);
+		while (!stack.isEmpty()) {
+			var current = stack.pop();
+			if (set.contains(current))
+				list.add(current.val);
+			else {
+				set.add(current);
+				stack.push(current);
+				if (current.right != null)
+					stack.push(current.right);
+				if (current.left != null)
+					stack.push(current.left);
+			}
+		}
+		return list;
+	}
+
+	public List<Integer> postOrderTraversalWithPrevNode(TreeNode root) {
+		List<Integer> list = new ArrayList<Integer>();
+		if (root == null)
+			return list;
+
+		TreeNode prev = null;
+		Deque<TreeNode> stack = new ArrayDeque<TreeNode>();
+		stack.push(root);
+		while (!stack.isEmpty()) {
+			var current = stack.peek();
+			// going down
+			if (prev == null || prev.left == current || prev.right == current) {
+				if (current.left != null) {
+					stack.push(current.left);
+				} else if (current.right != null) {
+					stack.push(current.right);
+				} else {
+					list.add(stack.pop().val);
+				}
+			}
+
+			// going up from left
+			else if (current.left == prev) {
+				if (current.right != null)
+					stack.push(current.right);
+				else
+					list.add(stack.pop().val);
+				// going up from right
+			} else if (current.right == prev) {
+				list.add(stack.pop().val);
+			}
+
+			prev = current;
+		}
+		return list;
+	}
+
+	public List<Integer> postOrderTraversalIntuitive(TreeNode root) {
+		List<Integer> list = new ArrayList<Integer>();
+		if (root == null)
+			return list;
+		Deque<TreeNode> stack = new ArrayDeque<TreeNode>();
+		Set<TreeNode> set = new HashSet<>();
+		stack.push(root);
+		while (!stack.isEmpty()) {
+			var current = stack.pop();
+			if (set.contains(current))
+				list.add(current.val);
+			else {
+				set.add(current);
+				if (current.right != null)
+					stack.push(current.right);
+				stack.push(current);
+				if (current.left != null)
+					stack.push(current.left);
+			}
+		}
+		return list;
+	}
 
 }

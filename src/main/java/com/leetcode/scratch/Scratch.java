@@ -456,4 +456,52 @@ public class Scratch {
 //			sumEvenGrandparentWorker(root.right, root, parent);
 	}
 
+	public boolean isValidBST2(TreeNode root) {
+		if (root == null || (root.left == null && root.right == null))
+			return true;
+		return isValidBST2Worker(root, null, null);
+
+	}
+
+	boolean isValidBST2Worker(TreeNode root, Integer minValue, Integer maxValue) {
+		if (root == null)
+			return true;
+
+		boolean passLeft = minValue != null ? root.val > minValue : true;
+		boolean passRight = maxValue != null ? root.val < maxValue : true;
+		if (!passLeft || !passRight)
+			return false;
+
+		return isValidBST2Worker(root.left, minValue, root.val) && isValidBST2Worker(root.right, root.val, maxValue);
+	}
+
+	public TreeNode increasingBSTIter(TreeNode root) {
+
+		if (root == null)
+			return root;
+		Deque<TreeNode> stack = new ArrayDeque<>();
+
+		TreeNode head = null;
+		TreeNode prev = null;
+		TreeNode current = root;
+		while (!stack.isEmpty() || current != null) {
+			while (current != null) {
+				stack.push(current);
+				current = current.left;
+			}
+			current = stack.pop();
+			if (head == null) {
+				head = current;
+			}
+			current.left = null;
+			if (prev != null)
+				prev.right = current;
+
+			prev = current;
+			current = current.right;
+
+		}
+		return head;
+	}
+
 }

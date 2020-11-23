@@ -334,7 +334,7 @@ public class TreesProblemsEasy {
 	}
 
 	void sumRootToLeafWorker(TreeNode root, int val) {
-		var acc = val << 1 | root.val;
+		var acc = val << 1 | root.val; // (val *2 + root.val)
 		if (root.left == null && root.right == null) {
 			sumrtl += acc;
 			return;
