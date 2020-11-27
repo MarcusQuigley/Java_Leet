@@ -37,7 +37,7 @@ public class TreesProblemsMediumTests extends TreeTestsBase {
 	@MethodSource("source_isValidBST")
 	void test_isValidBST(int[] array, boolean expected) {
 		TreeNode root = this.createTreeNodes(array);
-		boolean actual = sut.isValidBST(root);
+		boolean actual = sut.isValidBSTIter(root);
 		assertEquals(expected, actual);
 	}
 
@@ -173,6 +173,13 @@ public class TreesProblemsMediumTests extends TreeTestsBase {
 	@MethodSource("source_bstFromPreorder")
 	void test_bstFromPreorder(int[] array, int[] expected) {
 		TreeNode actual = sut.bstFromPreorder(array);
+		assertArrayEquals(expected, super.ArrayFromTree(actual));
+	}
+	
+	@ParameterizedTest
+	@MethodSource("source_bstFromPreorder")
+	void test_bstFromPreorderIter(int[] array, int[] expected) {
+		TreeNode actual = sut.bstFromPreorderIter(array);
 		assertArrayEquals(expected, super.ArrayFromTree(actual));
 	}
 	

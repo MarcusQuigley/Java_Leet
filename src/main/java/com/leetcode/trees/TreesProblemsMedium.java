@@ -57,8 +57,56 @@ public class TreesProblemsMedium {
 		return list;
 	}
 
+	int posVBst = 0;
+
+	public TreeNode bstFromPreorder(int[] preorder) {
+		return bstFromPreorderWorker(null, null, preorder);
+	}
+
+	TreeNode bstFromPreorderWorker(Integer min, Integer max, int[] preorder) {
+		if (posVBst >= preorder.length)
+			return null;
+		TreeNode newNode = null;
+		int currentValue = preorder[posVBst];
+		boolean leftValid = (min == null) ? true : currentValue > min;
+		boolean rightValid = (max == null) ? true : currentValue < max;
+		if (leftValid && rightValid) {
+			newNode = new TreeNode(currentValue);
+			posVBst++;
+			newNode.left = bstFromPreorderWorker(min, currentValue, preorder);
+			newNode.right = bstFromPreorderWorker(currentValue, max, preorder);
+
+		}
+		return newNode;
+	}
+
+	public TreeNode bstFromPreorderIter(int[] preorder) {
+		if (preorder == null || preorder.length == 0)
+			return null;
+
+		Stack<TreeNode> stack = new Stack<>();
+		TreeNode root = new TreeNode(preorder[0]);
+		stack.push(root);
+
+		for (int i = 1; i < preorder.length; i++) {
+			var newNode = new TreeNode(preorder[i]);
+			if (newNode.val < stack.peek().val) {
+				stack.peek().left = newNode;
+				stack.push(newNode);
+			} else {
+				TreeNode temp = null;
+				while (!stack.isEmpty() && stack.peek().val < newNode.val) {
+					temp = stack.pop();
+				}
+				temp.right = newNode;
+				stack.push(newNode);
+			}
+		}
+		return root;
+	}
+
 	// https://leetcode.com/problems/validate-binary-search-tree/
-	public boolean isValidBST(TreeNode root) {
+	public boolean isValidBSTIter(TreeNode root) {
 		Stack<TreeNode> stack = new Stack<>();
 		var current = root;
 		Integer prev = null;
@@ -325,31 +373,6 @@ public class TreesProblemsMedium {
 		if (l != null && r != null)
 			return root;
 		return l != null ? l : r;
-	}
-
-	public TreeNode bstFromPreorder(int[] preorder) {
-		if (preorder == null || preorder.length == 0)
-			return null;
-
-		Stack<TreeNode> stack = new Stack<>();
-		TreeNode root = new TreeNode(preorder[0]);
-		stack.push(root);
-
-		for (int i = 1; i < preorder.length; i++) {
-			var newNode = new TreeNode(preorder[i]);
-			if (newNode.val < stack.peek().val) {
-				stack.peek().left = newNode;
-				stack.push(newNode);
-			} else {
-				TreeNode temp = null;
-				while (!stack.isEmpty() && stack.peek().val < newNode.val) {
-					temp = stack.pop();
-				}
-				temp.right = newNode;
-				stack.push(newNode);
-			}
-		}
-		return root;
 	}
 
 	public TreeNode bstFromPreorderBad(int[] preorder) {
