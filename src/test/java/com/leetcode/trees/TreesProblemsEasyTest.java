@@ -25,6 +25,7 @@ public class TreesProblemsEasyTest extends TreeTestsBase {
 		sut = new TreesProblemsEasy();
 	}
 
+	// @formatter:off
 	static Stream<Arguments> source_heightBinaryTree() {
 		return Stream.of(arguments(new int[] { 1, 5, 7 }, 2), arguments(new int[] { 3, 5, 7, -666, 15 }, 3),
 				arguments(new int[] { 1, 3, 5, 7, 10, 13, 15, 18 }, 4));
@@ -666,4 +667,6 @@ public class TreesProblemsEasyTest extends TreeTestsBase {
 		var actual = sut.isCousins(node, x, y);
 		assertEquals(expected, actual);
 	}
+	
+	// @formatter:on
 }
