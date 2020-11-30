@@ -32,10 +32,18 @@ public class TreesProblemsMediumTests extends TreeTestsBase {
 				arguments(new int[] { -2147483648, }, true),
 				arguments(new int[] { -2147483648, -666, 2147483647 }, true));
 	}
-
+	
 	@ParameterizedTest
 	@MethodSource("source_isValidBST")
 	void test_isValidBST(int[] array, boolean expected) {
+		TreeNode root = this.createTreeNodes(array);
+		boolean actual = sut.isValidBST(root);
+		assertEquals(expected, actual);
+	}
+
+	@ParameterizedTest
+	@MethodSource("source_isValidBST")
+	void test_isValidBSTIter(int[] array, boolean expected) {
 		TreeNode root = this.createTreeNodes(array);
 		boolean actual = sut.isValidBSTIter(root);
 		assertEquals(expected, actual);

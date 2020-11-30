@@ -105,6 +105,19 @@ public class TreesProblemsMedium {
 		return root;
 	}
 
+	public boolean isValidBST(TreeNode root) {
+		return isValidBSTWorker(root, null, null);
+	}
+
+	boolean isValidBSTWorker(TreeNode node, Integer min, Integer max) {
+		if (node == null)
+			return true;
+
+		if ((min != null && node.val <= min) || (max != null && node.val >= max))
+			return false;
+		return isValidBSTWorker(node.left, min, node.val) && isValidBSTWorker(node.right, node.val, max);
+	}
+
 	// https://leetcode.com/problems/validate-binary-search-tree/
 	public boolean isValidBSTIter(TreeNode root) {
 		Stack<TreeNode> stack = new Stack<>();
