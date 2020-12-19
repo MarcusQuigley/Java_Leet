@@ -658,4 +658,43 @@ public class TreesProblemsMedium {
 		return list;
 	}
 
+	int preorderIndex = 0;
+	HashMap<Integer, Integer> map = new HashMap<>();
+
+	// https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/
+	public TreeNode buildTree(int[] preorder, int[] inorder) {
+		if (preorder == null || inorder == null || preorder.length != inorder.length)
+			return null;
+		int pre = 0;
+
+		for (int i : inorder) {
+
+			map.put(i, pre++);
+		}
+
+		return buildTreeWorker(preorder, inorder, 0, preorder.length - 1);
+	}
+
+	TreeNode buildTreeWorker(int[] preorder, int[] inorder, int startIndex, int endIndex) {
+		if (preorderIndex >= preorder.length)
+			return null;
+		// int inorderIndex = map2[preorder[preorderIndex]];
+		int inorderIndex = map.get(preorder[preorderIndex]);
+//		for (inorderIndex = startIndex; inorderIndex <= endIndex; inorderIndex++) {
+//			if (inorder[inorderIndex] == preorder[preorderIndex]) {
+//				break;
+//			}
+//		}
+
+		TreeNode node = new TreeNode(inorder[inorderIndex]);
+		if (inorderIndex > startIndex) {
+			preorderIndex++;
+			node.left = buildTreeWorker(preorder, inorder, startIndex, inorderIndex - 1);
+		}
+		if (inorderIndex < endIndex) {
+			preorderIndex++;
+			node.right = buildTreeWorker(preorder, inorder, inorderIndex + 1, endIndex);
+		}
+		return node;
+	}
 }

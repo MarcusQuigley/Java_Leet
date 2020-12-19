@@ -348,6 +348,23 @@ public class TreesProblemsMediumTests extends TreeTestsBase {
 		assertArrayEquals(expected, super.ArrayListToArray(actual));
 	}
 	
+	static Stream<Arguments> source_treeFromPreorderAndInorder() {
+		return Stream.of(
+					arguments(new int[] {3,9,20,15,7} , new int[] {9,3,15,20,7} , new int[] {3,9,20,-666,-666,15,7})
+					,arguments(new int[] {4,2,5} , new int[] {2,4,5} , new int[] {4,2,5})
+//					,arguments(new int[] { 1, 4, 3, 2  } ,new int[] { 2, 4, 3, 1})
+//					,arguments(new int[] {1, -666, 2, -666, -666, 3 } ,new int[] {3, 2, 1})
+//					,arguments(new int[] {   } ,new int[] { })
+				);
+	}
+	
+	@ParameterizedTest
+	@MethodSource("source_treeFromPreorderAndInorder")
+	void test_treeFromPreorderAndInorder(int[] preorder,int[] inorder,  int[] expected) {
+ 		TreeNode actual = sut.buildTree(preorder,inorder);
+ 
+		assertArrayEquals(expected, super.ArrayFromTree(actual));
+	}
 	
 	
 	// @formatter:on
