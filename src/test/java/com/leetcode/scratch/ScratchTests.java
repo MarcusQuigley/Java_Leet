@@ -6,7 +6,7 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 import java.util.stream.Stream;
 
-import org.junit.jupiter.api.Disabled;
+//import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -135,7 +135,10 @@ public class ScratchTests extends TreeTestsBase {
 				arguments(new int[] { 11, 2 }, true), arguments(new int[] { 1, -666, 1 }, false),
 				arguments(new int[] { -2147483648, -2147483648 }, false), arguments(new int[] { -21, -21 }, false),
 				arguments(new int[] { -2147483648, }, true),
-				arguments(new int[] { -2147483648, -666, 2147483647 }, true));
+				arguments(new int[] { -2147483648, -666, 2147483647 }, true),
+				arguments(new int[] { 10, 5, 15, -666, -666, 6, 20 }, false)
+
+		);
 	}
 
 	@ParameterizedTest
@@ -151,6 +154,14 @@ public class ScratchTests extends TreeTestsBase {
 	void test_isValidBSTIter(int[] array, boolean expected) {
 		TreeNode node = createTreeNodes(array);
 		var actual = sut.isValidBSTIter(node);
+		assertEquals(expected, actual);
+	}
+
+	@ParameterizedTest
+	@MethodSource("source_isValidBST")
+	void test_isValidBST2(int[] array, boolean expected) {
+		TreeNode node = createTreeNodes(array);
+		var actual = sut.isValidBST2(node);
 		assertEquals(expected, actual);
 	}
 
@@ -228,4 +239,42 @@ public class ScratchTests extends TreeTestsBase {
 		var actual = sut.isSubtreeIter(node, node2);
 		assertEquals(expected, actual);
 	}
+
+	static Stream<Arguments> source_sumEvenGrandparent() {
+		return Stream.of(arguments(new int[] { 1, 2, 2, 4, }, 0), arguments(new int[] { 2, 2, 2, 4, }, 4),
+				arguments(new int[] { 6, 7, 8, 2, 7, 1, 3, 9, -666, 1, 4, -666, -666, -666, 5 }, 18));
+
+	}
+
+	@ParameterizedTest
+	@MethodSource("source_sumEvenGrandparent")
+	void test_sumEvenGrandparentIer(int[] array, int expected) {
+		TreeNode root = this.createTreeNodes(array);
+		int actual = sut.sumEvenGrandparentIter(root);
+		assertEquals(expected, (actual));
+	}
+
+	@ParameterizedTest
+	@MethodSource("source_sumEvenGrandparent")
+	void test_sumEvenGrandparent(int[] array, int expected) {
+		TreeNode root = this.createTreeNodes(array);
+		int actual = sut.sumEvenGrandparent(root);
+		assertEquals(expected, (actual));
+	}
+
+	static Stream<Arguments> source_increasingBST() {
+		return Stream.of(arguments(new int[] { 5, 3, 6 }, new int[] { 3, -666, 5, -666, 6 }),
+				arguments(new int[] { 5, 3, 6, 2, 4, -666, 8, 1, -666, -666, -666, -666, -666, 7, 9 },
+						new int[] { 1, -666, 2, -666, 3, -666, 4, -666, 5, -666, 6, -666, 7, -666, 8, -666, 9 }));
+	}
+
+	@ParameterizedTest
+	@MethodSource("source_increasingBST")
+	void test_increasingBSTIter(int[] array, int[] expected) {
+		TreeNode root = createTreeNodes(array);
+		TreeNode actual = sut.increasingBSTIter(root);
+		int[] listActual = ArrayFromTree(actual);
+		assertArrayEquals(expected, listActual);
+	}
+
 }

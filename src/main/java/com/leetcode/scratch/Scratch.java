@@ -404,4 +404,104 @@ public class Scratch {
 		}
 		return true;
 	}
+
+	public int sumEvenGrandparentIter(TreeNode root) {
+		if (root == null)
+			return 0;
+		int sum = 0;
+		Queue<TreeNode> q = new LinkedList<>();
+		q.offer(root);
+		while (!q.isEmpty()) {
+			var current = q.poll();
+
+			if (current.left != null) {
+				q.add(current.left);
+				if (current.val % 2 == 0) {
+					sum += (current.left.left != null) ? current.left.left.val : 0;
+					sum += (current.left.right != null) ? current.left.right.val : 0;
+				}
+			}
+			if (current.right != null) {
+				q.add(current.right);
+				if (current.val % 2 == 0) {
+					sum += current.right.left != null ? current.right.left.val : 0;
+					sum += current.right.right != null ? current.right.right.val : 0;
+				}
+
+			}
+		}
+		return sum;
+	}
+
+	// int sumsEG = 0;
+
+	public int sumEvenGrandparent(TreeNode root) {
+		if (root == null)
+			return 0;
+		return sumEvenGrandparentWorker(root, null, null);
+		// return sumsEG;
+	}
+
+	int sumEvenGrandparentWorker(TreeNode root, TreeNode parent, TreeNode grandParent) {
+		if (root == null)
+			return 0;
+		int sum = (grandParent != null && grandParent.val % 2 == 0) ? root.val : 0;
+		return sum + sumEvenGrandparentWorker(root.left, root, parent)
+				+ sumEvenGrandparentWorker(root.right, root, parent);
+//		if (grandParent != null && grandParent.val % 2 == 0)
+//			sumsEG += root.val;
+//		if (root.left != null)
+//			sumEvenGrandparentWorker(root.left, root, parent);
+//		if (root.right != null)
+//			sumEvenGrandparentWorker(root.right, root, parent);
+	}
+
+	public boolean isValidBST2(TreeNode root) {
+		if (root == null || (root.left == null && root.right == null))
+			return true;
+		return isValidBST2Worker(root, null, null);
+
+	}
+
+	boolean isValidBST2Worker(TreeNode root, Integer minValue, Integer maxValue) {
+		if (root == null)
+			return true;
+
+		boolean passLeft = minValue != null ? root.val > minValue : true;
+		boolean passRight = maxValue != null ? root.val < maxValue : true;
+		if (!passLeft || !passRight)
+			return false;
+
+		return isValidBST2Worker(root.left, minValue, root.val) && isValidBST2Worker(root.right, root.val, maxValue);
+	}
+
+	public TreeNode increasingBSTIter(TreeNode root) {
+
+		if (root == null)
+			return root;
+		Deque<TreeNode> stack = new ArrayDeque<>();
+
+		TreeNode head = null;
+		TreeNode prev = null;
+		TreeNode current = root;
+		while (!stack.isEmpty() || current != null) {
+			while (current != null) {
+				stack.push(current);
+				current = current.left;
+			}
+			current = stack.pop();
+			if (head == null) {
+				head = current;
+			}
+			current.left = null;
+			if (prev != null)
+				prev.right = current;
+
+			prev = current;
+			current = current.right;
+
+		}
+		return head;
+	}
+
 }

@@ -21,7 +21,7 @@ import com.leetcode.datastructures.TreeNode;
 
 public class TreesProblemsEasy {
 	// https://leetcode.com/problems/range-sum-of-bst
-	public static int rangeSumBST(TreeNode root, int L, int R) {
+	public int rangeSumBST(TreeNode root, int L, int R) {
 		if (root == null)
 			return 0;
 		int val = 0;
@@ -33,7 +33,7 @@ public class TreesProblemsEasy {
 		return left + right + val;
 	}
 
-	public static int rangeSumBSTIter(TreeNode root, int L, int R) {
+	public int rangeSumBSTIter(TreeNode root, int L, int R) {
 		if (root == null)
 			return 0;
 		int acc = 0;
@@ -137,7 +137,7 @@ public class TreesProblemsEasy {
 	}
 
 	// https://leetcode.com/problems/find-all-the-lonely-nodes/
-	public static List<Integer> getLonelyNodes(TreeNode root) {
+	public List<Integer> getLonelyNodes(TreeNode root) {
 		if (root == null)
 			return null;
 		List<Integer> results = new ArrayList<>();
@@ -145,7 +145,7 @@ public class TreesProblemsEasy {
 		return results;
 	}
 
-	static void getLonelyNodesWorker(TreeNode root, List<Integer> orphans) {
+	void getLonelyNodesWorker(TreeNode root, List<Integer> orphans) {
 		if (root == null)
 			return;
 		if (root.left != null && root.right == null) {
@@ -157,7 +157,7 @@ public class TreesProblemsEasy {
 		getLonelyNodesWorker(root.right, orphans);
 	}
 
-	public static List<Integer> getLonelyNodesIter(TreeNode root) {
+	public List<Integer> getLonelyNodesIter(TreeNode root) {
 		if (root == null)
 			return null;
 		List<Integer> orphans = new ArrayList<>();
@@ -179,7 +179,7 @@ public class TreesProblemsEasy {
 	}
 
 	// https://leetcode.com/problems/merge-two-binary-trees/
-	public static TreeNode mergeTrees(TreeNode t1, TreeNode t2) {
+	public TreeNode mergeTrees(TreeNode t1, TreeNode t2) {
 		if (t1 == null)
 			return t2;
 		if (t2 == null)
@@ -191,7 +191,7 @@ public class TreesProblemsEasy {
 	}
 
 	// https://leetcode.com/problems/search-in-a-binary-search-tree/
-	public static TreeNode searchBST(TreeNode root, int val) {
+	public TreeNode searchBST(TreeNode root, int val) {
 		if (root == null)
 			return root;
 		if (root.val == val)
@@ -199,7 +199,7 @@ public class TreesProblemsEasy {
 		return (root.val > val) ? searchBST(root.left, val) : searchBST(root.right, val);
 	}
 
-	public static TreeNode searchBSTIter(TreeNode root, int val) {
+	public TreeNode searchBSTIter(TreeNode root, int val) {
 		if (root == null)
 			return root;
 		while (root != null) {
@@ -210,7 +210,7 @@ public class TreesProblemsEasy {
 		return root;
 	}
 
-	public static List<Integer> preorderNaryIter(NaryNode root) {
+	public List<Integer> preorderNaryIter(NaryNode root) {
 		List<Integer> result = new ArrayList<Integer>();
 		if (root != null) {
 			Stack<NaryNode> stack = new Stack<NaryNode>();
@@ -226,13 +226,13 @@ public class TreesProblemsEasy {
 		return result;
 	}
 
-	public static List<Integer> preorderNary(NaryNode root) {
+	public List<Integer> preorderNary(NaryNode root) {
 		List<Integer> list = new ArrayList<Integer>();
 		preorderNary_worker(root, list);
 		return list;
 	}
 
-	static void preorderNary_worker(NaryNode root, List<Integer> list) {
+	void preorderNary_worker(NaryNode root, List<Integer> list) {
 		if (root == null)
 			return;
 		list.add(root.val);
@@ -260,7 +260,7 @@ public class TreesProblemsEasy {
 		return list;
 	}
 
-	public static TreeNode increasingBSTIter(TreeNode root) {
+	public TreeNode increasingBSTIter(TreeNode root) {
 		if (root == null)
 			return null;
 		TreeNode result = new TreeNode(0);
@@ -280,7 +280,7 @@ public class TreesProblemsEasy {
 		return result.right;
 	}
 
-	public static TreeNode increasingBST(TreeNode root) {
+	public TreeNode increasingBST(TreeNode root) {
 		if (root == null)
 			return null;
 		List<Integer> list = new ArrayList<>();
@@ -295,7 +295,7 @@ public class TreesProblemsEasy {
 		return result.right;
 	}
 
-	static void increasingBST_worker(TreeNode root, List<Integer> list) {
+	void increasingBST_worker(TreeNode root, List<Integer> list) {
 		if (root == null)
 			return;
 		increasingBST_worker(root.left, list);
@@ -303,7 +303,7 @@ public class TreesProblemsEasy {
 		increasingBST_worker(root.right, list);
 	}
 
-	public static int sumRootToLeafIter(TreeNode root) {
+	public int sumRootToLeafIter(TreeNode root) {
 		if (root == null)
 			return 0;
 		var sum = 0;
@@ -325,16 +325,16 @@ public class TreesProblemsEasy {
 		return sum;
 	}
 
-	static int sumrtl = 0;
+	int sumrtl = 0;
 
-	public static int sumRootToLeaf(TreeNode root) {
+	public int sumRootToLeaf(TreeNode root) {
 		if (root != null)
 			sumRootToLeafWorker(root, 0);
 		return sumrtl;
 	}
 
-	static void sumRootToLeafWorker(TreeNode root, int val) {
-		var acc = val << 1 | root.val;
+	void sumRootToLeafWorker(TreeNode root, int val) {
+		var acc = val << 1 | root.val; // (val *2 + root.val)
 		if (root.left == null && root.right == null) {
 			sumrtl += acc;
 			return;
@@ -345,7 +345,7 @@ public class TreesProblemsEasy {
 			sumRootToLeafWorker(root.right, acc);
 	}
 
-	public static int nary_MaxDepthIter(NaryNode root) {
+	public int nary_MaxDepthIter(NaryNode root) {
 		if (root == null)
 			return 0;
 		int max = 0;
@@ -364,7 +364,7 @@ public class TreesProblemsEasy {
 		return max;
 	}
 
-	public static int nary_MaxDepth(NaryNode root) {
+	public int nary_MaxDepth(NaryNode root) {
 		if (root == null)
 			return 0;
 		int max = 0;
@@ -375,19 +375,19 @@ public class TreesProblemsEasy {
 		return max + 1;
 	}
 
-	public static boolean isUnivalTree(TreeNode root) {
+	public boolean isUnivalTree(TreeNode root) {
 		if (root == null)
 			return false;
 		return isUnivalTreeWorker(root, root.val);
 	}
 
-	static boolean isUnivalTreeWorker(TreeNode root, int value) {
+	boolean isUnivalTreeWorker(TreeNode root, int value) {
 		if (root == null)
 			return true;
 		return (root.val == value && isUnivalTreeWorker(root.left, value) && isUnivalTreeWorker(root.right, value));
 	}
 
-	public static boolean isUnivalTreeIter(TreeNode root) {
+	public boolean isUnivalTreeIter(TreeNode root) {
 		if (root == null)
 			return false;
 		int value = root.val;
@@ -407,7 +407,7 @@ public class TreesProblemsEasy {
 	}
 
 	// https://leetcode.com/problems/maximum-depth-of-binary-tree/
-	public static int maxDepth(TreeNode root) {
+	public int maxDepth(TreeNode root) {
 		if (root == null)
 			return 0;
 		var left = maxDepth(root.left);
@@ -415,7 +415,7 @@ public class TreesProblemsEasy {
 		return Math.max(left, right) + 1;
 	}
 
-	public static int maxDepthIter(TreeNode root) {
+	public int maxDepthIter(TreeNode root) {
 		if (root == null)
 			return 0;
 		int max = 0;
@@ -437,7 +437,7 @@ public class TreesProblemsEasy {
 	}
 
 	// https://leetcode.com/problems/invert-binary-tree/
-	public static TreeNode invertTree(TreeNode root) {
+	public TreeNode invertTree(TreeNode root) {
 		if (root == null)
 			return root;
 		var right = invertTree(root.right);
@@ -448,7 +448,7 @@ public class TreesProblemsEasy {
 		return root;
 	}
 
-	public static TreeNode invertTreeIter(TreeNode root) {
+	public TreeNode invertTreeIter(TreeNode root) {
 		if (root == null)
 			return null;
 		Queue<TreeNode> q = new LinkedList<>();
@@ -468,7 +468,7 @@ public class TreesProblemsEasy {
 	}
 
 	// https://leetcode.com/problems/leaf-similar-trees/
-	public static boolean leafSimilarIter(TreeNode root1, TreeNode root2) {
+	public boolean leafSimilarIter(TreeNode root1, TreeNode root2) {
 		if (root1 == null && root2 == null)
 			return true;
 		if (root1 == null || root2 == null)
@@ -484,7 +484,7 @@ public class TreesProblemsEasy {
 		return true;
 	}
 
-	static List<Integer> leafSimilarWorker(TreeNode node) {
+	List<Integer> leafSimilarWorker(TreeNode node) {
 		List<Integer> list = new ArrayList<>();
 		Stack<TreeNode> stack = new Stack<>();
 		stack.add(node);
@@ -500,7 +500,7 @@ public class TreesProblemsEasy {
 		return list;
 	}
 
-	public static boolean leafSimilarBetter(TreeNode root1, TreeNode root2) {
+	public boolean leafSimilarBetter(TreeNode root1, TreeNode root2) {
 		Stack<TreeNode> s1 = new Stack<>(), s2 = new Stack<>();
 		s1.push(root1);
 		s2.push(root2);
@@ -511,7 +511,7 @@ public class TreesProblemsEasy {
 		return s1.isEmpty() && s2.isEmpty();
 	}
 
-	static int dfs(Stack<TreeNode> stack) {
+	int dfs(Stack<TreeNode> stack) {
 		while (true) {
 			var current = stack.pop();
 			if (current.left == null && current.right == null)
@@ -523,7 +523,7 @@ public class TreesProblemsEasy {
 		}
 	}
 
-	public static List<Double> averageOfLevels(TreeNode root) {
+	public List<Double> averageOfLevels(TreeNode root) {
 		List<Double> list = new ArrayList<>();
 		if (root != null) {
 			Deque<TreeNode> q = new ArrayDeque<>();
@@ -545,7 +545,7 @@ public class TreesProblemsEasy {
 		return list;
 	}
 
-	public static TreeNode trimBST(TreeNode root, int low, int high) {
+	public TreeNode trimBST(TreeNode root, int low, int high) {
 		if (root == null)
 			return null;
 		if (root.val == low) {
@@ -569,14 +569,14 @@ public class TreesProblemsEasy {
 		return root;
 	}
 
-	public static TreeNode sortedArrayToBST(int[] nums) {
+	public TreeNode sortedArrayToBST(int[] nums) {
 		if (nums == null || nums.length == 0)
 			return null;
 
 		return sortedArrayToBSTWorker(nums, 0, nums.length - 1);
 	}
 
-	static TreeNode sortedArrayToBSTWorker(int[] nums, int low, int high) {
+	TreeNode sortedArrayToBSTWorker(int[] nums, int low, int high) {
 		if (low > high)
 			return null;
 		var length = high + low;
@@ -587,7 +587,7 @@ public class TreesProblemsEasy {
 		return node;
 	}
 
-	public static TreeNode sortedArrayToBSTIter(int[] nums) {
+	public TreeNode sortedArrayToBSTIter(int[] nums) {
 		if (nums == null || nums.length == 0)
 			return null;
 
@@ -622,7 +622,7 @@ public class TreesProblemsEasy {
 	}
 
 	// https://leetcode.com/problems/two-sum-iv-input-is-a-bst/
-	public static boolean findTargetIter1(TreeNode root, int k) {
+	public boolean findTargetIter1(TreeNode root, int k) {
 		if (root == null)
 			return false;
 
@@ -641,7 +641,7 @@ public class TreesProblemsEasy {
 		return findTargetWorker(list, k);
 	}
 
-	static boolean findTargetWorker(List<Integer> list, int k) {
+	boolean findTargetWorker(List<Integer> list, int k) {
 		if (list == null || list.size() < 2)
 			return false;
 		var start = 0;
@@ -658,7 +658,7 @@ public class TreesProblemsEasy {
 		return false;
 	}
 
-	public static boolean findTargetIter2(TreeNode root, int k) {
+	public boolean findTargetIter2(TreeNode root, int k) {
 		Set<Integer> set = new HashSet<>();
 		Queue<TreeNode> q = new LinkedList<>();
 		q.add(root);
@@ -677,7 +677,7 @@ public class TreesProblemsEasy {
 	}
 
 	// https://leetcode.com/problems/construct-string-from-binary-tree/
-	public static String tree2str(TreeNode t) {
+	public String tree2str(TreeNode t) {
 		if (t == null) {
 			return "";
 		}
@@ -688,7 +688,7 @@ public class TreesProblemsEasy {
 		return "" + t.val + "(" + tree2str(t.left) + ")(" + tree2str(t.right) + ")";
 	}
 
-	public static String tree2strIter(TreeNode t) {
+	public String tree2strIter(TreeNode t) {
 		if (t == null)
 			return "";
 		Stack<TreeNode> stack = new Stack<>();
@@ -718,7 +718,7 @@ public class TreesProblemsEasy {
 	}
 
 	// https://leetcode.com/problems/binary-tree-level-order-traversal-ii/
-	public static List<List<Integer>> levelOrderBottom(TreeNode root) {
+	public List<List<Integer>> levelOrderBottom(TreeNode root) {
 		List<List<Integer>> result = new ArrayList<List<Integer>>();
 		if (root != null) {
 			Deque<TreeNode> q = new ArrayDeque<>();
@@ -779,7 +779,7 @@ public class TreesProblemsEasy {
 	}
 
 	// https://leetcode.com/problems/binary-tree-paths/
-	public static List<String> binaryTreePaths(TreeNode root) {
+	public List<String> binaryTreePaths(TreeNode root) {
 		List<String> result = new ArrayList<>();
 		if (root != null)
 			binaryTreePathsWorker(root, result, new StringBuilder()); // "");
@@ -787,7 +787,7 @@ public class TreesProblemsEasy {
 
 	}
 
-	static void binaryTreePathsWorker(TreeNode root, List<String> result, StringBuilder sb) {
+	void binaryTreePathsWorker(TreeNode root, List<String> result, StringBuilder sb) {
 		if (root == null)
 			return;
 		var len = sb.length();
@@ -804,7 +804,7 @@ public class TreesProblemsEasy {
 		sb.setLength(len);
 	}
 
-	public static List<String> binaryTreePathsIter(TreeNode root) {
+	public List<String> binaryTreePathsIter(TreeNode root) {
 		List<String> result = new ArrayList<>();
 		if (root == null)
 			return result;
@@ -833,7 +833,7 @@ public class TreesProblemsEasy {
 	}
 
 	// https://leetcode.com/problems/minimum-absolute-difference-in-bst/
-	public static int getMinimumDifferenceIter(TreeNode root) {
+	public int getMinimumDifferenceIter(TreeNode root) {
 		if (root == null)
 			return 0;
 		int min = Integer.MAX_VALUE;
@@ -856,17 +856,17 @@ public class TreesProblemsEasy {
 		return min;
 	}
 
-	static int min_gmd = Integer.MAX_VALUE;
-	static Integer prev_gmd = null;
+	int min_gmd = Integer.MAX_VALUE;
+	Integer prev_gmd = null;
 
-	public static int getMinimumDifference(TreeNode root) {
+	public int getMinimumDifference(TreeNode root) {
 		if (root == null)
 			return 0;
 		getMinimumDifferenceWorker(root);
 		return min_gmd;
 	}
 
-	static void getMinimumDifferenceWorker(TreeNode root) {
+	void getMinimumDifferenceWorker(TreeNode root) {
 		if (root == null)
 			return;
 
@@ -879,7 +879,7 @@ public class TreesProblemsEasy {
 	}
 
 	// https://leetcode.com/problems/sum-of-left-leaves/
-	public static int sumOfLeftLeaves(TreeNode root) {
+	public int sumOfLeftLeaves(TreeNode root) {
 		if (root == null)
 			return 0;
 
@@ -888,7 +888,7 @@ public class TreesProblemsEasy {
 		return l + r + (root.left != null && root.left.left == null && root.left.right == null ? root.left.val : 0);
 	}
 
-	public static int sumOfLeftLeavesIter(TreeNode root) {
+	public int sumOfLeftLeavesIter(TreeNode root) {
 		if (root == null)
 			return 0;
 		int sum = 0;
@@ -908,7 +908,7 @@ public class TreesProblemsEasy {
 	}
 
 	// https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/
-	public static TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+	public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
 		if (root == null)
 			return null;
 		if ((p.val <= root.val && q.val >= root.val) || (p.val >= root.val && q.val <= root.val))
@@ -919,7 +919,7 @@ public class TreesProblemsEasy {
 			return lowestCommonAncestor(root.right, p, q);
 	}
 
-	public static TreeNode lowestCommonAncestorIter(TreeNode root, TreeNode p, TreeNode q) {
+	public TreeNode lowestCommonAncestorIter(TreeNode root, TreeNode p, TreeNode q) {
 		if (root == null)
 			return null;
 		Stack<TreeNode> stack = new Stack<>();
@@ -941,8 +941,8 @@ public class TreesProblemsEasy {
 	}
 
 	// https://leetcode.com/problems/closest-binary-search-tree-value/
-	// static int closestCV=0;
-	public static int closestValueIter(TreeNode root, double target) {
+	// int closestCV=0;
+	public int closestValueIter(TreeNode root, double target) {
 		if (root == null)
 			return 0;
 		Stack<TreeNode> stack = new Stack<>();
@@ -964,15 +964,15 @@ public class TreesProblemsEasy {
 		return result;
 	}
 
-	// static int max_dobt;
+	// int max_dobt;
 
-	public static int diameterOfBinaryTree(TreeNode root) {
+	public int diameterOfBinaryTree(TreeNode root) {
 		int[] ans = new int[] { Integer.MIN_VALUE };
 		diameterOfBinaryTreeWorker(root, ans);
 		return ans[0];
 	}
 
-	static int diameterOfBinaryTreeWorker(TreeNode root, int[] maxValues) {
+	int diameterOfBinaryTreeWorker(TreeNode root, int[] maxValues) {
 		if (root == null)
 			return 0;
 		var l = diameterOfBinaryTreeWorker(root.left, maxValues);

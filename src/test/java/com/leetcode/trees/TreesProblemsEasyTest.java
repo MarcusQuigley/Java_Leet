@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
-import org.junit.jupiter.api.Disabled;
+//import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -25,6 +25,7 @@ public class TreesProblemsEasyTest extends TreeTestsBase {
 		sut = new TreesProblemsEasy();
 	}
 
+	// @formatter:off
 	static Stream<Arguments> source_heightBinaryTree() {
 		return Stream.of(arguments(new int[] { 1, 5, 7 }, 2), arguments(new int[] { 3, 5, 7, -666, 15 }, 3),
 				arguments(new int[] { 1, 3, 5, 7, 10, 13, 15, 18 }, 4));
@@ -55,7 +56,7 @@ public class TreesProblemsEasyTest extends TreeTestsBase {
 	@MethodSource("source_rangeSumBST")
 	void test_rangeSumBST(int[] array, int left, int right, int expected) {
 		TreeNode root = createBstTreeNodes(array);
-		int actual = TreesProblemsEasy.rangeSumBST(root, left, right);
+		int actual = sut.rangeSumBST(root, left, right);
 		assertEquals(expected, actual);
 	}
 
@@ -63,13 +64,8 @@ public class TreesProblemsEasyTest extends TreeTestsBase {
 	@MethodSource("source_rangeSumBST")
 	void test_rangeSumBSTIter(int[] array, int left, int right, int expected) {
 		TreeNode root = createBstTreeNodes(array);
-		int actual = TreesProblemsEasy.rangeSumBSTIter(root, left, right);
+		int actual = sut.rangeSumBSTIter(root, left, right);
 		assertEquals(expected, actual);
-	}
-
-	static Stream<Arguments> source_getLonelyNodes() {
-		return Stream.of(arguments(new int[] { 1, 2, 3 }, new int[] {}),
-				arguments(new int[] { 3, 5, 7, 10 }, new int[] { 10 }), arguments(new int[] { 1, 3 }, new int[] { 3 }));
 	}
 
 	static Stream<Arguments> source_deepestNode() {
@@ -93,11 +89,16 @@ public class TreesProblemsEasyTest extends TreeTestsBase {
 		assertEquals(expected, actual.val);
 	}
 
+	static Stream<Arguments> source_getLonelyNodes() {
+		return Stream.of(arguments(new int[] { 1, 2, 3 }, new int[] {}),
+				arguments(new int[] { 3, 5, 7, 10 }, new int[] { 10 }), arguments(new int[] { 1, 3 }, new int[] { 3 }));
+	}
+
 	@ParameterizedTest
 	@MethodSource("source_getLonelyNodes")
 	void test_getLonelyNodes(int[] array, int[] expected) {
 		TreeNode root = createTreeNodes(array);
-		List<Integer> actual = TreesProblemsEasy.getLonelyNodes(root);
+		List<Integer> actual = sut.getLonelyNodes(root);
 		assertArrayEquals(expected, ArrayListToArray(actual));
 	}
 
@@ -105,7 +106,7 @@ public class TreesProblemsEasyTest extends TreeTestsBase {
 	@MethodSource("source_getLonelyNodes")
 	void test_getLonelyNodesIter(int[] array, int[] expected) {
 		TreeNode root = createTreeNodes(array);
-		List<Integer> actual = TreesProblemsEasy.getLonelyNodesIter(root);
+		List<Integer> actual = sut.getLonelyNodesIter(root);
 		assertArrayEquals(expected, ArrayListToArray(actual));
 	}
 
@@ -135,7 +136,7 @@ public class TreesProblemsEasyTest extends TreeTestsBase {
 	@MethodSource("source_searchBST")
 	void test_searchBST(int[] array, int val, int[] expected) {
 		TreeNode root = createTreeNodes(array);
-		TreeNode actual = TreesProblemsEasy.searchBST(root, val);
+		TreeNode actual = sut.searchBST(root, val);
 		int[] listActual = ArrayFromTree(actual);
 		assertArrayEquals(expected, listActual);
 	}
@@ -144,7 +145,7 @@ public class TreesProblemsEasyTest extends TreeTestsBase {
 	@MethodSource("source_searchBST")
 	void test_searchBSTIter(int[] array, int val, int[] expected) {
 		TreeNode root = createTreeNodes(array);
-		TreeNode actual = TreesProblemsEasy.searchBSTIter(root, val);
+		TreeNode actual = sut.searchBSTIter(root, val);
 		int[] listActual = ArrayFromTree(actual);
 		assertArrayEquals(expected, listActual);
 	}
@@ -159,7 +160,7 @@ public class TreesProblemsEasyTest extends TreeTestsBase {
 	@MethodSource("source_increasingBST")
 	void test_increasingBSTIter(int[] array, int[] expected) {
 		TreeNode root = createTreeNodes(array);
-		TreeNode actual = TreesProblemsEasy.increasingBSTIter(root);
+		TreeNode actual = sut.increasingBSTIter(root);
 		int[] listActual = ArrayFromTree(actual);
 		assertArrayEquals(expected, listActual);
 	}
@@ -168,7 +169,7 @@ public class TreesProblemsEasyTest extends TreeTestsBase {
 	@MethodSource("source_increasingBST")
 	void test_increasingBST(int[] array, int[] expected) {
 		TreeNode root = createTreeNodes(array);
-		TreeNode actual = TreesProblemsEasy.increasingBST(root);
+		TreeNode actual = sut.increasingBST(root);
 		int[] listActual = ArrayFromTree(actual);
 		assertArrayEquals(expected, listActual);
 	}
@@ -181,7 +182,7 @@ public class TreesProblemsEasyTest extends TreeTestsBase {
 	@MethodSource("source_sumRootToLeaf")
 	void test_sumRootToLeaf(int[] array, int expected) {
 		TreeNode root = createTreeNodes(array);
-		var actual = TreesProblemsEasy.sumRootToLeaf(root);
+		var actual = sut.sumRootToLeaf(root);
 		assertEquals(expected, actual);
 	}
 
@@ -189,7 +190,7 @@ public class TreesProblemsEasyTest extends TreeTestsBase {
 	@MethodSource("source_sumRootToLeaf")
 	void test_sumRootToLeafIter(int[] array, int expected) {
 		TreeNode root = createTreeNodes(array);
-		var actual = TreesProblemsEasy.sumRootToLeafIter(root);
+		var actual = sut.sumRootToLeafIter(root);
 		assertEquals(expected, actual);
 	}
 
@@ -216,7 +217,7 @@ public class TreesProblemsEasyTest extends TreeTestsBase {
 	void test_nary_MaxDepthIter() {
 		var node = populateNaryNodes();
 		var expected = 3;
-		var actual = TreesProblemsEasy.nary_MaxDepthIter(node);
+		var actual = sut.nary_MaxDepthIter(node);
 		assertEquals(expected, actual);
 	}
 
@@ -224,7 +225,7 @@ public class TreesProblemsEasyTest extends TreeTestsBase {
 	void test_nary_MaxDepth() {
 		var node = populateNaryNodes();
 		var expected = 3;
-		var actual = TreesProblemsEasy.nary_MaxDepth(node);
+		var actual = sut.nary_MaxDepth(node);
 		assertEquals(expected, actual);
 	}
 
@@ -237,7 +238,7 @@ public class TreesProblemsEasyTest extends TreeTestsBase {
 	@MethodSource("source_isUnivalTree")
 	void test_isUnivalTree(int[] array, boolean expected) {
 		TreeNode root = createTreeNodes(array);
-		var actual = TreesProblemsEasy.isUnivalTree(root);
+		var actual = sut.isUnivalTree(root);
 		assertEquals(expected, actual);
 	}
 
@@ -245,7 +246,7 @@ public class TreesProblemsEasyTest extends TreeTestsBase {
 	@MethodSource("source_isUnivalTree")
 	void test_isUnivalTreeIter(int[] array, boolean expected) {
 		TreeNode root = createTreeNodes(array);
-		var actual = TreesProblemsEasy.isUnivalTreeIter(root);
+		var actual = sut.isUnivalTreeIter(root);
 		assertEquals(expected, actual);
 	}
 
@@ -258,7 +259,7 @@ public class TreesProblemsEasyTest extends TreeTestsBase {
 	@MethodSource("source_maxDepth")
 	void test_maxDepth(int[] array, int expected) {
 		TreeNode root = createTreeNodes(array);
-		var actual = TreesProblemsEasy.maxDepth(root);
+		var actual = sut.maxDepth(root);
 		assertEquals(expected, actual);
 	}
 
@@ -266,7 +267,7 @@ public class TreesProblemsEasyTest extends TreeTestsBase {
 	@MethodSource("source_maxDepth")
 	void test_maxDepthIter(int[] array, int expected) {
 		TreeNode root = createTreeNodes(array);
-		var actual = TreesProblemsEasy.maxDepthIter(root);
+		var actual = sut.maxDepthIter(root);
 		assertEquals(expected, actual);
 	}
 
@@ -279,7 +280,7 @@ public class TreesProblemsEasyTest extends TreeTestsBase {
 	@MethodSource("source_invertTree")
 	void test_invertTree(int[] array, int[] expected) {
 		TreeNode root = createTreeNodes(array);
-		var actual = TreesProblemsEasy.invertTree(root);
+		var actual = sut.invertTree(root);
 		assertArrayEquals(expected, ArrayFromTree(actual));
 	}
 
@@ -287,7 +288,7 @@ public class TreesProblemsEasyTest extends TreeTestsBase {
 	@MethodSource("source_invertTree")
 	void test_invertTreeIter(int[] array, int[] expected) {
 		TreeNode root = createTreeNodes(array);
-		var actual = TreesProblemsEasy.invertTreeIter(root);
+		var actual = sut.invertTreeIter(root);
 		assertArrayEquals(expected, ArrayFromTree(actual));
 	}
 
@@ -301,7 +302,7 @@ public class TreesProblemsEasyTest extends TreeTestsBase {
 	void test_leafSimilarIter(int[] array1, int[] array2, boolean expected) {
 		TreeNode node1 = createTreeNodes(array1);
 		TreeNode node2 = createTreeNodes(array2);
-		var actual = TreesProblemsEasy.leafSimilarIter(node1, node2);
+		var actual = sut.leafSimilarIter(node1, node2);
 		assertEquals(expected, actual);
 	}
 
@@ -310,7 +311,7 @@ public class TreesProblemsEasyTest extends TreeTestsBase {
 	void test_leafSimilarBetter(int[] array1, int[] array2, boolean expected) {
 		TreeNode node1 = createTreeNodes(array1);
 		TreeNode node2 = createTreeNodes(array2);
-		var actual = TreesProblemsEasy.leafSimilarBetter(node1, node2);
+		var actual = sut.leafSimilarBetter(node1, node2);
 		assertEquals(expected, actual);
 	}
 
@@ -323,7 +324,7 @@ public class TreesProblemsEasyTest extends TreeTestsBase {
 	@MethodSource("source_averageOfLevels")
 	void test_averageOfLevels(int[] array, double[] expected) {
 		TreeNode node = createTreeNodes(array);
-		var actual = TreesProblemsEasy.averageOfLevels(node);
+		var actual = sut.averageOfLevels(node);
 		assertArrayEquals(expected, actual.stream().mapToDouble(i -> i).toArray());
 	}
 
@@ -336,7 +337,7 @@ public class TreesProblemsEasyTest extends TreeTestsBase {
 	@MethodSource("source_trimBST")
 	void test_trimBST(int[] array, int low, int high, int[] expected) {
 		TreeNode node = createTreeNodes(array);
-		var actual = TreesProblemsEasy.trimBST(node, low, high);
+		var actual = sut.trimBST(node, low, high);
 		assertArrayEquals(expected, ArrayFromTree(actual));
 	}
 
@@ -350,14 +351,14 @@ public class TreesProblemsEasyTest extends TreeTestsBase {
 	@ParameterizedTest
 	@MethodSource("source_sortedArrayToBST")
 	void test_sortedArrayToBST(int[] array, int[] expected) {
-		var actual = TreesProblemsEasy.sortedArrayToBST(array);
+		var actual = sut.sortedArrayToBST(array);
 		assertArrayEquals(expected, ArrayFromTree(actual));
 	}
 
 	@ParameterizedTest
 	@MethodSource("source_sortedArrayToBST")
 	void test_sortedArrayToBSTIter(int[] array, int[] expected) {
-		var actual = TreesProblemsEasy.sortedArrayToBSTIter(array);
+		var actual = sut.sortedArrayToBSTIter(array);
 		assertArrayEquals(expected, ArrayFromTree(actual));
 	}
 
@@ -380,7 +381,7 @@ public class TreesProblemsEasyTest extends TreeTestsBase {
 	@MethodSource("source_findTarget")
 	void test_findTargetIter1(int[] array, int k, boolean expected) {
 		TreeNode node = createTreeNodes(array);
-		var actual = TreesProblemsEasy.findTargetIter1(node, k);
+		var actual = sut.findTargetIter1(node, k);
 		assertEquals(expected, actual);
 	}
 
@@ -388,7 +389,7 @@ public class TreesProblemsEasyTest extends TreeTestsBase {
 	@MethodSource("source_findTarget")
 	void test_findTargetIter2(int[] array, int k, boolean expected) {
 		TreeNode node = createTreeNodes(array);
-		var actual = TreesProblemsEasy.findTargetIter2(node, k);
+		var actual = sut.findTargetIter2(node, k);
 		assertEquals(expected, actual);
 	}
 
@@ -409,7 +410,7 @@ public class TreesProblemsEasyTest extends TreeTestsBase {
 	@MethodSource("source_tree2str")
 	void test_tree2str(int[] array, String expected) {
 		TreeNode node = createTreeNodes(array);
-		var actual = TreesProblemsEasy.tree2str(node);
+		var actual = sut.tree2str(node);
 		assertEquals(expected, actual);
 	}
 
@@ -417,7 +418,7 @@ public class TreesProblemsEasyTest extends TreeTestsBase {
 	@MethodSource("source_tree2str")
 	void test_tree2strIter(int[] array, String expected) {
 		TreeNode node = createTreeNodes(array);
-		var actual = TreesProblemsEasy.tree2strIter(node);
+		var actual = sut.tree2strIter(node);
 		assertEquals(expected, actual);
 	}
 
@@ -429,7 +430,7 @@ public class TreesProblemsEasyTest extends TreeTestsBase {
 	@MethodSource("source_levelOrderBottom")
 	void test_levelOrderBottom(int[] array) {
 		TreeNode node = createTreeNodes(array);
-		var actual = TreesProblemsEasy.levelOrderBottom(node);
+		var actual = sut.levelOrderBottom(node);
 
 		int[][] expected = new int[3][];
 		expected[0] = new int[] { 15, 7 };
@@ -478,7 +479,7 @@ public class TreesProblemsEasyTest extends TreeTestsBase {
 	@MethodSource("source_binaryTreePaths")
 	void test_isSameTree(int[] array, String[] expected) {
 		TreeNode node = createTreeNodes(array);
-		var actual = TreesProblemsEasy.binaryTreePaths(node);
+		var actual = sut.binaryTreePaths(node);
 		var actualAsArray = ArrayListToArrayString(actual);
 		assertArrayEquals(expected, actualAsArray);
 	}
@@ -487,7 +488,7 @@ public class TreesProblemsEasyTest extends TreeTestsBase {
 	@MethodSource("source_binaryTreePaths")
 	void test_binaryTreePathsIter(int[] array, String[] expected) {
 		TreeNode node = createTreeNodes(array);
-		var actual = TreesProblemsEasy.binaryTreePathsIter(node);
+		var actual = sut.binaryTreePathsIter(node);
 		var actualAsArray = ArrayListToArrayString(actual);
 		assertArrayEquals(expected, actualAsArray);
 	}
@@ -500,7 +501,7 @@ public class TreesProblemsEasyTest extends TreeTestsBase {
 	@MethodSource("source_getMinimumDifference")
 	void test_getMinimumDifferenceIter(int[] array, int expected) {
 		TreeNode node = createTreeNodes(array);
-		var actual = TreesProblemsEasy.getMinimumDifferenceIter(node);
+		var actual = sut.getMinimumDifferenceIter(node);
 
 		assertEquals(expected, actual);
 	}
@@ -509,7 +510,7 @@ public class TreesProblemsEasyTest extends TreeTestsBase {
 	@MethodSource("source_getMinimumDifference")
 	void test_getMinimumDifference(int[] array, int expected) {
 		TreeNode node = createTreeNodes(array);
-		var actual = TreesProblemsEasy.getMinimumDifference(node);
+		var actual = sut.getMinimumDifference(node);
 
 		assertEquals(expected, actual);
 	}
@@ -523,7 +524,7 @@ public class TreesProblemsEasyTest extends TreeTestsBase {
 	@MethodSource("source_sumOfLeftLeaves")
 	void test_sumOfLeftLeaves(int[] array, int expected) {
 		TreeNode node = createTreeNodes(array);
-		var actual = TreesProblemsEasy.sumOfLeftLeaves(node);
+		var actual = sut.sumOfLeftLeaves(node);
 
 		assertEquals(expected, actual);
 	}
@@ -532,7 +533,7 @@ public class TreesProblemsEasyTest extends TreeTestsBase {
 	@MethodSource("source_sumOfLeftLeaves")
 	void test_sumOfLeftLeavesIter(int[] array, int expected) {
 		TreeNode node = createTreeNodes(array);
-		var actual = TreesProblemsEasy.sumOfLeftLeavesIter(node);
+		var actual = sut.sumOfLeftLeavesIter(node);
 
 		assertEquals(expected, actual);
 	}
@@ -547,7 +548,7 @@ public class TreesProblemsEasyTest extends TreeTestsBase {
 	@MethodSource("source_lowestCommonAncestor")
 	void test_lowestCommonAncestor(int[] array, int p, int q, int expected) {
 		TreeNode node = createTreeNodes(array);
-		var actual = TreesProblemsEasy.lowestCommonAncestor(node, new TreeNode(p), new TreeNode(q));
+		var actual = sut.lowestCommonAncestor(node, new TreeNode(p), new TreeNode(q));
 
 		assertEquals(expected, actual.val);
 	}
@@ -556,7 +557,7 @@ public class TreesProblemsEasyTest extends TreeTestsBase {
 	@MethodSource("source_lowestCommonAncestor")
 	void test_lowestCommonAncestorIter(int[] array, int p, int q, int expected) {
 		TreeNode node = createTreeNodes(array);
-		var actual = TreesProblemsEasy.lowestCommonAncestorIter(node, new TreeNode(p), new TreeNode(q));
+		var actual = sut.lowestCommonAncestorIter(node, new TreeNode(p), new TreeNode(q));
 
 		assertEquals(expected, actual.val);
 	}
@@ -572,7 +573,7 @@ public class TreesProblemsEasyTest extends TreeTestsBase {
 	@MethodSource("source_closestValueIter")
 	void test_closestValueIter(int[] array, double target, int expected) {
 		TreeNode node = createTreeNodes(array);
-		var actual = TreesProblemsEasy.closestValueIter(node, target);
+		var actual = sut.closestValueIter(node, target);
 
 		assertEquals(expected, actual);
 	}
@@ -587,7 +588,7 @@ public class TreesProblemsEasyTest extends TreeTestsBase {
 	@MethodSource("source_diameterOfBinaryTree")
 	void test_diameterOfBinaryTree(int[] array, int expected) {
 		TreeNode node = createTreeNodes(array);
-		var actual = TreesProblemsEasy.diameterOfBinaryTree(node);
+		var actual = sut.diameterOfBinaryTree(node);
 		assertEquals(expected, actual);
 	}
 
@@ -666,4 +667,6 @@ public class TreesProblemsEasyTest extends TreeTestsBase {
 		var actual = sut.isCousins(node, x, y);
 		assertEquals(expected, actual);
 	}
+	
+	// @formatter:on
 }
